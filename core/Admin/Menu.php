@@ -80,7 +80,8 @@ class Menu{
     }
 
     public function plugins_page(){
-        echo "hello";
+        $businesslist = new Businesslist();
+        $businesslist->plugin_page();
     }
 
 
