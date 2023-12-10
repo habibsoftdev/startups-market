@@ -18,3 +18,46 @@ Domain Path: /languages/
 if( ! Defined( 'ABSPATH' )){
     exit;
 }
+
+/**
+ * Plugin Main Class
+ */
+class Startups_Market{
+
+    /**
+     * Class Constructor
+     */
+    private function __construct(){
+
+    }
+
+    /**
+     * Initialize a singleton instance
+     *
+     * @return \Startups_Market
+     */
+    public static function init(){
+        static $instance = false;
+
+        if( ! $instance ){
+            $instance = new self();
+        }
+
+        return $instance;
+    }
+
+}
+
+/**
+ * Initializes the main plugin
+ *
+ * @return \Startups_Market
+ */
+function startups_market(){
+    return Startups_Market::init();
+}
+
+/**
+ * Kick start the plguin 
+ */
+startups_market();
