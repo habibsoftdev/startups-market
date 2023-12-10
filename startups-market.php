@@ -77,7 +77,7 @@ class Startups_Market{
      * @return void
      */
     public function init_plugin(){
-        new Startups\Market\Admin\Menu();
+        new Startups\Market\Installer();
     }
 
     /**
