@@ -19,16 +19,28 @@ if( ! Defined( 'ABSPATH' )){
     exit;
 }
 
+require_once __DIR__ . '/vendor/autoload.php';
+
 /**
  * Plugin Main Class
  */
 class Startups_Market{
 
     /**
+     * Constant
+     */
+
+    const version = '1.0';
+
+    /**
      * Class Constructor
      */
     private function __construct(){
+        $this->define_constants();
 
+        register_activation_hook( __FILE__, [$this, 'activate'] );
+
+        add_action( 'plugins_loaded', [$this, 'init_plugin'] );
     }
 
     /**
@@ -44,6 +56,39 @@ class Startups_Market{
         }
 
         return $instance;
+    }
+
+    /**
+     * Define required plugin constants
+     *
+     * @return void
+     */
+    public function define_constants(){
+        define( 'STM_VERSION', self::version );
+        define( 'STM_FILE', __FILE__ );
+        define( 'STM_PATH', __DIR__ );
+        define( 'STM_URL', plugins_url('', STM_FILE ) );
+        define( 'STM_ASSETS',STM_URL. '/assets' );
+    }
+
+    /**
+     * Initialize plugin
+     *
+     * @return void
+     */
+    public function init_plugin(){
+        new Startups\Market\Admin\Menu();
+    }
+
+    /**
+     * Do stuff upon plugin activation
+     *
+     * @return void
+     */
+    public function activate(){
+        update_option( 'startup_market_installation', time() );
+        update_option( 'startups_market_version', STM_VERSION );
+
     }
 
 }
