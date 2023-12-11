@@ -88,6 +88,7 @@ class Startups_Market{
     public function activate(){
         update_option( 'startup_market_installation', time() );
         update_option( 'startups_market_version', STM_VERSION );
+        new Startups\Market\Users\Roles();
 
     }
 
