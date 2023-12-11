@@ -12,7 +12,7 @@ class Businesslist{
      */
 
      public function plugin_page(){
-        $action = isset( $_GET['action'] ) ? $_GET['action']: 'list';
+        $action = isset( $_GET['action'] ) ? $_GET['action'] : 'list';
 
         switch ( $action ){
             case 'new':
