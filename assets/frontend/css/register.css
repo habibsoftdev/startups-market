@@ -1,0 +1,132 @@
+.container {
+  width: 100%;
+  height: 100vh;
+  background-image: linear-gradient(
+      rgba(21, 21, 30, 0.675),
+      rgba(38, 38, 48, 0.774)
+    ),
+    url(background.jpg);
+  background-position: center;
+  background-size: cover;
+  position: relative;
+}
+
+/* style form box */
+.form-box {
+  width: 60%;
+  max-width: 450px;
+  position: absolute;
+  bottom: 50%;
+  left: 50%;
+  transform: translate(-50%, 50%);
+  background-color: #fff;
+  padding: 50px 60px 70px;
+  text-align: center;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+  border-radius: 2px;
+}
+
+/* style button */
+.btn-field {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+  margin-bottom: 30px;
+}
+
+.btn-field button {
+  flex-basis: 48%;
+  background: rgb(2, 198, 247);
+  height: 40px;
+  border-radius: 5px;
+  border: 0;
+  outline: 0;
+  cursor: pointer;
+  transition: background 1s;
+  font-size: 16px;
+  color: white;
+  font-weight: 500;
+  box-shadow: rgb(204, 219, 232) 3px 3px 6px 0px inset,
+    rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset;
+}
+
+.input-group {
+  height: 300px;
+}
+
+.btn-field button.disable {
+  background-color: #eaeaea;
+  color: rgb(2, 198, 247);
+}
+
+/* header */
+
+.form-box h1 {
+  font-size: 30px;
+  margin-bottom: 60px;
+  color: rgb(2, 198, 247);
+  position: relative;
+}
+
+.form-box h1::after {
+  content: "";
+  width: 100px;
+  height: 4px;
+  background-color: rgb(182, 184, 184);
+  position: absolute;
+  bottom: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* style input field */
+
+.input-field {
+  background-color: #eaeaea;
+  margin: 20px 0;
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+  padding-left: 20px;
+}
+
+.input-field input {
+  font-size: 18px;
+}
+
+input {
+  width: 100%;
+  background: transparent;
+  border: 0;
+  outline: 0;
+  padding: 18px 15px;
+}
+
+/* submit register button */
+
+.btn-register-submit {
+  margin: 30px auto;
+}
+
+.submit-btn {
+  background-color: rgb(2, 198, 247);
+  border: 1px solid rgb(2, 198, 247);
+  width: 50%;
+  padding: 12px 2px;
+  border-radius: 5px;
+  color: whitesmoke;
+  font-size: 18px;
+  cursor: pointer;
+  font-weight: 600;
+  box-shadow: rgb(204, 219, 232) 3px 3px 6px 0px inset,
+    rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset;
+}
+
+.submit-btn:hover {
+  background: whitesmoke;
+  border: 1px solid rgb(2, 198, 247);
+  color: rgb(2, 198, 247);
+  transition: background 1s;
+}
