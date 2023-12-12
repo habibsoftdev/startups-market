@@ -5,7 +5,7 @@ namespace Startups\Market\Admin;
 class Buyerview{
 
     public function __construct(){
-        $this-> buyer_view_table();
+        $this->buyer_view_table();
     }
 
     public function buyer_view_table(){
@@ -20,8 +20,6 @@ class Buyerview{
                     $table = new Buyerlist();
                     $table->prepare_items();
                     $table->display();
-
-
                 ?>
             </form>
         </div>

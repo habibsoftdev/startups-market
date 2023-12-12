@@ -63,7 +63,7 @@ class Buyerlist extends \WP_List_Table{
         return isset( $item[ $column_name ] ) ? $item[ $column_name ] : '';
     }
 
-    public function column_cb($item){
+    public function column_cb( $item ){
         return sprintf(
             '<input type="checkbox" name="buyer[]" value="%s" />',
             $item[ 'ID' ]
@@ -81,29 +81,31 @@ class Buyerlist extends \WP_List_Table{
     
         $buyers = get_users($args);
     
-        foreach($buyers as $buyer){
+        foreach( $buyers as $buyer ){
             $buyer_data[] = [
                 'ID' => $buyer->ID,
                 'display_name' => $buyer->display_name,
                 'user_email' =>$buyer->user_email,
                 'phone_number' => get_user_meta( $buyer->ID, 'phone_number', true ),
+                'country' => get_user_meta( $buyer->ID, 'country', true ),
             ];
         }
     
         return $buyer_data;
     }
 
-    public function column_display_name($item){
-        if (isset($item['ID'], $item['display_name'])) {
-            $edit_url = get_edit_user_link($item['ID']);
-            $delete_url = add_query_arg(['action' => 'delete', 'user' => $item['ID']]);
+    public function column_display_name( $item ) {
+
+        if ( isset( $item[ 'ID' ], $item[ 'display_name' ] ) ) {
+            $edit_url = get_edit_user_link( $item[ 'ID' ] );
+            $delete_url = add_query_arg( [ 'action' => 'delete', 'user' => $item[ 'ID' ] ] );
     
             $actions = [
-                'edit'   => sprintf('<a href="%s">Edit</a>', $edit_url),
-                'delete' => sprintf('<a href="%s" onclick="return confirm(\'Are you sure you want to delete this buyer?\')">Delete</a>', $delete_url),
+                'edit'   => sprintf( '<a href="%s">Edit</a>', $edit_url ),
+                'delete' => sprintf( '<a href="%s" onclick="return confirm(\'Are you sure you want to delete this buyer?\')">Delete</a>', $delete_url ),
             ];
     
-            return sprintf('%1$s %2$s', $item['display_name'], $this->row_actions($actions));
+            return sprintf( '<a href="%1$s"><strong>%2$s</strong></a> %3$s', admin_url('user-edit.php?user_id='. $item[ 'ID' ] ), $item[ 'display_name' ], $this->row_actions( $actions ) );
         }
     
         return '';

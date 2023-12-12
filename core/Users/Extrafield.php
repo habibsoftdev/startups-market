@@ -19,7 +19,7 @@ class Extrafield{
       */
       public function add_user_contactmethod( $extra_field ){
         $extra_field[ 'phone_number' ] ='Phone Number';
-       // $extra_field['default']['phone_number'] = '';
+        $extra_field['country'] = 'Country';
         return $extra_field;
 
      }
