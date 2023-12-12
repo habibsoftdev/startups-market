@@ -90,7 +90,7 @@ class Menu{
     }
 
     public function buyer_list(){
-
+        new Buyerview();
     }
 
     public function seller_list(){
