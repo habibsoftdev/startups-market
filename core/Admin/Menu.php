@@ -94,7 +94,7 @@ class Menu{
     }
 
     public function seller_list(){
-
+        new Sellerview();
     }
 
     public function settings(){

@@ -9,12 +9,12 @@ if ( !class_exists('WP_List_Table')){
 /**
  * List table class
  */
-class Buyerlist extends \WP_List_Table{
 
-    function __construct(){
+class Sellerlist extends \WP_List_Table{
+    public function __construct(){
         parent::__construct([
-            'singular' => 'Buyer',
-            'plural'   => 'Buyers',
+            'singular' => 'Seller',
+            'plural'   => 'Sellers',
             'ajax'     => false,
         ]);
     }
@@ -67,33 +67,33 @@ class Buyerlist extends \WP_List_Table{
 
     public function column_cb( $item ){
         return sprintf(
-            '<input type="checkbox" name="buyer[]" value="%s" />',
+            '<input type="checkbox" name="seller[]" value="%s" />',
             $item[ 'ID' ]
         );
     }
 
     public function get_buyers_data(){
-        $buyer_data = [];
+        $seller_data = [];
 
         $args = [
-            'role'      => 'buyer',
+            'role'      => 'seller',
             'orderby'  => 'ID',
             'order'     => 'ASC',
         ];
     
-        $buyers = get_users($args);
+        $sellers = get_users($args);
     
-        foreach( $buyers as $buyer ){
-            $buyer_data[] = [
-                'ID' => $buyer->ID,
-                'display_name' => $buyer->display_name,
-                'user_email' =>$buyer->user_email,
-                'phone_number' => get_user_meta( $buyer->ID, 'phone_number', true ),
-                'country' => get_user_meta( $buyer->ID, 'country', true ),
+        foreach( $sellers as $seller ){
+            $seller_data[] = [
+                'ID' => $seller->ID,
+                'display_name' => $seller->display_name,
+                'user_email' =>$seller->user_email,
+                'phone_number' => get_user_meta( $seller->ID, 'phone_number', true ),
+                'country' => get_user_meta( $seller->ID, 'country', true ),
             ];
         }
     
-        return $buyer_data;
+        return $seller_data;
     }
 
     public function column_display_name( $item ) {
@@ -104,7 +104,7 @@ class Buyerlist extends \WP_List_Table{
     
             $actions = [
                 'edit'   => sprintf( '<a href="%s">Edit</a>', $edit_url ),
-                'delete' => sprintf( '<a href="%s" onclick="return confirm(\'Are you sure you want to delete this buyer?\')">Delete</a>', $delete_url ),
+                'delete' => sprintf( '<a href="%s" onclick="return confirm(\'Are you sure you want to delete this seller?\')">Delete</a>', $delete_url ),
             ];
     
             return sprintf( '<a href="%1$s"><strong>%2$s</strong></a> %3$s', admin_url('user-edit.php?user_id='. $item[ 'ID' ] ), $item[ 'display_name' ], $this->row_actions( $actions ) );
@@ -112,6 +112,4 @@ class Buyerlist extends \WP_List_Table{
     
         return '';
     }
-
-
 }
