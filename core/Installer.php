@@ -11,5 +11,7 @@ class Installer{
         if( is_admin() ){
             new Admin\Menu();
         }
+
+        new Users\Extrafield();
     }
 }
