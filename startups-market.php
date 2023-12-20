@@ -24,7 +24,7 @@ require_once __DIR__ . '/vendor/autoload.php';
 /**
  * Plugin Main Class
  */
-class Startups_Market{
+final class Startups_Market{
 
     /**
      * Constant
