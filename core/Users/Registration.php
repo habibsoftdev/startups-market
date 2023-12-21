@@ -78,15 +78,6 @@ class Registration{
             $buy_sell_option = sanitize_text_field( $_POST[ 'buy_sell_option' ] );
             $password = sanitize_text_field( $_POST[ 'password' ] );
 
-            // //Form Field Validation
-            // $required_fields = [ $first_name, $last_name, $email, $phone, $country, $buy_sell_option, $password ];
-
-            // foreach($required_fields as $field){
-            //     if( empty( $field ) ){
-            //         wp_die( __( 'All Fields are Required', 'startups-market' ) );
-            //     }
-            // }
-
             // Email validation
             if( ! is_email( $email ) ){
                 wp_die( __( 'Invalid Email Address', 'startups-market' ) );
