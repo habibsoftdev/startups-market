@@ -7,3 +7,9 @@
   padding: 20px;
   border-radius: 8px;
 }
+
+.stm-alert.stm-alert-warning {
+  background: #fee9d9;
+  color: #f56e00;
+  padding: 15px 20px;
+}

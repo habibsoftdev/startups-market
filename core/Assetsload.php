@@ -13,6 +13,6 @@ class Assetsload{
     }
 
     public function stm_frontend_asset_load(){
-        wp_enqueue_style( 'stm-register-form', plugin_dir_url( dirname(__FILE__) ) . 'assets/frontend/css/register.css', array('bootstrap'), time() );
+        wp_enqueue_style( 'stm-register-form', plugin_dir_url( dirname(__FILE__) ) . 'assets/frontend/css/register.css', array(), time() );
     }
 }

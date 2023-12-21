@@ -24,7 +24,7 @@ require_once plugin_dir_path(__FILE__). '../../functions.php'
                     </div>
                     <div class="form-group">
                         <label for="email"><?php _e( 'Email', 'startups-market' ); ?></label>
-                        <input type="email" class="form-control" name="email" placeholder="Email" required>
+                        <input type="email" class="form-control" name="reg_email" placeholder="Email" required>
                     </div>
                     <div class="form-group">
                         <label for="phone_number"><?php _e( 'Phone Number', 'startups-market' ); ?></label>
@@ -55,8 +55,13 @@ require_once plugin_dir_path(__FILE__). '../../functions.php'
                             <?php _e( 'I want to sell', 'startups-market' ); ?>
                         </label>
                     </div>
+
+                    <div class="password">
+                        <label for="password"><?php _e( 'Password', 'startups-market' ); ?></label>
+                        <input type="password" name="passwor" id="password" minlength="8" required>
+                    </div>
                     <?php wp_nonce_field('registration_nonce_field', 'registration_nonce'); ?>
-                    <button type="submit" class="btn btn-primary" name="submit_registration">Register</button>
+                    <button type="submit" class="btn btn-primary" name="submit_registration"> <?php _e( 'Register', 'startups-market' ); ?> </button>
                 </form>
             </div>
-        </div>
+</div>
