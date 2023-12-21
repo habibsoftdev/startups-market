@@ -14,6 +14,6 @@ class Installer{
 
         new Users\Extrafield();
         new Assetsload();
-        new Users\Buyers\BuyerRegister();
+        new Users\Registration();
     }
 }

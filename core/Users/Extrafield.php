@@ -6,10 +6,7 @@ class Extrafield{
 
     public function __construct(){
         add_filter( 'user_contactmethods', [ $this, 'add_user_contactmethod' ] );
-        //add_action( 'show_user_profile', [ $this, 'add_phone_number_field' ] );
-       // add_action( 'edit_user_profile', [ $this, 'add_phone_number_field' ] );
-       // add_action( 'personal_options_update', [ $this, 'save_phone_number_field' ] );
-       // add_action( 'edit_user_profile_update', [ $this, 'save_phone_number_field' ] );
+     
     }
 
     /**
