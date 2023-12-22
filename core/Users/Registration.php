@@ -36,6 +36,7 @@ class Registration{
         Notice_Handler::show_logged_in_message( apply_filters( 'stm_message_for_loggedin_users', $error_message) );
         return ob_get_clean();
        
+        
     }
 
     /**
@@ -90,7 +91,7 @@ class Registration{
             if( is_wp_error( $user_id ) ){
                 wp_die( $user_id->get_error_messages() );
             }else{
-                //adding extra field user meta
+            //adding extra field user meta
                 update_user_meta( $user_id, 'phone_number', $phone );
                 update_user_meta( $user_id, 'country', $country );
             }

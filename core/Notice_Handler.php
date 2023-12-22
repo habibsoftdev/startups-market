@@ -12,7 +12,7 @@ namespace Startups\Market;
         $t = ! empty( $message ) ? $message : '';
         $t = apply_filters( 'stm_message_for_loggedin_users', $t );
 
-        if( ! empty($message) ){
+        if( ! empty( $message ) ){
         ?>
             <div class="notice_wrapper">
                 <div class="stm-alert stm-alert-warning">
@@ -20,5 +20,36 @@ namespace Startups\Market;
                 </div>
             </div>
         <?php
-    }   }
+        } 
+    }
+
+    public static function show_logging_message( $message = '' ){
+        $t = ! empty( $message ) ? $message : '';
+        $t = apply_filters( 'stm_message_for_logged_in_users', $t );
+
+        if( ! empty( $message ) ){
+        ?>
+            <div class="notice_wrapper">
+                <div class="stm-alert stm-alert-warning">
+                    <?php echo wp_kses_post( esc_html( $t ) ); ?>
+                </div>
+            </div>
+        <?php
+        } 
+    }
+
+    public static function show_register_confirmation( $message = '' ){
+        $t = !empty( $message ) ? $message : '';
+        $t = apply_filters( 'stm_message_for_registration_confirmation', $t );
+
+        if( ! empty( $message ) ){
+        ?>
+            <div class="notice_wrapper">
+                <div class="stm-alert-success">
+                    <?php echo wp_kses_post( esc_html( $t ) ); ?>
+                </div>
+            </div>
+        <?php  
+        }
+    }
  }

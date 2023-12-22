@@ -15,5 +15,6 @@ class Installer{
         new Users\Extrafield();
         new Assetsload();
         new Users\Registration();
+        new Users\Login();
     }
 }

@@ -1,6 +1,6 @@
 <?php 
 
-if( !defined( 'ABSPATH' ) ){
+if( ! defined( 'ABSPATH' ) ){
     exit;
 }
 
@@ -11,7 +11,7 @@ require_once plugin_dir_path(__FILE__). '../../functions.php'
 
 <div class="container registration-form-container">
             <div class="registration-form">
-                <form method="post">
+                <form method="post" action="">
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="first_name"><?php _e( 'First Name', 'startups-market' ); ?></label>
