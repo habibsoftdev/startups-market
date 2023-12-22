@@ -95,6 +95,7 @@ final class Startups_Market{
         }
 
         new Startups\Market\Users\Roles();
+        new Startups\Market\CreatePages();
 
     }
 
