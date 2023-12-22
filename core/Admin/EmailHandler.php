@@ -40,7 +40,14 @@ use WP_User;
         return 'text/html';
     }
 
-    public function send_user_register_confirmation( WP_User $user, $token_url ){
+    /**
+     * Sending email after registration
+     *
+     * @param WP_User $user
+     * @param string $token_url
+     * @return bool
+     */
+    public function send_user_register_confirmation(  $email, $firstname, $token_url){
 
         $title = __( 'Verify Your Email Address', 'startups-market' );
         $subject = sprintf( __( '[%s] Verify Your Email', 'startups-market' ), get_bloginfo( 'blogname', 'display' ) );
@@ -51,10 +58,10 @@ use WP_User;
 
 			To activate your account simply click on the link below and verify your email address within 24 hours. For your safety, you will not be able to access your account until verification of your email has been completed.
 
-			%s <p align='center'>If you did not sign up for this account you can ignore this email.</p>", 'startups-market' ), $user->user_firstname, $site_name, $token_url );
+			%s <p align='center'>If you did not sign up for this account you can ignore this email.</p>", 'startups-market' ), $firstname, $site_name, $token_url );
 
         $body = stm_email_html( $title, $body);
 
-        return $this->stm_send_email( $user->user_email, $subject, $body, $header );
+        return $this->stm_send_email( $email, $subject, $body, $header );
     }
  }

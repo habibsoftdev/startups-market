@@ -8,12 +8,14 @@ namespace Startups\Market\Users;
 
 
 use Startups\Market\Notice_Handler;
+use Startups\Market\Admin\EmailHandler;
 
 class Registration{
     
     public function __construct(){
         add_shortcode( 'registration_form', [ $this, 'registration_form_shortcode' ] );
         add_action( 'init', [ $this, 'registration_form_process' ]);
+        add_action( 'init', [ $this, 'verification_token_handling' ] );
     }
 
 
@@ -66,9 +68,6 @@ class Registration{
 
         wp_set_password( $password, $user_id );
 
-        //Generate and save verification token
-        $verification_token = $this->generate_verification_token();
-        update_user_meta( $user_id, 'verification_token', $verification_token);
 
         return $user_id;
 
@@ -81,7 +80,7 @@ class Registration{
      */
     public function registration_form_process(){
         if( isset( $_POST[ 'submit_registration' ] ) && wp_verify_nonce( $_POST[ 'registration_nonce' ], 'registration_nonce_field' ) ){
-            
+
             $first_name = sanitize_text_field( $_POST[ 'first_name' ] );
             $last_name = sanitize_text_field( $_POST[ 'last_name' ] );
             $email = sanitize_email( $_POST[ 'reg_email' ] );
@@ -105,14 +104,54 @@ class Registration{
             //adding extra field user meta
                 update_user_meta( $user_id, 'phone_number', $phone );
                 update_user_meta( $user_id, 'country', $country );
+
+                $this->send_verification_email($user_id, $email, $first_name);
+
+                wp_redirect( site_url('/stm-login') );
+
             }
 
         }
   
     }
 
-    private function generate_verification_token(){
-        return md5( uniqid( rand(), true ) );
+
+    private function send_verification_email($user_id, $email, $first_name ){
+
+        //Generate Verification Token
+        $verification_token = wp_generate_password( 32, false );
+
+        update_user_meta( $user_id, 'verification_token', $verification_token );
+
+        $verification_link = esc_url(add_query_arg(['token' => $verification_token], site_url('/verify')));
+
+        $email_handler = new EmailHandler();
+         $email_handler->send_user_register_confirmation( $email, $first_name, $verification_link );
+    }
+
+    private function verification_token_handling(){
+
+        if( isset( $_GET[ 'token' ] ) ){
+            $token = sanitize_text_field($_GET['token']);
+            $user_id = $this->get_user_by_verification_token($token);
+
+            if( $user_id ){
+                update_user_meta( $user_id, 'email_verified', true);
+                wp_redirect(site_url( '/stm-login' ));
+                exit;
+            }
+        }
+
+    }
+
+    private function get_user_by_verification_token( $token){
+        global $wpdb;
+
+        $user_id = $wpdb->get_var( $wpdb->prepare(
+            "SELECT user_id FROM { $wpdb->usermeta } WHERE meta_key = 'verification_token' AND meta_value = %s", $token
+        ));
+
+        return $user_id;
     }
 
 }
