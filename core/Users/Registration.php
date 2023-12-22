@@ -26,7 +26,7 @@ class Registration{
 
         if( ! is_user_logged_in() ){
             ob_start();
-            include(plugin_dir_path(__FILE__). 'views/registration-form.php');
+            include( plugin_dir_path( __FILE__ ). 'views/registration-form.php');
             return ob_get_clean();
         }
 
@@ -44,6 +44,7 @@ class Registration{
      */
 
      private function create_user($email, $first_name, $last_name, $phone, $country, $buy_sell_option, $password){
+
         //Determine Role
         $role = ( $buy_sell_option === 'sell') ? 'seller' : 'buyer';
 
@@ -59,8 +60,17 @@ class Registration{
 
         $user_id = wp_insert_user( $user_data );
 
-        return $user_id;
+        if (is_wp_error($user_id)) {
+            return $user_id;
+        }
 
+        wp_set_password( $password, $user_id );
+
+        //Generate and save verification token
+        $verification_token = $this->generate_verification_token();
+        update_user_meta( $user_id, 'verification_token', $verification_token);
+
+        return $user_id;
 
      }
 
@@ -71,6 +81,7 @@ class Registration{
      */
     public function registration_form_process(){
         if( isset( $_POST[ 'submit_registration' ] ) && wp_verify_nonce( $_POST[ 'registration_nonce' ], 'registration_nonce_field' ) ){
+            
             $first_name = sanitize_text_field( $_POST[ 'first_name' ] );
             $last_name = sanitize_text_field( $_POST[ 'last_name' ] );
             $email = sanitize_email( $_POST[ 'reg_email' ] );
@@ -98,6 +109,10 @@ class Registration{
 
         }
   
+    }
+
+    private function generate_verification_token(){
+        return md5( uniqid( rand(), true ) );
     }
 
 }
