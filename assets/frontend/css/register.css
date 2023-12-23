@@ -19,3 +19,9 @@
   color: #308255;
   padding: 20px 20px;
 }
+
+.stm_login_error {
+  background: #fee9d9;
+  color: #c62707;
+  padding: 15px 20px;
+}

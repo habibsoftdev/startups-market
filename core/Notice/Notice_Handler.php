@@ -39,4 +39,20 @@ namespace Startups\Market\Notice;
         <?php  
         }
     }
+
+    public static function show_login_error( $message = '' ){
+        $t = ! empty( $message ) ? $message : '';
+        $t = apply_filters( 'stm_login_error_message', $t );
+
+        if( ! empty( $message ) ){
+        ?>
+            <div class="notice_wrapper">
+                <div class="stm_login_error">
+                    <?php echo wp_kses_post( esc_html( $t ) ); ?>
+                </div>
+            </div>
+        <?php
+        } 
+    }
+
  }
