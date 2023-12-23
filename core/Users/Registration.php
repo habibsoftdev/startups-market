@@ -7,8 +7,8 @@ namespace Startups\Market\Users;
  */
 
 
-use Startups\Market\Notice_Handler;
-use Startups\Market\Admin\EmailHandler;
+use Startups\Market\Notice\Notice_Handler;
+use Startups\Market\Email\EmailHandler;
 
 class Registration{
     
@@ -28,6 +28,9 @@ class Registration{
 
         if( ! is_user_logged_in() ){
             ob_start();
+            if( isset( $_SESSION[ 'registration_notice' ]) ){
+                Notice_Handler::show_register_confirmation( apply_filters( 'stm_message_for_registration_confirmation', $_SESSION['registration_notice'] ) );
+            }
             include( plugin_dir_path( __FILE__ ). 'views/registration-form.php');
             return ob_get_clean();
         }
@@ -36,8 +39,7 @@ class Registration{
 
         ob_start();
         Notice_Handler::show_logged_in_message( apply_filters( 'stm_message_for_loggedin_users', $error_message) );
-        return ob_get_clean();
-       
+        return ob_get_clean();  
         
     }
 
@@ -91,7 +93,7 @@ class Registration{
 
             // Email validation
             if( ! is_email( $email ) ){
-                wp_die( __( 'Invalid Email Address', 'startups-market' ) );
+                wp_die( __( 'Invalid Email Address', 'startups-market' ), __( 'Error', 'startups-market' ), array( 'response' => 400 ) );
             }
 
             //Create user
@@ -99,7 +101,7 @@ class Registration{
 
             //User creation Error Handling
             if( is_wp_error( $user_id ) ){
-                wp_die( $user_id->get_error_messages() );
+                wp_die( implode( '<br />', $user_id->get_error_messages() ), __( 'Error', 'startups-market' ), array( 'response' => 400 ) );
             }else{
             //adding extra field user meta
                 update_user_meta( $user_id, 'phone_number', $phone );
@@ -110,6 +112,12 @@ class Registration{
                 wp_redirect( site_url('/stm-login') );
 
             }
+
+            //User registration successful flag
+            $registration_success = true;
+
+            //adding a notice message
+            $_SESSION[ 'registration_notice' ] = __('Thank you for Registering. Please check your email and verify the email address.', 'startups-market' );
 
         }
   
@@ -129,7 +137,7 @@ class Registration{
          $email_handler->send_user_register_confirmation( $email, $first_name, $verification_link );
     }
 
-    private function verification_token_handling(){
+    public function verification_token_handling(){
 
         if( isset( $_GET[ 'token' ] ) ){
             $token = sanitize_text_field($_GET['token']);
@@ -148,7 +156,7 @@ class Registration{
         global $wpdb;
 
         $user_id = $wpdb->get_var( $wpdb->prepare(
-            "SELECT user_id FROM { $wpdb->usermeta } WHERE meta_key = 'verification_token' AND meta_value = %s", $token
+            "SELECT user_id FROM $wpdb->usermeta WHERE meta_key = 'verification_token' AND meta_value = %s", $token
         ));
 
         return $user_id;

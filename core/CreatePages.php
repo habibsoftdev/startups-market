@@ -48,6 +48,11 @@ class CreatePages{
                 'title' => 'STM Login',
                 'content' => '[login_form]',
             ],
+
+            [
+                'title' => 'Verify',
+                'content' => ''
+            ]
         ];
 
         foreach( $pages as $page ){

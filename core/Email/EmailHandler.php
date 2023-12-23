@@ -1,6 +1,6 @@
 <?php 
 
-namespace Startups\Market\Admin;
+namespace Startups\Market\Email;
 
 use WP_User;
 
@@ -11,7 +11,7 @@ use WP_User;
  class EmailHandler{
 
     public function __construct(){
-        include_once plugin_dir_path(__FILE__). '../template/email.php';
+        include_once plugin_dir_path(__FILE__). '../../template/email.php';
     }
 
     /**

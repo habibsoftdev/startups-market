@@ -4,7 +4,8 @@ if( ! defined( 'ABSPATH' ) ){
     exit;
 }
 
-require_once plugin_dir_path(__FILE__). '../../functions.php'
+require_once plugin_dir_path(__FILE__). '../../functions.php';
+require_once plugin_dir_path(__FILE__). 'country-list.php';
 
 
 ?>
@@ -36,10 +37,8 @@ require_once plugin_dir_path(__FILE__). '../../functions.php'
                         <select name="country" id="country" required>
                             <option value="" disabled selected><?php _e( 'Select Your Country', 'startups-market'); ?></option>
                             <?php 
-                                $countries = get_countries_list();
-                                var_dump($countries);
                                 foreach( $countries as $code => $name ){
-                                    echo "<option value='". esc_attr( $code )."'>". esc_html($name) . "</option>";
+                                    echo "<option value='" . esc_attr($code) . "'>" . esc_html($name) . "</option>";
                                 }
                             ?>
                         </select>
@@ -58,7 +57,7 @@ require_once plugin_dir_path(__FILE__). '../../functions.php'
 
                     <div class="password">
                         <label for="password"><?php _e( 'Password', 'startups-market' ); ?></label>
-                        <input type="password" name="passwor" id="password" minlength="8" required>
+                        <input type="password" name="password" id="password" minlength="8" required>
                     </div>
                     <?php wp_nonce_field('registration_nonce_field', 'registration_nonce'); ?>
                     <button type="submit" class="btn btn-primary" name="submit_registration"> <?php _e( 'Register', 'startups-market' ); ?> </button>

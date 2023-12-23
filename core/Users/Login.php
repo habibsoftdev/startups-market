@@ -2,7 +2,7 @@
 
 namespace Startups\Market\Users;
 
-use Startups\Market\Notice_Handler;
+use Startups\Market\Notice\Notice_Handler;
 
 /**
  * Login Class Handler
