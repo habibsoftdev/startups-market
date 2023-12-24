@@ -13,6 +13,17 @@ class Assetsload{
     }
 
     public function stm_frontend_asset_load(){
-        wp_enqueue_style( 'stm-register-form', plugin_dir_url( dirname(__FILE__) ) . 'assets/frontend/css/register.css', array(), time() );
+        wp_enqueue_style( 'stm-register-form', STM_ASSETS. '/frontend/css/register.css', array(), time() );
+        wp_enqueue_script( 'stm-login-handle', STM_ASSETS. '/frontend/js/login.js', array('jquery'), time(), true);
+        wp_register_script('stm-login-handle', STM_ASSETS. '/frontend/js/login.js', array('jquery'), true );
+
+        wp_localize_script('stm-login-handle', 'stm_ajax_object', [
+            'ajax_url' => admin_url('admin-ajax.php'),
+            'redirect_url' => home_url('/sample-page'),
+            'loading_message' => esc_html__( 'Sending user info, please wait ...', 'startups-market' ),
+            'login_error_message' => esc_html__( 'Wrong username or password.', 'startups-market' ),
+        ]);
     }
+
+
 }
