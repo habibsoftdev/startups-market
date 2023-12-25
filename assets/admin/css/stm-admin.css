@@ -1,0 +1,78 @@
+#stm-page-header-temp {
+  margin: 0;
+  position: absolute;
+  top: -1px;
+  left: 20px;
+  right: 0;
+  z-index: 99;
+}
+#stm-page-header {
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  margin-bottom: 20px;
+}
+
+#stm-page-header .stm-page-title {
+  align-items: center;
+  display: flex;
+  font-size: 14px;
+  padding: 4px 20px 0;
+}
+
+@media (max-width: 600px) {
+  #stm-page-header .stm-page-title {
+    display: block;
+    padding-top: 20px;
+  }
+}
+
+#stm-page-header .stm-page-title .stm-logo-image {
+  align-items: center;
+  justify-content: center;
+}
+
+#stm-page-header .stm-page-title .stm-logo-sep {
+  margin: 0 15px;
+}
+
+@media (max-width: 600px) {
+  #stm-page-header .stm-page-title .stm-logo-sep {
+    display: none;
+  }
+}
+#stm-page-header .stm-page-title a.tab {
+  border-bottom: 4px solid #fff;
+  box-shadow: none;
+  color: #787c82;
+  display: inline-block;
+  font-weight: 600;
+  margin-right: 30px;
+  padding: 20px 0 18px 0;
+  text-decoration: none;
+}
+
+#stm-page-header .stm-page-title a.tab.active {
+  border-color: #e77c5c;
+  color: #2c3338;
+}
+
+#stm-page-header .stm-page-title a.tab.active:hover {
+  border-color: #e77c5c;
+}
+
+#stm-page-header .stm-page-title a.tab:hover {
+  border-color: #a7aaad;
+}
+#stm-page-header .stm-page-title a.action {
+  color: #fff;
+  font-weight: 600;
+  margin: 14px 0 14px 10px;
+  line-height: 28px;
+  min-height: 30px;
+  vertical-align: top;
+}
+@media (max-width: 600px) {
+  #stm-page-header .stm-page-title a.action {
+    margin-left: 0;
+  }
+}
