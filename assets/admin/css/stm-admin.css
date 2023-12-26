@@ -76,3 +76,71 @@
     margin-left: 0;
   }
 }
+
+#startups-market {
+  color: #3c434a;
+  margin: 0;
+}
+
+#startups-market
+  .stm-page-content
+  *
+  #startups-market
+  .stm-page-content
+  *::before,
+#startups-market .stm-page-content *::after {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+#startups-market .stm-page-content #stm-setting-row-heading-general-settings {
+  padding-top: 5px;
+}
+#startups-market .stm-page-content .stm-settings-row {
+  border-bottom: 1px solid #e4e4e4;
+  padding: 10px 0 0px 0;
+  font-size: 14px;
+  line-height: 0.3;
+}
+
+#startups-market .stm-settings-row {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.stm-settings-label {
+  flex: 1;
+  padding-right: 10px;
+  max-width: 200px;
+  margin-top: 15px;
+}
+.stm-settings-label label {
+  line-height: 10px;
+  font-weight: 600;
+  font-size: 14px;
+}
+.stm-settings-field {
+  flex: 2;
+}
+
+.stm-settings-row .stm-settings-label,
+.stm-settings-row .stm-settings-field {
+  margin-bottom: 5px;
+}
+
+.stm-settings-field input {
+  width: 30%;
+  padding: 3px;
+}
+
+#startups-market h2 {
+  color: #333;
+}
+
+#startups-market p {
+  color: #777;
+}
+.stm-settings-row .stm-settings-field input::placeholder {
+  font-style: italic;
+  padding-left: 5px;
+}

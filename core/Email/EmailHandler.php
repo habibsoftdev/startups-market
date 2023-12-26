@@ -10,9 +10,28 @@ use WP_User;
 
  class EmailHandler{
 
+    
+
     public function __construct(){
         include_once plugin_dir_path(__FILE__). '../../template/email.php';
+        add_filter('wp_mail_from', array($this, 'custom_wp_mail_from'));
     }
+
+    /**
+     * Define a function to set the "From" email address for wp_mail
+     *
+     * @param string $from_email
+     * @return string
+     */
+    public function custom_wp_mail_from($from_email){
+        $stm_email = get_option('stm_primary_email');
+        $admin_email = get_option( 'admin_email' );
+
+        $custom_from_email = !empty($stm_email) ? $stm_email : $admin_email;
+
+        return $custom_from_email;
+    }
+
 
     /**
      * Sending Email
