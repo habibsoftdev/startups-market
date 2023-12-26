@@ -13,6 +13,7 @@ namespace Startups\Market\Users;
      */
 
      public function __construct(){
+        add_action( 'after_setup_theme', [ $this, 'hide_admin_bar']);
         $this->create_user_roles();
       
      }
@@ -26,7 +27,7 @@ namespace Startups\Market\Users;
         if( ! isset( $existing_roles[ 'seller' ] ) ){
 
             add_role( 'seller', __( 'Seller', 'startups-market' ), [
-                'read'               => true,
+                'read'               => false,
                 'upload_project'     => true,
                 'manage_own_project' => true, ]
             );
@@ -39,7 +40,21 @@ namespace Startups\Market\Users;
             );
         }
 
-     }
+    }
+
+    /**
+    * Hide admin Bar
+    */
+    public function hide_admin_bar(){
+
+        $current_user = get_current_user();
+
+        if( $current_user == 'buyer' || $current_user == 'seller' ) {
+            add_action('init', function () {
+                add_filter('show_admin_bar', '__return_false');
+            });
+        }
+    }
 
         
  }

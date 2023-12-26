@@ -37,7 +37,7 @@ class Ajaxhandler{
 
         $user_email = ( ! empty( $_POST[ 'login_email' ] ) ) ? sanitize_email( $_POST[ 'login_email' ] ) : '';
 
-        if (empty($user_email)) {
+        if ( empty( $user_email ) ) {
             wp_send_json([
             'loggedin' => false,
             'message' => __( 'Username/Email field is empty.', 'startups-market' ),
