@@ -41,6 +41,7 @@ final class Startups_Market{
         register_activation_hook( __FILE__, [$this, 'activate'] );
 
         add_action( 'plugins_loaded', [$this, 'init_plugin'] );
+        add_action('init', [$this, 'hide_admin_bar']);
     }
 
     /**
@@ -97,6 +98,15 @@ final class Startups_Market{
         new Startups\Market\Users\Roles();
         new Startups\Market\CreatePages();
 
+    }
+
+        /**
+    * Hide admin Bar
+    */
+    public function hide_admin_bar() {
+        if (is_user_logged_in() && current_user_can('buyer') || current_user_can('seller') ) {
+            add_filter('show_admin_bar', '__return_false');
+        }
     }
 
 }
