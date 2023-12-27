@@ -16,6 +16,7 @@ class Installer{
         new Assetsload();
         new Users\Registration();
         new Users\Login();
+        new Users\Dashboard\Dashboard();
 
         if( defined('DOING_AJAX') && DOING_AJAX ){
             new Ajaxhandler();

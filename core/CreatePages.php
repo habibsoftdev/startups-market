@@ -52,6 +52,11 @@ class CreatePages{
             [
                 'title' => 'Verify',
                 'content' => ''
+            ],
+
+            [
+                'title' => 'STM Dashboard',
+                'content' => '[stm_user_dashboard]',
             ]
         ];
 

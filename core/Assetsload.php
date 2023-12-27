@@ -15,7 +15,7 @@ class Assetsload{
 
     public function stm_frontend_asset_load(){
         wp_enqueue_style( 'stm-register-form', STM_ASSETS. '/frontend/css/register.css', array(), time() );
-        
+        wp_enqueue_style( 'stm-dashboard', STM_ASSETS. '/frontend/css/dashboard.css', array(), time() );
         wp_enqueue_script( 'stm-login-handle', STM_ASSETS. '/frontend/js/login.js', array('jquery'), time(), true);
         wp_register_script('stm-login-handle', STM_ASSETS. '/frontend/js/login.js', array('jquery'), true );
 
