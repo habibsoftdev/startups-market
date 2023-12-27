@@ -4,7 +4,7 @@ use Startups\Market\Stm_Utils;
 <div class="stm-tab__nav__wrapper">
         <ul class="stm-tab__nav__items">
           <li class="stm-tab__nav__item">
-            <a href="#" class="stm-booking-nav-link stm-tab__nav__link stm-tab__nav__active style-f7M3j" target="dashboard_my_listings" id="style-f7M3j">
+            <a href="#" class="stm-booking-nav-link stm-tab__nav__link stm-tab__nav__active style-f7M3j" target="my_listings" id="style-f7M3j" data-tab="my_listings">
               <span class="directorist_menuItem-text">
                 <span class="directorist_menuItem-icon">
                 <?php echo Stm_Utils::custom_icon( 'list-solid' ); ?>
@@ -14,7 +14,7 @@ use Startups\Market\Stm_Utils;
             </a>
           </li>
           <li class="stm-tab__nav__item">
-            <a href="#" class="stm-booking-nav-link stm-tab__nav__link style-YsJPr" target="dashboard_profile" id="style-YsJPr">
+            <a href="#" class="stm-booking-nav-link stm-tab__nav__link style-YsJPr" target="dashboard_profile" id="style-YsJPr" data-tab="dashboard_profile">
               <span class="directorist_menuItem-text">
                 <span class="directorist_menuItem-icon">
                 <?php echo Stm_Utils::custom_icon( 'user-solid' ); ?>
@@ -24,7 +24,7 @@ use Startups\Market\Stm_Utils;
             </a>
           </li>
           <li class="stm-tab__nav__item">
-            <a href="#" class="stm-booking-nav-link stm-tab__nav__link style-UygxB" target="dashboard_fav_listings" id="style-UygxB">
+            <a href="#" class="stm-booking-nav-link stm-tab__nav__link style-UygxB" target="dashboard_fav_listings" id="style-UygxB" data-tab="dashboard_fav_listings">
               <span class="directorist_menuItem-text">
                 <span class="directorist_menuItem-icon">
                 <?php echo Stm_Utils::custom_icon( 'heart-solid' ); ?>
@@ -34,7 +34,7 @@ use Startups\Market\Stm_Utils;
             </a>
           </li>
           <li class="stm-tab__nav__item">
-            <a href="#" class="stm-booking-nav-link stm-tab__nav__link style-bNv5c" target="dashboard_announcement" id="style-bNv5c">
+            <a href="#" class="stm-booking-nav-link stm-tab__nav__link style-bNv5c" data-tab="dashboard_announcement" target="dashboard_announcement" id="style-bNv5c">
               <span class="directorist_menuItem-text">
                 <span class="directorist_menuItem-icon">
                 <?php echo Stm_Utils::custom_icon( 'bullhorn-solid' ); ?>
