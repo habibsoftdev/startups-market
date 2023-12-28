@@ -2,6 +2,7 @@
 
 namespace Startups\Market\Users\Dashboard;
 use Startups\Market\Stm_Utils;
+use Startups\Market\Notice\Notice_Handler;
 
 if( ! defined( 'ABSPATH' ) ){
     exit;
@@ -14,13 +15,14 @@ class Dashboard{
     }
 
     public function stm_render_dashboard(){
-        if( is_user_logged_in() ){
+      if( is_user_logged_in() ){
+        $this->user_dashboard();
+      }else{
 
-            
-            $this->user_dashboard();
-            
-
-        }
+        $errors = __( 'You need to log in to view your dashboard', 'startups-market' );
+        
+        Notice_Handler::show_for_nonloggedin_user( apply_filters( 'stm_message_for_nonloggedin_users', $errors ) );
+      }
     }
 
     public function user_dashboard(){
@@ -46,7 +48,7 @@ class Dashboard{
                 <span class="directorist_menuItem-icon">
                 <?php echo Stm_Utils::custom_icon( 'list-solid' ); ?>
                 </span>
-                My Listing (0)						
+                <?php esc_html_e( 'My Listing (0)', 'startups-market' ); ?>						
               </span>
             </a>
           </li>
@@ -56,7 +58,7 @@ class Dashboard{
                 <span class="directorist_menuItem-icon">
                 <?php echo Stm_Utils::custom_icon( 'user-solid' ); ?>
                 </span>
-                My Profile						
+                <?php esc_html_e( 'My Profile', 'startups-market' ); ?>						
               </span>
             </a>
           </li>
@@ -66,7 +68,7 @@ class Dashboard{
                 <span class="directorist_menuItem-icon">
                 <?php echo Stm_Utils::custom_icon( 'heart-solid' ); ?>
                 </span>
-                Favorite Listings						
+                <?php esc_html_e( 'Favorite Listings', 'startups-market' ); ?>					
               </span>
             </a>
           </li>
@@ -76,7 +78,7 @@ class Dashboard{
                 <span class="directorist_menuItem-icon">
                 <?php echo Stm_Utils::custom_icon( 'bullhorn-solid' ); ?>
                 </span>
-                Announcements						
+                <?php esc_html_e( 'Announcements', 'startups-market' ); ?>					
               </span>
             </a>
           </li>
@@ -84,10 +86,10 @@ class Dashboard{
       </div>
       <div class="stm-tab__nav__action">
         <a href="http://localhost/flippa/add-listing/" class="stm-btn stm-btn-dark stm-btn--add-listing">
-          Submit Listing
+          <?php esc_html_e( 'Submit Listing', 'startups-market' ); ?>
         </a>
         <a href="http://localhost/flippa/wp-login.php?action=logout&amp;redirect_to=http%3A%2F%2Flocalhost%2Fflippa&amp;_wpnonce=0e85da4fac" class="stm-btn stm-btn-secondary stm-btn--logout">
-          Log Out
+          <?php esc_html_e( 'Log Out', 'startups-market' ); ?>
         </a>
       </div>
     </div>

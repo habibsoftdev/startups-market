@@ -43,7 +43,7 @@
 (function ($) {
   $(document).ready(function () {
     // When a tab is clicked
-    $(".stm-dashboard-listing-nav-js a").on("click", function (event) {
+    $(".stm-dashboard-listing-nav-js").on("click", "a", function (event) {
       // Prevent the default behavior (following the link)
       event.preventDefault();
 

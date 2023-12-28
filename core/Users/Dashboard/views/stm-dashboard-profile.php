@@ -1,5 +1,18 @@
+<?php 
+  $avatardefault = STM_ASSETS. '/images/avatar.png';
+  $current_user = wp_get_current_user();
+
+  $first_name = get_user_meta( $current_user->ID, 'first_name', true);
+  $last_name = get_user_meta( $current_user->ID, 'last_name', true);
+  $email = $current_user->user_email;
+  $phone = get_user_meta( $current_user->ID, 'phone_number', true);
+
+
+?>
+
 <div class="stm-tab__pane" id="dashboard_profile">
-  <form action="#" id="user_profile_form" method="post">
+  <form action="#" id="user_profile_form" method="post" enctype="multipart/form-data">
+    <?php wp_nonce_field( 'stm_user_profile_nonce', 'stm_user_profile_wpnonce') ?>
     <div class="stm-row">
       <div class="stm-col-lg-3">
         <div class="stm-image-profile-wrap">
@@ -14,21 +27,11 @@
             </div>
             <div class="ezmu__media-picker-section ezmu--show">
               <div class="ezmu__media-picker-controls">
-                <span class="ezmu__media-picker-icon-wrap-avater">
-                  <span class="ezmu__icon ezmu-icon-avater"> </span>
-                </span>
+              <img src="<?php echo esc_url( $avatardefault); ?>" alt="preview">
                 <div class="ezmu__media-picker-buttons">
                   <div class="ezmu__upload-button-wrap">
-                    <input
-                      type="file"
-                      id="ezmu__file-input"
-                      class="ezmu__file-input"
-                      accept=".jpg, .jpeg, .png, .gif"
-                    />
-                    <label
-                      for="ezmu__file-input"
-                      class="ezmu__btn ezmu__input-label"
-                    >
+                    <input type="file" id="ezmu__file-input" class="ezmu__file-input" accept=".jpg, .jpeg, .png, .gif" />
+                    <label for="ezmu__file-input" class="ezmu__btn ezmu__input-label" >
                       Select
                     </label>
                   </div>
@@ -40,9 +43,7 @@
               <div class="ezmu__media-picker-buttons">
                 <div class="ezmu__upload-button-wrap">
                   <label
-                    class="ezmu__btn ezmu__input-label ezmu__update-file-btn"
-                    for="ezmu__file-input"
-                  >
+                    class="ezmu__btn ezmu__input-label ezmu__update-file-btn" for="ezmu__file-input" >
                     Select
                   </label>
                 </div>
@@ -60,33 +61,7 @@
             <div class="stm-card__body">
               <div class="stm-user-info-wrap">
                 <input type="hidden" name="ID" value="1" />
-                <div class="stm-user-full-name">
-                  <div class="stm-form-group">
-                    <label for="full_name"> Display Name </label>
-                    <input
-                      class="stm-form-element"
-                      type="text"
-                      id="full_name"
-                      name="user[full_name]"
-                      value="admin"
-                      placeholder="Enter your display name"
-                    />
-                  </div>
-                  <div class="stm-form-group">
-                    <label for="user_name"> User Name </label>
-                    <input
-                      class="stm-form-element"
-                      id="user_name"
-                      type="text"
-                      disabled="disabled"
-                      name="user[user_name]"
-                      value="admin"
-                    />
-                    <span class="stm-input-extra-info">
-                      (username can not be changed)
-                    </span>
-                  </div>
-                </div>
+              </div>
                 <div class="stm-user-first-name">
                   <div class="stm-form-group">
                     <label for="first_name"> First Name </label>
@@ -95,7 +70,7 @@
                       id="first_name"
                       type="text"
                       name="user[first_name]"
-                      value=""
+                      value="<?php esc_html_e( $first_name );?>"
                     />
                   </div>
                   <div class="stm-form-group">
@@ -105,20 +80,20 @@
                       id="last_name"
                       type="text"
                       name="user[last_name]"
-                      value=""
+                      value="<?php esc_html_e( $last_name );?>"
                     />
                   </div>
                 </div>
                 <div class="stm-user-email">
                   <div class="stm-form-group">
-                    <label for="req_email"> Email (required) </label>
+                    <label for="req_email"> Email (can not be changed) </label>
                     <input
                       class="stm-form-element"
                       id="req_email"
                       type="text"
                       name="user[user_email]"
-                      value="rjhabibms66@gmail.com"
-                      required=""
+                      value="<?php esc_html_e( $email );?>"
+                      disabled="disabled"
                     />
                   </div>
                   <div class="stm-form-group">
@@ -128,7 +103,7 @@
                       type="tel"
                       id="phone"
                       name="user[phone]"
-                      value=""
+                      value="<?php esc_html_e( $phone );?>"
                       placeholder="Enter your phone number"
                     />
                   </div>
@@ -189,117 +164,10 @@
                     </textarea>
                   </div>
                 </div>
-                <div class="stm-user-socials">
-                  <h4 class="stm-user-social-label">Social Profiles</h4>
-                  <div class="stm-form-group">
-                    <label for="facebook">
-                      <span class="stm-social-icon">
-                        <i
-                          class="stm-icon-mask"
-                          aria-hidden="true"
-                          style="
-                            --stm-icon: url(http://localhost/flippa/wp-content/plugins/stm/assets/icons/line-awesome/svgs/facebook-f.svg);
-                          "
-                        >
-                        </i>
-                      </span>
-                      Facebook
-                    </label>
-                    <input
-                      id="facebook"
-                      class="stm-form-element"
-                      type="url"
-                      name="user[facebook]"
-                      value=""
-                      placeholder="Enter your facebook url"
-                    />
-                    <span class="stm-input-extra-info">
-                      Leave it empty to hide
-                    </span>
-                  </div>
-                  <div class="stm-form-group">
-                    <label for="twitter">
-                      <span class="stm-social-icon">
-                        <i
-                          class="stm-icon-mask"
-                          aria-hidden="true"
-                          style="
-                            --stm-icon: url(http://localhost/flippa/wp-content/plugins/stm/assets/icons/line-awesome/svgs/twitter.svg);
-                          "
-                        >
-                        </i>
-                      </span>
-                      Twitter
-                    </label>
-                    <input
-                      id="twitter"
-                      class="stm-form-element"
-                      type="url"
-                      name="user[twitter]"
-                      value=""
-                      placeholder="Enter your twitter url"
-                    />
-                    <span class="stm-input-extra-info">
-                      Leave it empty to hide
-                    </span>
-                  </div>
-                  <div class="stm-form-group">
-                    <label for="linkedIn">
-                      <span class="stm-social-icon">
-                        <i
-                          class="stm-icon-mask"
-                          aria-hidden="true"
-                          style="
-                            --stm-icon: url(http://localhost/flippa/wp-content/plugins/stm/assets/icons/line-awesome/svgs/linkedin-in.svg);
-                          "
-                        >
-                        </i>
-                      </span>
-                      LinkedIn
-                    </label>
-                    <input
-                      id="linkedIn"
-                      class="stm-form-element"
-                      type="url"
-                      name="user[linkedIn]"
-                      value=""
-                      placeholder="Enter linkedIn url"
-                    />
-                    <span class="stm-input-extra-info">
-                      Leave it empty to hide
-                    </span>
-                  </div>
-                  <div class="stm-form-group">
-                    <label for="youtube">
-                      <span class="stm-social-icon">
-                        <i
-                          class="stm-icon-mask"
-                          aria-hidden="true"
-                          style="
-                            --stm-icon: url(http://localhost/flippa/wp-content/plugins/stm/assets/icons/line-awesome/svgs/youtube.svg);
-                          "
-                        >
-                        </i>
-                      </span>
-                      Youtube
-                    </label>
-                    <input
-                      id="youtube"
-                      class="stm-form-element"
-                      type="url"
-                      name="user[youtube]"
-                      value=""
-                      placeholder="Enter youtube url"
-                    />
-                    <span class="stm-input-extra-info">
-                      Leave it empty to hide
-                    </span>
-                  </div>
-                </div>
                 <button
                   type="submit"
                   class="stm-btn stm-btn-lg stm-btn-dark stm-btn-profile-save"
-                  id="update_user_profile"
+                  id="update_user_profile" name="dashboard_profile_save"
                 >
                   Save Changes
                 </button>

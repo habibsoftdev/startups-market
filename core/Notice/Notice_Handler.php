@@ -2,6 +2,7 @@
 
 
 namespace Startups\Market\Notice;
+
 /**
  * Notice Handler Class
  */
@@ -48,6 +49,21 @@ namespace Startups\Market\Notice;
         ?>
             <div class="notice_wrapper">
                 <div class="stm_login_error">
+                    <?php echo wp_kses_post( esc_html( $t ) ); ?>
+                </div>
+            </div>
+        <?php
+        } 
+    }
+
+    public static function show_for_nonloggedin_user( $message = '' ){
+        $t = ! empty( $message ) ? $message : '';
+        $t = apply_filters( 'stm_message_for_nonloggedin_users', $t );
+
+        if( ! empty( $message ) ){
+        ?>
+            <div class="notice_wrapper">
+                <div class="stm-alert stm-alert-warning">
                     <?php echo wp_kses_post( esc_html( $t ) ); ?>
                 </div>
             </div>

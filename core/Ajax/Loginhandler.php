@@ -1,12 +1,12 @@
 <?php
 
-namespace Startups\Market;
+namespace Startups\Market\Ajax;
 
 
 /**
  * Ajax Handler Class
  */
-class Ajaxhandler{
+class Loginhandler{
 
     public function __construct()
     {

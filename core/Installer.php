@@ -19,7 +19,7 @@ class Installer{
         new Users\Dashboard\Dashboard();
 
         if( defined('DOING_AJAX') && DOING_AJAX ){
-            new Ajaxhandler();
+            new Ajax\Loginhandler();
         }
     }
 

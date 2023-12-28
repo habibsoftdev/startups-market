@@ -19,6 +19,7 @@ class Assetsload{
         wp_enqueue_script( 'stm-login-handle', STM_ASSETS. '/frontend/js/login.js', array('jquery'), time(), true);
         wp_enqueue_script( 'stm-dashboard', STM_ASSETS. '/frontend/js/dashboard.js', array('jquery'), time(), true);
         wp_register_script('stm-login-handle', STM_ASSETS. '/frontend/js/login.js', array('jquery'), true );
+        wp_enqueue_script('stm-dashboard-profile-image', STM_ASSETS. '/frontend/js/profile-image.js', array('jquery'), true );
 
         /**
          * Ajax localize login
@@ -29,6 +30,7 @@ class Assetsload{
             'loading_message' => esc_html__( 'Sending user info, please wait ...', 'startups-market' ),
             'login_error_message' => esc_html__( 'Wrong username or password.', 'startups-market' ),
         ]);
+
     }
 
     public function stm_admin_asset(){
