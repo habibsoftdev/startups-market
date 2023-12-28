@@ -138,7 +138,7 @@ a {
 }
 
 .page-content a {
-  text-decoration: underline;
+  text-decoration: none;
 }
 
 a:active,
@@ -1325,4 +1325,8 @@ input[type="url"] {
 }
 #style-bNv5c.style-bNv5c {
   cursor: pointer;
+}
+
+.collapsed {
+  display: none; /* or any other style to hide the dashboard contents */
 }

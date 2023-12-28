@@ -38,7 +38,8 @@
   });
 })(jQuery);
 
-// Listing
+// Listing tabs
+
 (function ($) {
   $(document).ready(function () {
     // When a tab is clicked
@@ -58,6 +59,25 @@
       // Add/remove active class for styling
       $(".stm-dashboard-listing-nav-js a").removeClass("stm-tab__nav__active");
       $(this).addClass("stm-tab__nav__active");
+    });
+  });
+})(jQuery);
+
+(function ($) {
+  $(document).ready(function () {
+    // When the toggle icon is clicked
+    $(".stm-user-dashboard__toggle__link").on("click", function (event) {
+      // Prevent the default behavior (following the link)
+      event.preventDefault();
+
+      // Log a message to check if the script is executed
+      console.log("Toggle icon clicked");
+
+      // Toggle the class that controls visibility with a slide effect
+      $(".stm-tab__nav").slideToggle();
+
+      // Log a message after toggling the class
+      console.log("Navigation bar toggled");
     });
   });
 })(jQuery);
