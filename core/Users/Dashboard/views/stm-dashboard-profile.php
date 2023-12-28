@@ -312,13 +312,3 @@
   </form>
 </div>
 
-<div id="stm-prifile-notice">
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </form>
-      </div>

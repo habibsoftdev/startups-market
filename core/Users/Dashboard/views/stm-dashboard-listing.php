@@ -2,14 +2,7 @@
       <div class="stm-tab__pane stm-tab__pane--active" id="dashboard_my_listings">
         <div class="stm-dashboard-mylistings" id="stm-dashboard-mylistings-js" data-paged="1" data-search="">
           <div id="stm-dashboard-preloader">
-            <div>
-            </div>
-            <div>
-            </div>
-            <div>
-            </div>
-            <div>
-            </div>
+
           </div>
           <div class="stm-user-dashboard-area">
             <div class="stm-user-dashboard-tab">
@@ -80,3 +73,4 @@
           </div>
         </div>
       </div>
+      

@@ -41,7 +41,7 @@ class Dashboard{
       <div class="stm-tab__nav__wrapper">
         <ul class="stm-tab__nav__items">
           <li class="stm-tab__nav__item">
-            <a href="#" class="stm-booking-nav-link stm-tab__nav__link stm-tab__nav__active style-f7M3j" target="my_listings" id="style-f7M3j" data-tab="my_listings">
+            <a href="#" class="stm-booking-nav-link stm-tab__nav__link stm-tab__nav__active style-f7M3j" target="dashboard_my_listings" id="style-f7M3j" data-tab="dashboard_my_listings">
               <span class="directorist_menuItem-text">
                 <span class="directorist_menuItem-icon">
                 <?php echo Stm_Utils::custom_icon( 'list-solid' ); ?>
@@ -97,6 +97,6 @@ class Dashboard{
         include __DIR__. '/views/stm-dashboard-profile.php';
         include __DIR__. '/views/stm-fab-items.php';
         include __DIR__. '/views/stm-announce.php';
-        ob_end_flush();
+        
     }
 }
