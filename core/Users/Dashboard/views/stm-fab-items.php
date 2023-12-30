@@ -1,5 +1,3 @@
-
-      
 <div class="stm-tab__pane" id="dashboard_fav_listings">
   <div class="stm-favourite-items-wrap">
       <div class="stm-favourirte-items">

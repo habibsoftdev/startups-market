@@ -1,4 +1,6 @@
 <?php 
+
+
   $avatardefault = STM_ASSETS. '/images/avatar.png';
   $current_user = wp_get_current_user();
 
@@ -6,8 +8,8 @@
   $last_name = get_user_meta( $current_user->ID, 'last_name', true);
   $email = $current_user->user_email;
   $phone = get_user_meta( $current_user->ID, 'phone_number', true);
-
-
+  $profile_picture_url = get_user_meta($current_user->ID, 'profile_picture', true);
+  $user_bio = get_user_meta($current_user->ID, 'description', true);
 ?>
 
 <div class="stm-tab__pane" id="dashboard_profile">
@@ -27,12 +29,12 @@
             </div>
             <div class="ezmu__media-picker-section ezmu--show">
               <div class="ezmu__media-picker-controls">
-              <img src="<?php echo esc_url( $avatardefault); ?>" alt="preview">
+              <img src="<?php echo esc_url($profile_picture_url ? $profile_picture_url : $avatardefault); ?>" alt="preview">
                 <div class="ezmu__media-picker-buttons">
                   <div class="ezmu__upload-button-wrap">
                     <input type="file" id="ezmu__file-input" class="ezmu__file-input" accept=".jpg, .jpeg, .png, .gif" />
                     <label for="ezmu__file-input" class="ezmu__btn ezmu__input-label" >
-                      Select
+                      <?php esc_html_e( 'Select', 'startups-market'); ?>
                     </label>
                   </div>
                 </div>
@@ -44,7 +46,7 @@
                 <div class="ezmu__upload-button-wrap">
                   <label
                     class="ezmu__btn ezmu__input-label ezmu__update-file-btn" for="ezmu__file-input" >
-                    Select
+                    <?php esc_html_e( 'Select', 'startups-market'); ?>
                   </label>
                 </div>
               </div>
@@ -56,7 +58,7 @@
         <div class="stm-user-profile-edit">
           <div class="stm-card stm-user-profile-box">
             <div class="stm-card__header">
-              <h4 class="stm-card__header--title">My Profile</h4>
+              <h4 class="stm-card__header--title"><?php esc_html_e( 'My Profile', 'startups-market' ); ?></h4>
             </div>
             <div class="stm-card__body">
               <div class="stm-user-info-wrap">
@@ -64,45 +66,45 @@
               </div>
                 <div class="stm-user-first-name">
                   <div class="stm-form-group">
-                    <label for="first_name"> First Name </label>
+                    <label for="first_name"> <?php esc_html_e( 'First Name', 'startups-market'); ?> </label>
                     <input
                       class="stm-form-element"
                       id="first_name"
                       type="text"
-                      name="user[first_name]"
+                      name="first_name_pr"
                       value="<?php esc_html_e( $first_name );?>"
                     />
                   </div>
                   <div class="stm-form-group">
-                    <label for="last_name"> Last Name </label>
+                    <label for="last_name"> <?php esc_html_e( 'Last Name', 'startups-market'); ?> </label>
                     <input
                       class="stm-form-element"
                       id="last_name"
                       type="text"
-                      name="user[last_name]"
+                      name="last_name_pr"
                       value="<?php esc_html_e( $last_name );?>"
                     />
                   </div>
                 </div>
                 <div class="stm-user-email">
                   <div class="stm-form-group">
-                    <label for="req_email"> Email (can not be changed) </label>
+                    <label for="req_email"> <?php esc_html_e( 'Email (can not be changed)', 'startups-market'); ?> </label>
                     <input
                       class="stm-form-element"
                       id="req_email"
                       type="text"
-                      name="user[user_email]"
+                      name="user_email_pr"
                       value="<?php esc_html_e( $email );?>"
                       disabled="disabled"
                     />
                   </div>
                   <div class="stm-form-group">
-                    <label for="phone"> Phone </label>
+                    <label for="phone"> <?php esc_html_e( 'Phone', 'startups-market'); ?> </label>
                     <input
                       class="stm-form-element"
                       type="tel"
                       id="phone"
-                      name="user[phone]"
+                      name="phone_pr"
                       value="<?php esc_html_e( $phone );?>"
                       placeholder="Enter your phone number"
                     />
@@ -110,56 +112,58 @@
                 </div>
                 <div class="stm-user-site-url">
                   <div class="stm-form-group">
-                    <label for="website"> Website </label>
+                    <label for="website"> <?php esc_html_e( 'Website', 'startups-market'); ?> </label>
                     <input
                       class="stm-form-element"
                       id="website"
                       type="text"
-                      name="user[website]"
+                      name="user_website_pr"
                       value="http://localhost/flippa"
                     />
                   </div>
                   <div class="stm-form-group">
-                    <label for="address"> Address </label>
+                    <label for="address"> <?php esc_html_e( 'Address', 'startups-market'); ?> </label>
                     <input
                       class="stm-form-element"
                       id="address"
                       type="text"
-                      name="user[address]"
+                      name="user_address_pr"
                       value=""
                     />
                   </div>
+
                 </div>
                 <div class="stm-user-password">
                   <div class="stm-form-group">
-                    <label for="new_pass"> New Password </label>
+                    <label for="new_pass"> <?php esc_html_e( 'New Password', 'startups-market'); ?> </label>
                     <input
                       id="new_pass"
                       class="stm-form-element"
                       type="password"
-                      name="user[new_pass]"
+                      name="new_pass_pr"
                       placeholder="Enter a new password"
                     />
                   </div>
                   <div class="stm-form-group">
-                    <label for="confirm_pass"> Confirm New Password </label>
+                    <label for="confirm_pass"> <?php esc_html_e( 'Confirm New Password', 'startups-market'); ?> </label>
                     <input
                       id="confirm_pass"
                       class="stm-form-element"
                       type="password"
-                      name="user[confirm_pass]"
+                      name="confirm_pass_pr"
                       placeholder="Confirm your new password"
                     />
                   </div>
                   <div class="stm-form-group">
-                    <label for="bio"> About Author </label>
+                    <label for="bio">  <?php esc_html_e( 'About Author', 'startups-market'); ?></label>
                     <textarea
                       class="wp-editor-area stm-form-element"
                       style="height: 200px"
                       autocomplete="off"
                       cols="40"
-                      name="user[bio]"
+                      name="user_bio_pr"
                       id="bio"
+                      value="<?php esc_html_e( $user_bio ); ?>"
                     >
                     </textarea>
                   </div>
@@ -169,7 +173,7 @@
                   class="stm-btn stm-btn-lg stm-btn-dark stm-btn-profile-save"
                   id="update_user_profile" name="dashboard_profile_save"
                 >
-                  Save Changes
+                <?php esc_html_e( 'Save Changes', 'startups-market'); ?>
                 </button>
               </div>
             </div>
@@ -179,4 +183,3 @@
     </div>
   </form>
 </div>
-

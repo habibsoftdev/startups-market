@@ -44,8 +44,8 @@ class Dashboard{
         <ul class="stm-tab__nav__items">
           <li class="stm-tab__nav__item">
             <a href="#" class="stm-booking-nav-link stm-tab__nav__link stm-tab__nav__active style-f7M3j" target="dashboard_my_listings" id="style-f7M3j" data-tab="dashboard_my_listings">
-              <span class="directorist_menuItem-text">
-                <span class="directorist_menuItem-icon">
+              <span class="stm_menuItem-text">
+                <span class="stm_menuItem-icon">
                 <?php echo Stm_Utils::custom_icon( 'list-solid' ); ?>
                 </span>
                 <?php esc_html_e( 'My Listing (0)', 'startups-market' ); ?>						
@@ -54,8 +54,8 @@ class Dashboard{
           </li>
           <li class="stm-tab__nav__item">
             <a href="#" class="stm-booking-nav-link stm-tab__nav__link style-YsJPr" target="dashboard_profile" id="style-YsJPr" data-tab="dashboard_profile">
-              <span class="directorist_menuItem-text">
-                <span class="directorist_menuItem-icon">
+              <span class="stm_menuItem-text">
+                <span class="stm_menuItem-icon">
                 <?php echo Stm_Utils::custom_icon( 'user-solid' ); ?>
                 </span>
                 <?php esc_html_e( 'My Profile', 'startups-market' ); ?>						
@@ -64,8 +64,8 @@ class Dashboard{
           </li>
           <li class="stm-tab__nav__item">
             <a href="#" class="stm-booking-nav-link stm-tab__nav__link style-UygxB" target="dashboard_fav_listings" id="style-UygxB" data-tab="dashboard_fav_listings">
-              <span class="directorist_menuItem-text">
-                <span class="directorist_menuItem-icon">
+              <span class="stm_menuItem-text">
+                <span class="stm_menuItem-icon">
                 <?php echo Stm_Utils::custom_icon( 'heart-solid' ); ?>
                 </span>
                 <?php esc_html_e( 'Favorite Listings', 'startups-market' ); ?>					
@@ -74,8 +74,8 @@ class Dashboard{
           </li>
           <li class="stm-tab__nav__item">
             <a href="#" class="stm-booking-nav-link stm-tab__nav__link style-bNv5c" data-tab="dashboard_announcement" target="dashboard_announcement" id="style-bNv5c">
-              <span class="directorist_menuItem-text">
-                <span class="directorist_menuItem-icon">
+              <span class="stm_menuItem-text">
+                <span class="stm_menuItem-icon">
                 <?php echo Stm_Utils::custom_icon( 'bullhorn-solid' ); ?>
                 </span>
                 <?php esc_html_e( 'Announcements', 'startups-market' ); ?>					

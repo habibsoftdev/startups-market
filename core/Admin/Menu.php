@@ -11,7 +11,7 @@ class Menu{
      * Class Constructor
      */
     function __construct(){
-        add_action( 'admin_menu', [ $this, 'admin_menu_bar' ] );
+        add_action( 'admin_menu', [ $this, 'admin_menu_bar' ],);
         add_filter( 'in_admin_header', [ $this, 'admin_header' ] );
     }
 
@@ -31,19 +31,8 @@ class Menu{
             20
         );
 
-        //Adding Submenu
-        add_submenu_page(
-            $parent_slug,
-            __( 'Businesses List', 'startups-market' ),
-            __( 'Businesses List', 'startups-market' ),
-            $capability,
-            $parent_slug,
-            [ $this, 'plugins_page' ]
-            
-        );
-
-        //Adding Submenu
-        add_submenu_page(
+          //Adding Submenu
+          add_submenu_page(
             $parent_slug,
             __( 'Buyers', 'startups-market' ),
             __( 'Buyers', 'startups-market' ),

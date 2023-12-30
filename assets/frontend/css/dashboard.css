@@ -479,7 +479,7 @@ p {
   }
 }
 
-.stm-user-dashboard__nav .stm-tab__nav__link .directorist_menuItem-text {
+.stm-user-dashboard__nav .stm-tab__nav__link .stm_menuItem-text {
   pointer-events: none;
   display: -webkit-box;
   display: -webkit-flex;
@@ -537,8 +537,8 @@ p {
 
 .stm-user-dashboard__nav
   .stm-tab__nav__link
-  .directorist_menuItem-text
-  .directorist_menuItem-icon {
+  .stm_menuItem-text
+  .stm_menuItem-icon {
   line-height: 0;
 }
 

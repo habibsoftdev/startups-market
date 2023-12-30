@@ -17,9 +17,16 @@ class Assetsload{
         wp_enqueue_style( 'stm-register-form', STM_ASSETS. '/frontend/css/register.css', array(), time() );
         wp_enqueue_style( 'stm-dashboard', STM_ASSETS. '/frontend/css/dashboard.css', array(), time() );
         wp_enqueue_script( 'stm-login-handle', STM_ASSETS. '/frontend/js/login.js', array('jquery'), time(), true);
+
         wp_enqueue_script( 'stm-dashboard', STM_ASSETS. '/frontend/js/dashboard.js', array('jquery'), time(), true);
-        wp_register_script('stm-login-handle', STM_ASSETS. '/frontend/js/login.js', array('jquery'), true );
         wp_enqueue_script('stm-dashboard-profile-image', STM_ASSETS. '/frontend/js/profile-image.js', array('jquery'), true );
+      
+        
+
+        wp_register_script('stm-login-handle', STM_ASSETS. '/frontend/js/login.js', array('jquery'), true );
+       
+
+        
 
         /**
          * Ajax localize login
@@ -35,6 +42,7 @@ class Assetsload{
 
     public function stm_admin_asset(){
         wp_enqueue_style( 'stm-admin', STM_ASSETS. '/admin/css/stm-admin.css', array(), time() );
+      
     }
 
 

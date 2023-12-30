@@ -1,4 +1,4 @@
-<?php 
+<!-- <?php 
 use Startups\Market\Stm_Utils;
 ?>
 <div class="stm-tab__nav__wrapper">
@@ -54,4 +54,4 @@ use Startups\Market\Stm_Utils;
         </a>
       </div>
     </div>
-    
+     -->
