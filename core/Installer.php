@@ -19,7 +19,7 @@ class Installer{
         new Users\Login();
         new Users\Dashboard\Dashboard();
         new Users\Dashboard\DashboardData();
-        new Admin\Business();
+        new Admin\Businesslist();
 
 
         if( defined('DOING_AJAX') && DOING_AJAX ){

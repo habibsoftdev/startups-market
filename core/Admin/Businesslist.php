@@ -2,7 +2,7 @@
 
 namespace Startups\Market\Admin;
 
-class Business{
+class Businesslist{
 
     public function __construct(){
         add_action( 'init', [ $this, 'register_business_post_type' ] );
