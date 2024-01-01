@@ -42,6 +42,7 @@ class Assetsload{
 
     public function stm_admin_asset(){
         wp_enqueue_style( 'stm-admin', STM_ASSETS. '/admin/css/stm-admin.css', array(), time() );
+        wp_enqueue_script( 'stm-admin-query', STM_ASSETS. '/admin/js/admin.js', array( 'jquery' ), time(), true );
       
     }
 

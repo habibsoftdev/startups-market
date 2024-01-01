@@ -6,6 +6,8 @@ class Business{
 
     public function __construct(){
         add_action( 'init', [ $this, 'register_business_post_type' ] );
+        add_filter( 'parent_file', [ $this, 'highlight_custom_taxonomy_menu_item' ] );
+       
        
     }
 
@@ -32,24 +34,20 @@ class Business{
             'public'             => true,
             'publicly_queryable' => true,
             'show_ui'            => true,
-            'show_in_menu'       => 'startups_market', // Add this line to assign it to your menu
             'query_var'          => true,
             'rewrite'            => array( 'slug' => 'business' ),
             'capability_type'    => 'post',
             'has_archive'        => true,
             'hierarchical'       => false,
             'menu_position'      => null,
+            'show_in_menu'       => 'startups_market',
             'supports'           => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'comments' ),
         );
     
         register_post_type( 'business', $args );
 
 
-    }
-
-    public function register_business_taxonomy(){
-          // Register Custom Taxonomy
-          $taxonomy_labels = array(
+        $taxonomy_labels = array(
             'name'                       => _x( 'Business Categories', 'taxonomy general name', 'startups-market' ),
             'singular_name'              => _x( 'Business Category', 'taxonomy singular name', 'startups-market' ),
             'search_items'               => __( 'Search Business Categories', 'startups-market' ),
@@ -75,12 +73,27 @@ class Business{
             'show_admin_column' => true,
             'query_var'         => true,
             'public'            => true,
-            'rewrite'           => array( 'slug' => 'business-category' ),
+            'show_in_nav_menus' => true,
+            'rewrite'           => array( 'slug' => 'business_category' ),
         );
     
         register_taxonomy( 'business_category', 'business', $taxonomy_args );
+
+
     }
 
+    public function highlight_custom_taxonomy_menu_item(){
+        global $current_screen, $pagenow;
+
+        // Check if we are on the custom taxonomy page
+        if ( $current_screen->taxonomy === 'business_category' && $pagenow === 'edit-tags.php' ) {
+            // Set the parent menu file to your custom admin menu slug
+            $parent_file = 'startups_market';
+        }
+
+        return $parent_file;
+
+    }
  
 
 }

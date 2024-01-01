@@ -13,12 +13,14 @@ class Menu{
     function __construct(){
         add_action( 'admin_menu', [ $this, 'admin_menu_bar' ],);
         add_filter( 'in_admin_header', [ $this, 'admin_header' ] );
+    
     }
 
     public function admin_menu_bar(){
         $parent_slug = 'startups_market';
         $capability = 'manage_options';
         $settings_slug = 'stm-settings';
+        $business_slug = 'business';
         
         // Adding Main Menu
         add_menu_page(
@@ -27,20 +29,29 @@ class Menu{
             $capability,
             $parent_slug,
             [ $this, 'plugins_page' ],
-            'dashicons-portfolio',
+            STM_ASSETS.'/main-icon/startupsm.png',
             20
         );
 
-          //Adding Submenu
-          add_submenu_page(
-            $parent_slug,
-            __( 'Buyers', 'startups-market' ),
-            __( 'Buyers', 'startups-market' ),
-            $capability,
-            'stm-buyer-list',
-            [ $this, 'buyer_list' ]
-            
-        );
+     // Manually add the taxonomy submenu to your custom admin menu
+     add_submenu_page(
+        'startups_market',
+        __( 'Business Categories', 'startups-market' ),
+        __( 'Business Categories', 'startups-market' ),
+        'manage_options',
+        'edit-tags.php?taxonomy=business_category&post_type=business'
+    );
+
+               //Adding Submenu
+               add_submenu_page(
+                $parent_slug,
+                __( 'Buyers', 'startups-market' ),
+                __( 'Buyers', 'startups-market' ),
+                $capability,
+                'stm-buyer-list',
+                [ $this, 'buyer_list' ]
+                
+            );
 
         //Adding Submenu
         add_submenu_page(
@@ -96,14 +107,15 @@ class Menu{
         );
     }
 
+
+
     /**
      * Admin menu Callback function
      *
      * @return void
      */
     public function plugins_page(){
-        $businesslist = new Businesslist();
-        $businesslist->plugin_page();
+      
     }
 
     /**
