@@ -15,6 +15,7 @@ class Gallery{
       $image_ids = get_post_meta( $post->ID, 'stm_images_id', true );
       $image_urls = get_post_meta( $post->ID, 'stm_images_url', true );
       $video_url = get_post_meta( $post->ID, 'stm_videourl', true );
+      
         ?>
     <div class="stm-form-section stm-content-module">
   <div class="stm-content-module__title">

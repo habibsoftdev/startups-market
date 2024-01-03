@@ -78,6 +78,7 @@ final class Startups_Market{
      * @return void
      */
     public function init_plugin(){
+        load_plugin_textdomain( 'startups-market', false, STM_URL. '/languages' );
         new Startups\Market\Installer();
     }
 
