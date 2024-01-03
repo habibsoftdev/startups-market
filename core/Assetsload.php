@@ -42,8 +42,9 @@ class Assetsload{
 
     public function stm_admin_asset(){
         wp_enqueue_style( 'stm-admin', STM_ASSETS. '/admin/css/stm-admin.css', array(), time() );
+        wp_enqueue_style( 'stm-metabox', STM_ASSETS. '/admin/css/metabox.css', array(), time() );
         wp_enqueue_script( 'stm-admin-query', STM_ASSETS. '/admin/js/admin.js', array( 'jquery' ), time(), true );
-      
+        wp_enqueue_script( 'stm-metabox-query', STM_ASSETS. '/admin/js/metabox.js', array( 'jquery' ), time(), true );
     }
 
 

@@ -42,7 +42,7 @@ class DashboardData{
             update_user_meta($user_id, 'user_url', esc_url_raw($_POST['user_website_pr']));
             update_user_meta($user_id, 'user_address', sanitize_text_field($_POST['user_address_pr']));
             update_user_meta($user_id, 'description', wp_kses_post($_POST['user_bio_pr']));
-// Assuming bio is stored as description
+            // Assuming bio is stored as description
         
             // Update user password if provided
             if (!empty($_POST['new_pass_pr']) && !empty($_POST['confirm_pass_pr']) && $_POST['new_pass_pr'] === $_POST['confirm_pass_pr']) {

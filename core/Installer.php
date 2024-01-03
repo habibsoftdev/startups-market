@@ -20,6 +20,7 @@ class Installer{
         new Users\Dashboard\Dashboard();
         new Users\Dashboard\DashboardData();
         new Admin\Businesslist();
+        new Metabox\Metabox();
 
 
         if( defined('DOING_AJAX') && DOING_AJAX ){

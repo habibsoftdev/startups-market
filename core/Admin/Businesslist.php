@@ -82,7 +82,7 @@ class Businesslist{
 
     }
 
-    public function highlight_custom_taxonomy_menu_item(){
+    public function highlight_custom_taxonomy_menu_item($parent_file){
         global $current_screen, $pagenow;
 
         // Check if we are on the custom taxonomy page

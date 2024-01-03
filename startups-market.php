@@ -87,6 +87,7 @@ final class Startups_Market{
      * @return void
      */
     public function activate(){
+        add_image_size('stm-thumbnail', 100, 100, true); 
 
         $version = get_option( 'startups_market_version', true );
         update_option( 'startup_market_installation', time() );
