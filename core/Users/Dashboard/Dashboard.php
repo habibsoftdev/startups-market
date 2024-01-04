@@ -17,7 +17,7 @@ class Dashboard{
     public function stm_render_dashboard(){
       if( is_user_logged_in() ){
         $this->user_dashboard();
-      }else{
+      }else{ 
 
         $errors = __( 'You need to log in to view your dashboard', 'startups-market' );
         

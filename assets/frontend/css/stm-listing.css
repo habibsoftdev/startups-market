@@ -1,0 +1,89 @@
+
+  /* Form Css */
+
+  .form-container {
+    width: 80%;
+    margin: 30px auto;
+}
+
+.smt-container-form {
+    margin: 30px auto;
+    padding-top: 20px;
+    padding-right: 15px;
+    padding-left: 15px;
+    border-radius: 4px;
+    box-shadow: rgba(195, 195, 195, 0.2) 0px 2px 8px 0px;
+}
+
+.px-4 p{
+    font-weight: 500;
+}
+
+.general-section-header {
+    font-size: 16px !important;
+    font-weight: 600;
+}
+
+.form-input-field {
+    border: 1px solid rgb(211, 211, 211);
+    padding: 3px 10px;
+    border-radius: 4px;
+}
+
+.form-input-field:focus {
+    outline: none !important;
+    border-color: none;
+    box-shadow: rgba(123, 123, 123, 0.05) 0px 6px 24px 0px, rgba(85, 85, 85, 0.08) 0px 0px 0px 1px;
+    background-color: rgba(203, 203, 203, 0.415);
+}
+
+.description-box {
+    height: 200px;
+    border: 1px solid rgb(211, 211, 211);
+    padding: 3px 10px;
+    border-radius: 4px;
+}
+
+.description-box:focus {
+    outline: none !important;
+    border-color: none;
+    box-shadow: rgba(123, 123, 123, 0.05) 0px 6px 24px 0px, rgba(85, 85, 85, 0.08) 0px 0px 0px 1px;
+    background-color: rgba(203, 203, 203, 0.415)
+}
+
+/* form button */
+.form-submit-btn {
+    width: 50%;
+    border: 2px solid rgb(195, 77, 50);
+    padding: 6px 8px;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 4px;
+    background-color: rgb(195, 77, 50);
+    color: white;
+}
+
+.form-submit-btn:hover {
+    border: 2px solid rgb(195, 77, 50);
+    background-color: transparent;
+    color: rgb(195, 77, 50);
+    transition: background 0.5s ease;
+}
+
+/* Responsive Design*/
+
+/* for laptop */
+@media screen and (min-width:720px) and (max-width: 960px) {
+    .form-container {
+        width: 60%;
+        margin: 30px auto;
+    }
+}
+
+/* for Mobile */
+@media screen and (max-width: 719px) {
+    .form-container {
+        width: 80%;
+        margin: 30px auto;
+    }
+}
