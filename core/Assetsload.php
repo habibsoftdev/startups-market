@@ -12,16 +12,14 @@ class Assetsload{
         add_action( 'wp_enqueue_scripts', [ $this, 'stm_frontend_asset_load' ] );
         add_action( 'admin_enqueue_scripts', [ $this, 'stm_admin_asset']);
     }
-
+    
     public function stm_frontend_asset_load(){
         wp_enqueue_style('bootstrap-stm', 'https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css', array(), '4.4.1', 'all');
         wp_enqueue_style( 'stm-register-form', STM_ASSETS. '/frontend/css/register.css', array(), time(), 'all' );
         wp_enqueue_style( 'stm-dashboard', STM_ASSETS. '/frontend/css/dashboard.css', array(), time(), 'all' );
-        wp_enqueue_style( 'stm-addlisting', STM_ASSETS . '/frontend/css/addlisting.css', array(), time(), 'all' );
         wp_enqueue_style( 'stm-listing-form', STM_ASSETS . '/frontend/css/stm-listing.css', array(), time(), 'all' );
         wp_enqueue_script( 'stm-login-handle', STM_ASSETS. '/frontend/js/login.js', array('jquery'), time(), true);
-        wp_enqueue_script( 'ez-media', STM_ASSETS. '/frontend/js/ez-media-uploader.js', array('jquery'), time(), true);
-        wp_enqueue_script( 'ez-main', STM_ASSETS. '/frontend/js/main.js', array('jquery'), time(), true);
+        wp_enqueue_script( 'stm-listing-main', STM_ASSETS. '/frontend/js/main.js', array('jquery'), time(), true);
         wp_enqueue_script( 'stm-dashboard', STM_ASSETS. '/frontend/js/dashboard.js', array('jquery'), time(), true);
         wp_enqueue_script('stm-dashboard-profile-image', STM_ASSETS. '/frontend/js/profile-image.js', array('jquery'), true );
       

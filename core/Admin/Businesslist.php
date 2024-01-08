@@ -41,7 +41,7 @@ class Businesslist{
             'hierarchical'       => false,
             'menu_position'      => null,
             'show_in_menu'       => 'startups_market',
-            'supports'           => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'comments' ),
+            'supports'           => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt' ),
         );
     
         register_post_type( 'business', $args );

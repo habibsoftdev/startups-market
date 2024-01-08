@@ -25,22 +25,32 @@ class Metabox{
      * @param int $post_id
      * @return bool
      */
-    public function nonce_verification( $nonce, $action, $post_id){
+	private function is_secured( $nonce_field, $action, $post_id ) {
+		$nonce = isset( $_POST[ $nonce_field ] ) ? $_POST[ $nonce_field ] : '';
 
-        if( ! wp_verify_nonce( $_POST[ $nonce], $action ) ){
-            return false;
-        }
+		if ( $nonce == '' ) {
+			return false;
+		}
+		if ( ! wp_verify_nonce( $nonce, $action ) ) {
+			return false;
+		}
 
-        if( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ){
-            return false;
-        }
+		if ( ! current_user_can( 'edit_post', $post_id ) ) {
+			return false;
+		}
 
-        if( ! current_user_can( 'edit_post', $post_id ) ){
-            return false;
-        }
-        
-        return true;
-    }
+		if ( wp_is_post_autosave( $post_id ) ) {
+			return false;
+		}
+
+		if ( wp_is_post_revision( $post_id ) ) {
+			return false;
+		}
+
+		return true;
+
+	}
+
 
     /**
      * Metabox action method
@@ -99,17 +109,17 @@ class Metabox{
      */
     public function save_metabox_content( $post_id ){
 
-        if( $this->nonce_verification( 'stm_pricing_nonce', 'stm_pricing', $post_id ) ){
+        if( $this->is_secured( 'stm_pricing_nonce', 'stm_pricing', $post_id ) ){
 
             SaveMetabox::save_pricing_metabox( $post_id );
         }
 
-        if( $this->nonce_verification( 'stm_business_info_nonce', 'stm_business_info', $post_id ) ){
+        if( $this->is_secured( 'stm_business_info_nonce', 'stm_business_info', $post_id ) ){
 
             SaveMetabox::save_businessinfo_metabox( $post_id );
         }
 
-        if( $this->nonce_verification( 'stm_gallery_nonce', 'stm_gallery_field', $post_id ) ){
+        if( $this->is_secured( 'stm_gallery_nonce', 'stm_gallery_field', $post_id ) ){
 
             SaveMetabox::save_gallery_images( $post_id );
         }

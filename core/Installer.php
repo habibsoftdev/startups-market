@@ -22,6 +22,7 @@ class Installer{
         new Admin\Businesslist();
         new Metabox\Metabox();
         new Users\AddListing\AddListing();
+        new Users\AddListing\ListingHandle();
 
 
         if( defined('DOING_AJAX') && DOING_AJAX ){
