@@ -1,10 +1,6 @@
-<div class="stm-tab__pane" id="dashboard_fav_listings">
-  <div class="stm-favourite-items-wrap">
-      <div class="stm-favourirte-items">
-        <div class="stm-notfound">
-              Nothing found!
-          </div>
-      </div>
-    </div>
-</div>
-      
+<section class="smt-my-favorite-list container-fluid mb-4  menuItem"
+                id="my-favorite-page">
+                <div class="favorite-list-content shadow-sm ">
+                    <p>Nothing Found</p>
+                </div>
+            </section>

@@ -71,4 +71,19 @@ namespace Startups\Market\Notice;
         } 
     }
 
+    public static function show_error( $message = '' ){
+        $t = ! empty( $message ) ? $message : '';
+        $t = apply_filters( 'stm_show_error', $t );
+
+        if( ! empty( $message ) ){
+        ?>
+            <div class="notice_wrapper">
+                <div class="stm_login_error">
+                    <?php echo wp_kses_post( esc_html( $t ) ); ?>
+                </div>
+            </div>
+        <?php
+        } 
+    }
+
  }

@@ -1,83 +1,73 @@
-(function ($) {
-  $(document).ready(function () {
-    var tabLinks = $(".stm-tab__nav__items .stm-tab__nav__link");
-    var tabContents = $(".stm-user-dashboard__tab-content .stm-tab__pane");
+// Side nav route
+const clickMyListing = () => {
+  showPage('#my-listing-page');
+  showListingPage('all-listing'); // Add this line to show the default listing page
+};
 
-    function activateTab(tabId) {
-      tabLinks.removeClass("stm-tab__nav__active");
-      tabContents.removeClass("stm-tab__pane--active");
+const clickMyProfile = () => {
+  showPage('#my-profile-page');
+};
 
-      var targetTab = $(".stm-tab__nav__link[data-tab='" + tabId + "']");
-      if (targetTab.length) {
-        targetTab.addClass("stm-tab__nav__active");
-        $("#" + tabId).addClass("stm-tab__pane--active");
+const clickMyFavorite = () => {
+  showPage('#my-favorite-page');
+};
 
-        // Update the URL fragment identifier
-        history.pushState(null, null, "#" + tabId);
-      }
-    }
+const clickMyAnnouncement = () => {
+  showPage('#my-announcement-page');
+};
 
-    function activateTabByHash() {
-      var hash = window.location.hash.substring(1);
-      if (hash) {
-        activateTab(hash);
-      }
-    }
-
-    tabLinks.on("click", function (event) {
-      event.preventDefault();
-
-      var targetPaneId = $(this).data("tab");
-
-      // Activate the tab
-      activateTab(targetPaneId);
-    });
-
-    // Activate tab based on URL hash
-    activateTabByHash();
+// Side nav active route
+const sideNavLinks = document.querySelectorAll('.nav-links');
+sideNavLinks.forEach(sideNavLink => {
+  sideNavLink.addEventListener('click', function (e) {
+    e.preventDefault();
+    document.querySelector('.active-route')?.classList.remove('active-route');
+    this.classList.add('active-route');
   });
-})(jQuery);
+});
 
-// Listing tabs
-
-(function ($) {
-  $(document).ready(function () {
-    // When a tab is clicked
-    $(".stm-dashboard-listing-nav-js").on("click", "a", function (event) {
-      // Prevent the default behavior (following the link)
-      event.preventDefault();
-
-      // Get the data-tab attribute value
-      var tabId = $(this).data("tab");
-
-      // Hide all tab contents
-      $(".stm-tab__pane").removeClass("stm-tab__pane--active");
-
-      // Show the clicked tab content
-      $("#" + tabId).addClass("stm-tab__pane--active");
-
-      // Add/remove active class for styling
-      $(".stm-dashboard-listing-nav-js a").removeClass("stm-tab__nav__active");
-      $(this).addClass("stm-tab__nav__active");
-    });
+// My Listing active route
+const navLinkEls = document.querySelectorAll('.nav-link');
+navLinkEls.forEach(navLinkEl => {
+  navLinkEl.addEventListener('click', function (e) {
+    e.preventDefault();
+    document.querySelector('.active')?.classList.remove('active');
+    this.classList.add('active');
   });
-})(jQuery);
+});
 
-(function ($) {
-  $(document).ready(function () {
-    // When the toggle icon is clicked
-    $(".stm-user-dashboard__toggle__link").on("click", function (event) {
-      // Prevent the default behavior (following the link)
-      event.preventDefault();
-
-      // Log a message to check if the script is executed
-      console.log("Toggle icon clicked");
-
-      // Toggle the class that controls visibility with a slide effect
-      $(".stm-tab__nav").slideToggle();
-
-      // Log a message after toggling the class
-      console.log("Navigation bar toggled");
-    });
+// My listing nav route
+const showListingPage = (listingId) => {
+  const listingTables = document.querySelectorAll('.listing-table');
+  listingTables.forEach(table => {
+    table.style.display = 'none';
   });
-})(jQuery);
+
+  const selectedTable = document.querySelector(`.${listingId}`);
+  if (selectedTable) {
+    selectedTable.style.display = 'block';
+  }
+};
+
+// Handlers for All Listing, Publish, Pending, Expired
+const listingLinkEls = document.querySelectorAll('.nav-link[data-target]');
+listingLinkEls.forEach(link => {
+  link.addEventListener('click', function (e) {
+    e.preventDefault();
+    const target = this.getAttribute('data-target');
+    showListingPage(target);
+  });
+});
+
+// Function to show/hide main content pages
+const showPage = (pageId) => {
+  const pages = document.querySelectorAll('.menuItem');
+  pages.forEach(page => {
+    page.style.display = 'none';
+  });
+
+  const selectedPage = document.querySelector(pageId);
+  if (selectedPage) {
+    selectedPage.style.display = 'block';
+  }
+};

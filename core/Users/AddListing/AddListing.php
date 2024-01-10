@@ -2,6 +2,7 @@
 
 namespace Startups\Market\Users\AddListing;
 use Startups\Market\Notice\Notice_Handler;
+use Startups\Market\Stm_Utils;
 
 
 class AddListing{
@@ -17,6 +18,7 @@ class AddListing{
 
             ob_start();
             include(plugin_dir_path(__FILE__). 'views/addlisting-views.php');
+            echo Stm_Utils::edit_link();
             return ob_get_clean();
         }else{
             $errors = __( 'You need to log in to add your business', 'startups-market' );

@@ -1,5 +1,4 @@
 (function ($) {
-  console.log("AJAX script loaded");
   $("form#stm-login-form").on("submit", function (e) {
     e.preventDefault();
     var $this = $(this);
@@ -16,7 +15,6 @@
       login_pass: $this.find("#login_pass").val(),
       security: $this.find("[name='security']").val(),
     };
-    console.log(form_data);
     $.ajax({
       type: "POST",
       dataType: "json",

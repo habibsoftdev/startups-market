@@ -1,6 +1,7 @@
 <?php 
 
 namespace Startups\Market\Users\Dashboard;
+use Startups\Market\Notice\Notice_Handler;
 
 class DashboardData{
 
@@ -9,55 +10,49 @@ class DashboardData{
     }
 
     public function process_dashboard_profile_data(){
-        if ( isset($_POST['dashboard_profile_save'])) {
         
-          // Verify nonce
-          if (isset($_POST['stm_user_profile_wpnonce']) && wp_verify_nonce($_POST['stm_user_profile_wpnonce'], 'stm_user_profile_nonce')) {
-        
-            // Get the current user ID
-            $user_id = get_current_user_id();
-        
-            // Handle profile picture upload
-            if (!empty($_FILES['profile_picture']['tmp_name'])) {
-              // File upload configuration
-              $file = $_FILES['profile_picture'];
-              $overrides = array('test_form' => false);
-        
-              // Handle the file upload
-              $file_info = wp_handle_upload($file, $overrides);
-        
-              // Check for errors
-              if (!empty($file_info['error'])) {
-                echo '<div class="error-message">' . esc_html($file_info['error']) . '</div>';
-              } else {
-                // Update user meta with the attachment ID
-                update_user_meta($user_id, 'profile_picture', $file_info['url']);
-              }
-            }
-        
-            // Update user information
-            update_user_meta($user_id, 'first_name', sanitize_text_field($_POST['first_name_pr']));
-            update_user_meta($user_id, 'last_name', sanitize_text_field($_POST['last_name_pr']));
-            update_user_meta($user_id, 'phone_number', sanitize_text_field($_POST['phone_pr']));
-            update_user_meta($user_id, 'user_url', esc_url_raw($_POST['user_website_pr']));
-            update_user_meta($user_id, 'user_address', sanitize_text_field($_POST['user_address_pr']));
-            update_user_meta($user_id, 'description', wp_kses_post($_POST['user_bio_pr']));
-            // Assuming bio is stored as description
-        
-            // Update user password if provided
-            if (!empty($_POST['new_pass_pr']) && !empty($_POST['confirm_pass_pr']) && $_POST['new_pass_pr'] === $_POST['confirm_pass_pr']) {
-              wp_set_password($_POST['new_pass_pr'], $user_id);
-            }
-        
-            // Redirect or add a success message as needed
-            // header('Location: success-page-url'); // Redirect to a success page
-        
-            echo '<div class="success-message">Changes saved successfully!</div>';
-        
-          } else {
-            echo '<div class="error-message">Invalid nonce. Form submission failed.</div>';
-          }
+      if( isset( $_POST[ 'stm_user_save_changes'] ) && wp_verify_nonce( $_POST[ 'stm_user_prof_nonce' ], 'stm_user_prof' ) ){
+
+        $curernt_user = wp_get_current_user();
+        $user_id = get_current_user_id();
+        $phone_num = get_user_meta( $user_id, 'phone_number', true);
+        $website_url = get_the_author_meta( 'user_url', $user_id );
+        $author_bio = get_the_author_meta( 'description', $user_id );
+        $user_data = get_userdata( $user_id );
+
+        $first_name = isset( $_POST[ 'stm_first_name' ] ) ? sanitize_text_field( $_POST[ 'stm_first_name' ] ) : $curernt_user->first_name;
+
+        $last_name = isset( $_POST[ 'stm_last_name' ] ) ? sanitize_text_field( $_POST[ 'stm_last_name' ] ) : $curernt_user->last_name;
+
+        $phone = isset( $_POST[ 'stm_user_phone' ] ) ? sanitize_text_field( $_POST[ 'stm_user_phone' ] ) : $phone_num;
+
+        $website = isset( $_POST[ 'stm_website' ] ) ? sanitize_text_field( $_POST[ 'stm_website' ] ) : $website_url;
+
+        $address = isset( $_POST[ 'stm_user_address' ] ) ? sanitize_text_field( $_POST[ 'stm_user_address' ] ) : '';
+
+        $new_pass = isset( $_POST[ 'stm_user_new_pass' ] ) ? sanitize_text_field( $_POST[ 'stm_user_new_pass' ] ) : '';
+
+        $confirm_pass = isset( $_POST[ 'stm_user_con_pass' ] ) ? sanitize_text_field( $_POST[ 'stm_user_con_pass' ] ) : '';
+
+        $author_description = isset( $_POST[ 'stm_user_bio' ] ) ? sanitize_textarea_field( $_POST[ 'stm_user_bio' ] ) : $author_bio;
+
+        $user_data->first_name = $first_name;
+        $user_data->last_name = $last_name;
+        $user_data->user_url = $website;
+        $user_data->description = $author_description;
+         
+        wp_update_user( $user_data );
+        update_user_meta($user_id, 'phone_number', $phone);
+
+        if( ! empty( $new_pass ) && ! empty( $confirm_pass ) && $new_pass === $confirm_pass ) {
+
+          wp_set_password( $new_pass, $user_id );
         }
+
+
+
+
+      }
         
     }
 
