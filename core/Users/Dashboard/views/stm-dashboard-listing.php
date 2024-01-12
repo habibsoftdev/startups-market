@@ -1,5 +1,5 @@
 <?php 
-
+    use Startups\Market\Stm_Utils;
     $args = array(
         'author' => get_current_user_id(),
         'post_type' => 'business',
@@ -75,7 +75,7 @@
                 if( $seller_query->have_posts()):
                     while( $seller_query->have_posts()):
                         $seller_query->the_post();
-
+                        $id = get_the_ID();
                         $post_status = get_post_status();
                         $date = get_the_date();
                         $featured_image = get_the_post_thumbnail_url( get_the_ID(), 'thumbnail');
@@ -92,10 +92,10 @@
                 <td colspan="1" class="my-listing-table-content col-1 mb-4"> 
                     <span class="<?php echo ($post_status === 'pending') ? 'pending-content' : 'published-content'; ?> fw-semibold"><?php echo esc_html( $post_status ); ?></span> </td>
                 <td colspan="1" class="my-listing-table-content col-1">
-                    <div class="my-listing-edit"><a class="text-decoration-none text-black fw-semibold" href="">
+                    <div class="my-listing-edit"><a class="text-decoration-none text-black fw-semibold" href="<?php echo Stm_Utils::edit_link( $id ); ?>">
                         <img class="edit-icon me-2" src="<?php echo STM_ASSETS ?>/dashboard/edit-icon.png" alt="">Edit</a> 
-                <a href="#"  data-list-id="<?php the_ID(); ?>">
-                    <p class="delete-list">Delete</p>
+                <a href="#" class="text-decoration-none" >
+                    <p class="delete-list" data-list-id="<?php the_ID(); ?>" >Delete</p>
                 </a> 
             </div>
         </td>

@@ -1,3 +1,28 @@
+<?php 
+ 
+ $listing_id = isset( $_GET[ 'listing_id' ] ) ? intval( $_GET[ 'listing_id' ] ) : 0;
+ $mode = isset( $_GET[ 'action' ] ) ? $_GET[ 'action'] : '';
+
+ $is_edit_mode = $listing_id > 0;
+
+ if( $is_edit_mode && $mode === 'edit' ){
+    $post_title = get_the_title( $listing_id );
+    $content = get_post_field( 'post_content', $listing_id );
+    $arr = get_post_meta( $listing_id, 'stm_arr', true );
+    $hrr = get_post_meta( $listing_id, 'stm_sarr', true );
+    $launched_date = get_post_meta( $listing_id, 'stm_launched', true );
+    $deliver = get_post_meta( $listing_id, 'deliveryable_text', true );
+    $web = get_post_meta( $listing_id, 'stm_website', true );
+    $tag = get_post_meta( $listing_id, 'stm_tagline', true );
+    $price = get_post_meta( $listing_id, 'stm_price', true );
+    $video_url = get_post_meta( $listing_id, 'stm_videourl', true );
+    $img_id = get_post_meta( $listing_id, 'stm_images_id', true );
+    $img_url = get_post_meta( $listing_id, 'stm_images_url', true );
+    
+ }
+
+?>
+
 <section>
         <form method="post" action="" enctype="multipart/form-data" class="form-container">
 
@@ -10,12 +35,12 @@
                     <div class="px-4">
                         <p class="fw-semibold mb-2"><?php esc_html_e( 'Title:', 'startups-market'); ?> <span class="text-danger">*</span></p>
                         <?php wp_nonce_field( 'stm_add_list', 'stm_add_list_nonce'); ?>
-                        <input type="text" class="form-input-field w-100 mb-4" name="stm_list_title">
+                        <input type="text" class="form-input-field w-100 mb-4 py-2" name="stm_list_title" value="<?php esc_attr_e( $post_title ); ?>" >
                     </div>
                     <div class="px-4">
                         <p class="fw-semibold mb-2"><?php esc_html_e( 'Description:', 'startups-market'); ?></p>
                         <?php
-                            $content = ''; // You can set a default value if needed
+                            $editor_content = isset($content) ? $content : ''; // You can set a default value if needed
                             $editor_id = 'description_editor';
 
                             // Arguments for the wp_editor function
@@ -26,10 +51,11 @@
                                 'tinymce' => array(
                                     'resize' => false,
                                     ),
+                                'value' => $content,
                             );
 
                             // Display the WordPress editor
-                            wp_editor($content, $editor_id, $settings);
+                            wp_editor($editor_content, $editor_id, $settings);
                             ?>
                     </div>
                 </section>
@@ -43,25 +69,25 @@
                     </div>
                     <div class="px-4">
                         <p class="fw-semibold mb-2"><?php esc_html_e( 'Annual Recurring Revenue', 'startups-market'); ?></p>
-                        <input type="number" class="form-input-field w-100 mb-4" name="stm_list_arr">
+                        <input type="number" class="form-input-field w-100 mb-4 py-2" name="stm_list_arr" value="<?php esc_attr_e( $arr ); ?>" >
                     </div>
                     <div class="px-4">
                         <p class="fw-semibold mb-2"><?php esc_html_e( 'Last 6 month Revenue', 'startups-market'); ?></p>
-                        <input type="number" class="form-input-field w-100 mb-4"
-                            placeholder="Last 6 month Revenue $5000" name="stm_list_hrr">
+                        <input type="number" class="form-input-field w-100 mb-4 py-2"
+                            placeholder="Last 6 month Revenue $5000" name="stm_list_hrr" value="<?php esc_attr_e( $hrr ); ?>" >
                     </div>
                     <div class="px-4">
                         <p class="fw-semibold mb-2"><?php esc_html_e( 'Launched:', 'startups-market'); ?></p>
-                        <input type="date" class="form-input-field w-100 mb-4" name="stm_list_launched">
+                        <input type="date" class="form-input-field w-100 mb-4 py-2" name="stm_list_launched" value="<?php esc_attr_e( $launched_date ); ?>" >
                     </div>
                     <div class="px-4">
                         <p class="fw-semibold mb-2"><?php esc_html_e( 'Deliveryable Assets:', 'startups-market'); ?></p>
-                        <input type="text" class="form-input-field w-100 mb-4"
-                            placeholder="example: domain, websites, etc" name="stm_list_asset">
+                        <input type="text" class="form-input-field w-100 mb-4 py-2"
+                            placeholder="example: domain, websites, etc" name="stm_list_asset" value="<?php esc_attr_e( $deliver ); ?>" >
                     </div>
                     <div class="px-4">
                         <p class="fw-semibold mb-2"><?php esc_html_e( 'Website:', 'startups-market'); ?></p>
-                        <input type="url" class="form-input-field w-100 mb-4" placeholder="www.example.com" name="stm_list_website">
+                        <input type="text" class="form-input-field w-100 mb-4 py-2" placeholder="www.example.com" name="stm_list_website" value="<?php esc_attr_e( $web ); ?>" >
                     </div>
 
                 </section>
@@ -75,13 +101,13 @@
                     </div>
                     <div class="px-4">
                         <p class="fw-semibold mb-2"><?php esc_html_e( 'Tagline:', 'startups-market'); ?></p>
-                        <input type="text" class="form-input-field w-100 mb-4" name="stm_list_tagline">
+                        <input type="text" class="form-input-field w-100 mb-4 py-2" name="stm_list_tagline" value="<?php esc_attr_e( $tag ); ?>" >
                     </div>
                     <div class="px-4">
                         <p class="fw-semibold mb-2"><?php esc_html_e( 'Asking Price:', 'startups-market'); ?></p>
                         <p class="text-secondary"><?php esc_html_e( 'Price [USD]', 'startups-market'); ?></p>
                         <input type="number" class="form-input-field w-100 mb-4 py-2"
-                            placeholder="Price of this listing. Eg. 100" name="stm_list_price">
+                            placeholder="Price of this listing. Eg. 100" name="stm_list_price" value="<?php esc_attr_e( $price ); ?>" >
                     </div>
 
                 </section>
@@ -91,7 +117,7 @@
                <div class="smt-container-img-video border border-1">
                 <section>
                     <div class="border-bottom mb-4">
-                        <p class="img-video-section-header fw-semibold ps-4"><?php esc_html_e( 'Image & Video', 'startups-market'); ?></p>
+                        <p class="img-video-section-header fw-semibold ps-4 py-2"><?php esc_html_e( 'Image & Video', 'startups-market'); ?></p>
                     </div>
 
                     <!-- thumbnail -->
@@ -99,7 +125,6 @@
                         <!--  -->
                             <!-- file image container -->
                            <div class="img-file-preview-container container-fluid">
-                            <img class="img-fluid" src="<?php STM_ASSETS.'/images/upload.png'; ?>" alt="">
                             <!-- <img class="img-fluid" src="images/file-img (2).jpg" alt="">
                             <img class="img-fluid" src="images/file-img (3).jpg" alt="">
                             <img class="img-fluid" src="images/file-img (4).jpg" alt="">
@@ -109,8 +134,8 @@
 
                         <!-- file input -->
                         <div class="d-flex justify-content-center mt-4">
-                            <input type="hidden" name="stm_list_img_id" value="">
-                            <input type="hidden" name="stm_list_img_url" value="">
+                            <input type="hidden" name="stm_list_img_id" id="stm_list_img_id" value="<?php esc_attr_e( $img_id ); ?>">
+                            <input type="hidden" name="stm_list_img_url" id="stm_list_img_url" value="<?php esc_attr_e( $img_url ); ?>">
                             <input type="file" id="list_thumbnail_url" name="list_thumbnail_url[]" multiple >
                         </div>
                     </div>
@@ -118,16 +143,17 @@
                     <div class="px-4">
                         <p class="fw-semibold mb-2"><?php esc_html_e( 'Video:', 'startups-market'); ?></p>
                         <input type="url" class="form-input-field w-100 mb-4 py-2"
-                            placeholder="Only YouTube & Video URLs." name="stm_list_video">
+                            placeholder="Only YouTube & Video URLs." name="stm_list_video" value="<?php esc_attr_e( $video_url ); ?>" >
                     </div>
                 </section>
             
             </div>
-
+                <?php $submit = $is_edit_mode ? __('Save Changes', 'startups-market') : __('Submit Listing', 'startups-market'); ?>
             <div class="d-flex justify-content-center">
-                <button class="form-submit-btn" type="submit" name="stm_list_submit"><?php esc_html_e( 'Submit', 'startups-market'); ?></button>
+                <button class="form-submit-btn" type="submit" name="stm_list_submit"><?php esc_html_e( $submit ); ?></button>
             </div>
 
         </form>
 
 </section>
+

@@ -12,49 +12,118 @@ class ListingHandle {
     public function handleListingForm() {
         if (isset($_POST['stm_list_submit']) && wp_verify_nonce($_POST['stm_add_list_nonce'], 'stm_add_list')) {
             $title = isset($_POST['stm_list_title']) ? sanitize_text_field($_POST['stm_list_title']) : '';
+            $edit_mode_id = isset($_GET[ 'listing_id' ] ) ? intval( $_GET[ 'listing_id' ] ) : 0;
 
-            $new_post = array(
-                'post_title'   => $title,
-                'post_content' => wp_kses_post($_POST['stm_list_content']),
-                'post_status'  => 'pending',
-                'post_type'    => 'business',
-            );
+            if( $edit_mode_id && isset( $_GET[ 'action' ] ) ){
+                $status = get_post_status( $edit_mode_id );
+                $existing_post = [
+                    'post_title' => $title,
+                    'post_content' => wp_kses_post($_POST['stm_list_content']),
+                    'post_status'  => $status,
+                    'post_type'    => 'business',
+                ];
+                wp_update_post( $existing_post );
 
-            $new_post_id = wp_insert_post($new_post);
-
-            if (!is_wp_error($new_post_id)) {
-                if (!empty($_FILES['list_thumbnail_url']['tmp_name'])) {
-                    $file_handler = isset($_FILES['list_thumbnail_url']) ? $_FILES['list_thumbnail_url'] : [];
-                    $attachment_ids = $this->handleImageUpload($file_handler, $new_post_id);
-
-                    if (!empty($attachment_ids)) {
-                        update_post_meta($new_post_id, 'stm_images_id', implode(';', $attachment_ids));
-                        set_post_thumbnail($new_post_id, $attachment_ids[0]);
-
-                        $attachment_urls = array_map('wp_get_attachment_url', $attachment_ids);
-                        update_post_meta($new_post_id, 'stm_images_url', implode(';', $attachment_urls));
-                        
+                if (!is_wp_error($edit_mode_id)) {
+                    if (!empty($_FILES['list_thumbnail_url']['tmp_name'])) {
+                        $file_handler = isset($_FILES['list_thumbnail_url']) ? $_FILES['list_thumbnail_url'] : [];
+                        $attachment_ids = $this->handleImageUpload($file_handler, $edit_mode_id);
+    
+                        if (!empty($attachment_ids)) {
+                            update_post_meta($edit_mode_id, 'stm_images_id', implode(';', $attachment_ids));
+                            set_post_thumbnail($edit_mode_id, $attachment_ids[0]);
+    
+                            $attachment_urls = array_map('wp_get_attachment_url', $attachment_ids);
+                            update_post_meta($edit_mode_id, 'stm_images_url', implode(';', $attachment_urls));
+                            
+                        }
                     }
                 }
+
+                $existing_image_ids = get_post_meta($edit_mode_id, 'stm_images_id', true);
+
+                // Handle image removal
+                if (!empty($attachment_ids)) {
+                    update_post_meta($edit_mode_id, 'stm_images_id', implode(';', $attachment_ids));
+                    set_post_thumbnail($edit_mode_id, $attachment_ids[0]);
+                
+                    $attachment_urls = array_map(function ($attachment_id) {
+                        $image_data = wp_get_attachment_image_src($attachment_id, 'full');
+                        return isset($image_data[0]) ? $image_data[0] : '';
+                    }, $attachment_ids);
+                
+                    update_post_meta($edit_mode_id, 'stm_images_url', implode(';', $attachment_urls));
+                }
+    
+                $stm_list_arr = isset($_POST['stm_list_arr']) ? sanitize_text_field($_POST['stm_list_arr']) : '';
+                $stm_list_hrr = isset($_POST['stm_list_hrr']) ? sanitize_text_field($_POST['stm_list_hrr']) : '';
+                $stm_list_launched = isset($_POST['stm_list_launched']) ? sanitize_text_field($_POST['stm_list_launched']) : '';
+                $stm_list_asset = isset($_POST['stm_list_asset']) ? sanitize_text_field($_POST['stm_list_asset']) : '';
+                $stm_list_website = isset($_POST['stm_list_website']) ? sanitize_text_field($_POST['stm_list_website']) : '';
+                $stm_list_tagline = isset($_POST['stm_list_tagline']) ? sanitize_text_field($_POST['stm_list_tagline']) : '';
+                $stm_list_price = isset($_POST['stm_list_price']) ? sanitize_text_field($_POST['stm_list_price']) : '';
+                $stm_list_video = isset($_POST['stm_list_video']) ? sanitize_text_field($_POST['stm_list_video']) : '';
+    
+                update_post_meta($edit_mode_id, 'stm_arr', $stm_list_arr);
+                update_post_meta($edit_mode_id, 'stm_sarr', $stm_list_hrr);
+                update_post_meta($edit_mode_id, 'stm_launched', $stm_list_launched);
+                update_post_meta($edit_mode_id, 'deliveryable_text', $stm_list_asset);
+                update_post_meta($edit_mode_id, 'stm_website', $stm_list_website);
+                update_post_meta($edit_mode_id, 'stm_tagline', $stm_list_tagline);
+                update_post_meta($edit_mode_id, 'stm_price', $stm_list_price);
+                update_post_meta($edit_mode_id, 'stm_videourl', $stm_list_video);
+    
+                wp_redirect( get_permalink( get_page_by_path( 'stm-dashboard' ) ) );
+                exit;
+            }else{
+                $new_post = array(
+                    'post_title'   => $title,
+                    'post_content' => wp_kses_post($_POST['stm_list_content']),
+                    'post_status'  => 'pending',
+                    'post_type'    => 'business',
+                );
+                $new_post_id = wp_insert_post($new_post);
+
+                if (!is_wp_error($new_post_id)) {
+                    if (!empty($_FILES['list_thumbnail_url']['tmp_name'])) {
+                        $file_handler = isset($_FILES['list_thumbnail_url']) ? $_FILES['list_thumbnail_url'] : [];
+                        $attachment_ids = $this->handleImageUpload($file_handler, $new_post_id);
+    
+                        if (!empty($attachment_ids)) {
+                            update_post_meta($new_post_id, 'stm_images_id', implode(';', $attachment_ids));
+                            set_post_thumbnail($new_post_id, $attachment_ids[0]);
+    
+                            $attachment_urls = array_map('wp_get_attachment_url', $attachment_ids);
+                            update_post_meta($new_post_id, 'stm_images_url', implode(';', $attachment_urls));
+                            
+                        }
+                    }
+                }
+    
+                $stm_list_arr = isset($_POST['stm_list_arr']) ? sanitize_text_field($_POST['stm_list_arr']) : '';
+                $stm_list_hrr = isset($_POST['stm_list_hrr']) ? sanitize_text_field($_POST['stm_list_hrr']) : '';
+                $stm_list_launched = isset($_POST['stm_list_launched']) ? sanitize_text_field($_POST['stm_list_launched']) : '';
+                $stm_list_asset = isset($_POST['stm_list_asset']) ? sanitize_text_field($_POST['stm_list_asset']) : '';
+                $stm_list_website = isset($_POST['stm_list_website']) ? sanitize_text_field($_POST['stm_list_website']) : '';
+                $stm_list_tagline = isset($_POST['stm_list_tagline']) ? sanitize_text_field($_POST['stm_list_tagline']) : '';
+                $stm_list_price = isset($_POST['stm_list_price']) ? sanitize_text_field($_POST['stm_list_price']) : '';
+                $stm_list_video = isset($_POST['stm_list_video']) ? sanitize_text_field($_POST['stm_list_video']) : '';
+    
+                update_post_meta($new_post_id, 'stm_arr', $stm_list_arr);
+                update_post_meta($new_post_id, 'stm_sarr', $stm_list_hrr);
+                update_post_meta($new_post_id, 'stm_launched', $stm_list_launched);
+                update_post_meta($new_post_id, 'deliveryable_text', $stm_list_asset);
+                update_post_meta($new_post_id, 'stm_website', $stm_list_website);
+                update_post_meta($new_post_id, 'stm_tagline', $stm_list_tagline);
+                update_post_meta($new_post_id, 'stm_price', $stm_list_price);
+                update_post_meta($new_post_id, 'stm_videourl', $stm_list_video);
+    
+                wp_redirect( get_permalink( get_page_by_path( 'stm-dashboard' ) ) );
+                exit;
             }
+            
 
-            $stm_list_arr = isset($_POST['stm_list_arr']) ? sanitize_text_field($_POST['stm_list_arr']) : '';
-            $stm_list_hrr = isset($_POST['stm_list_hrr']) ? sanitize_text_field($_POST['stm_list_hrr']) : '';
-            $stm_list_launched = isset($_POST['stm_list_launched']) ? sanitize_text_field($_POST['stm_list_launched']) : '';
-            $stm_list_asset = isset($_POST['stm_list_asset']) ? sanitize_text_field($_POST['stm_list_asset']) : '';
-            $stm_list_website = isset($_POST['stm_list_website']) ? sanitize_text_field($_POST['stm_list_website']) : '';
-            $stm_list_tagline = isset($_POST['stm_list_tagline']) ? sanitize_text_field($_POST['stm_list_tagline']) : '';
-            $stm_list_price = isset($_POST['stm_list_price']) ? sanitize_text_field($_POST['stm_list_price']) : '';
-            $stm_list_video = isset($_POST['stm_list_video']) ? sanitize_text_field($_POST['stm_list_video']) : '';
-
-            update_post_meta($new_post_id, 'stm_arr', $stm_list_arr);
-            update_post_meta($new_post_id, 'stm_sarr', $stm_list_hrr);
-            update_post_meta($new_post_id, 'stm_launched', $stm_list_launched);
-            update_post_meta($new_post_id, 'deliveryable_text', $stm_list_asset);
-            update_post_meta($new_post_id, 'stm_website', $stm_list_website);
-            update_post_meta($new_post_id, 'stm_tagline', $stm_list_tagline);
-            update_post_meta($new_post_id, 'stm_price', $stm_list_price);
-            update_post_meta($new_post_id, 'stm_videourl', $stm_list_video);
+           
         }
     }
 

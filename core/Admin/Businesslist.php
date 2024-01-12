@@ -28,6 +28,8 @@ class Businesslist{
             'not_found'          => __( 'No businesses found.', 'startups-market' ),
             'not_found_in_trash' => __( 'No businesses found in Trash.', 'startups-market' ),
         );
+
+
     
         $args = array(
             'labels'             => $labels,

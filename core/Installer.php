@@ -22,6 +22,7 @@ class Installer{
         new Metabox\Metabox();
         new Users\AddListing\AddListing();
         new Users\AddListing\ListingHandle();
+        new RewriteRule();
 
 
 

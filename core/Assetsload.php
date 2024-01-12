@@ -28,7 +28,7 @@ class Assetsload{
         wp_enqueue_script( 'stm-bootstrap-js', '//cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js', array(), time(), true);
         wp_enqueue_script('stm-profile', STM_ASSETS. '/frontend/js/profile.js', array('jquery'), time(), true );
         wp_enqueue_script('stm-delete', STM_ASSETS. '/frontend/js/delete.js', array('jquery'), time(), true );
-        
+        wp_enqueue_script('stm-retriveImage', STM_ASSETS. '/frontend/js/retriveImage.js', array('jquery'), time(), true );
 
         wp_register_script('stm-login-handle', STM_ASSETS. '/frontend/js/login.js', array('jquery'), true );
        

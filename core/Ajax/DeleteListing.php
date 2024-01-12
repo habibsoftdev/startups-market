@@ -18,7 +18,8 @@ class DeleteListing {
 
         $listing_id = isset($_POST['listing_id']) ? intval($_POST['listing_id']) : 0;
 
-        if (! current_user_can('delete_post', $listing_id)) {
+        if (! current_user_can('delete_posts', $listing_id)) {
+            error_log('User does not have permission to delete listing: ' . $listing_id);
             wp_send_json([
                 'success' => false,
                 'message' => __('You do not have permission to delete this listing.', 'startups-market'),

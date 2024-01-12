@@ -57,8 +57,12 @@ class CreatePages{
             [
                 'title' => 'STM Dashboard',
                 'content' => '[stm_user_dashboard]',
+            ],
+            [
+                'title' => 'Stm Add Listing',
+                'content' => '[stm_add_listing]',
             ]
-        ];
+         ];
 
         foreach( $pages as $page ){
             $page_title = $page[ 'title' ];
