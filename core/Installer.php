@@ -18,7 +18,6 @@ class Installer{
         new Users\Registration();
         new Users\Login();
         new Users\Dashboard\Dashboard();
-       // new Users\Dashboard\DashboardData();
         new Admin\Businesslist();
         new Metabox\Metabox();
         new Users\AddListing\AddListing();
@@ -29,6 +28,7 @@ class Installer{
         if( defined('DOING_AJAX') && DOING_AJAX ){
             new Ajax\Loginhandler();
             new Ajax\Dashboardprofile();
+            new Ajax\DeleteListing();
         }
     }
 

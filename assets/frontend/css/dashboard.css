@@ -1,259 +1,348 @@
 .main-container {
-  margin: 80px 60px;
+    margin: 80px 60px !important;
 }
 
 /* side nav style */
 .navbar-container {
-  width: 300px !important;
-  height: 350px !important;
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+    width: 250px !important;
+    height: 350px !important;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+    z-index: 100;
 }
 
-.nav-lists {
-  margin: 0 auto !important;
+.navbar-nav-side {
+    margin: 1px 10px !important;
 }
 
 .nav-lists li {
-  list-style: none;
-  width: 100%;
-  padding: 10px 10px;
+    list-style: none;
+    padding: 10px 10px;
 }
 
 .nav-lists li:hover {
-  background-color: rgb(190, 190, 190);
-  cursor: pointer;
-  transition: all 1s ease;
-  border-radius: 4px;
+    background-color: rgb(190, 190, 190);
+    cursor: pointer;
+    transition: all 1s ease;
+    border-radius: 4px;
 }
 
-.nav-lists li a:hover {
-  color: white;
-  transition: all 1s ease;
+.nav-lists li:hover a {
+    color: white;
+    transition: all 1s ease;
 }
 
 .nav-lists li a {
-  text-decoration: none;
-  color: gray;
-  width: 100%;
-  font-weight: 600;
+    text-decoration: none;
+    color: gray;
+    width: 100%;
+    font-weight: 600;
 }
 
+.nav-btn {
+    outline: none !important;
+    box-shadow: none !important;
+    cursor: pointer;
+}
+
+
 /* side nav button */
-.listing-submit-btn {
-  border: 2px solid rgb(118, 117, 117);
-  color: white;
-  background-color: rgb(118, 117, 117);
-  border-radius: 4px;
-  font-weight: 500;
+/* old button styles remove */
+/* .listing-submit-btn {
+    border: 2px solid rgb(118, 117, 117);
+    color: white;
+    background-color: rgb(118, 117, 117);
+    border-radius: 4px;
+    font-weight: 500;
+    padding: 2px auto !important;
 }
 
 .listing-submit-btn:hover {
-  border: 2px solid rgb(118, 117, 117);
-  color: rgb(118, 117, 117);
-  background-color: transparent;
-  transition: all 1s ease;
+    border: 2px solid rgb(118, 117, 117);
+    color: rgb(118, 117, 117);
+    background-color: transparent;
+    transition: all 1s ease;
 }
 
 .dashboard-log-out-btn {
-  border: 2px solid rgb(190, 67, 47);
-  color: rgb(190, 67, 47);
-  font-weight: 600;
-  border-radius: 4px;
-  background-color: transparent;
+    border: 2px solid rgb(190, 67, 47);
+    color: rgb(190, 67, 47);
+    font-weight: 600;
+    border-radius: 4px;
+    background-color: transparent;
 }
 
 .dashboard-log-out-btn:hover {
-  border: 2px solid rgb(190, 67, 47);
-  color: white;
-  background-color: rgb(190, 67, 47);
-  transition: all 1s ease;
+    border: 2px solid rgb(190, 67, 47);
+    color: white;
+    background-color: rgb(190, 67, 47);
+    transition: all 1s ease;
+} */
+
+
+/* new anchor button style here */
+.listing-submit-btn {
+    text-decoration: none;
+    background-color: gray;
+    border: 2px solid gray;
+    color: white;
+    border-radius: 4px;
+    padding: 4px 8px;
+    text-align: center !important;
+    font-weight: 500;
 }
+
+.listing-submit-btn:hover {
+    background-color: transparent !important;
+    color: gray;
+    transition: all 1s ease;
+}
+
+.dashboard-log-out-btn {
+    border: 2px solid rgb(190, 67, 47);
+    color: rgb(190, 67, 47);
+    font-weight: 600 !important;
+    border-radius: 4px;
+    background-color: transparent;
+    padding: 4px 8px;
+    text-align: center;
+    text-decoration: none;
+}
+
+.dashboard-log-out-btn:hover {
+    border: 2px solid rgb(190, 67, 47);
+    color: white;
+    background-color: rgb(190, 67, 47);
+    transition: all 1s ease;
+}
+
 
 /* side navbar active route */
 
-.active-route a{
-  color: black !important;
+.active-route a {
+    color: black !important;
 }
 
 /* side nav page */
-#my-listing-page{
-  display: block;
+#my-listing-page {
+    display: block;
 }
+
 #my-profile-page,
 #my-favorite-page,
 #my-announcement-page {
-  display: none;
+    display: none;
 }
 
 
 /* My Listing */
-.search-listing-input {
-  background-color: rgba(232, 232, 232, 0.855) !important;
-  border: none !important;
-  padding: 1px 50px;
+.my-listing-menubar {
+    display: flex !important;
+    justify-content: space-between !important;
 }
 
+.search-listing-input {
+    background-color: rgba(232, 232, 232, 0.855) !important;
+    border: none !important;
+    padding: 1px 50px;
+}
+
+
+
 input[type=search] {
-  box-sizing: border-box !important;
-  border: 3px solid transparent !important;
-  outline: none !important;
+    box-sizing: border-box !important;
+    border: 3px solid transparent !important;
+    outline: none !important;
 }
 
 input[type=search]:focus {
-  border: 3px solid transparent !important;
+    border: 3px solid transparent !important;
 }
 
 .smt-nav-listing li a {
-  font-weight: 500;
-  padding: 15px !important;
-  font-size: 16px;
+    font-weight: 500;
+    padding: 15px !important;
+    font-size: 16px;
 }
 
 .smt-nav-listing li a:hover {
-  text-decoration: underline;
-  text-underline-offset: 27px;
-  text-decoration-thickness: 2px;
-  transition: all 1s ease;
+    text-decoration: underline;
+    text-underline-offset: 27px;
+    text-decoration-thickness: 2px;
+    transition: all 1s ease;
 }
 
 .active {
-  text-decoration: underline !important;
-  text-underline-offset: 27px !important;
-  text-decoration-thickness: 2px !important;
+    text-decoration: underline !important;
+    text-underline-offset: 27px !important;
+    text-decoration-thickness: 2px !important;
 }
 
 .publish,
 .pending,
 .expired {
-  display: none;
+    display: none;
 }
 
 
 .table-head-content th {
-  font-size: 14px !important;
-  color: rgb(118, 117, 117) !important;
+    font-size: 14px !important;
+    color: rgb(118, 117, 117) !important;
 
 }
 
-th{
-  font-size: 16px !important;
+th {
+    font-size: 16px !important;
 }
 
 .my-listing-table-content {
-  padding-top: 30px !important;
-  padding-left: 20px !important;
-  font-size: 15px;
-  color: rgb(97, 97, 97) !important;
+    padding-top: 30px !important;
+    padding-left: 20px !important;
+    font-size: 15px;
+    color: rgb(97, 97, 97) !important;
 }
 
 .my-listing-table-third-row {
-  height: 70px;
-  width: 100%;
-  border-bottom: none;
+    height: 70px;
+    width: 100%;
+    border-bottom: none;
 }
 
-.listing-table-img{
-  width: 70px;
-  height: 30px;
-  padding-right:10px;
+.listing-table-img {
+    width: 60px;
+    height: 60px;
+    padding-right: 10px;
 }
 
-.table-data-content td{
-  padding-left: 0 !important;
+.table-data-content td {
+    padding-left: 10 !important;
+    padding-right: 10px !important;
+    border-top: 1px solid rgba(195, 195, 195, 0.612);
 }
 
-.pending-content{
-  padding: 4px 4px;
-  background-color: rgba(255, 140, 0, 0.474);
-  margin-left: 6px;
-  border-radius: 4px;
-  color: orangered;
+.pending-content {
+    padding: 4px 4px;
+    background-color: rgba(255, 140, 0, 0.474);
+    margin-left: 6px;
+    border-radius: 4px;
+    color: orangered;
 }
 
-.edit-icon{
-  width: 20px;
-  height: 20px;
+.edit-icon {
+    width: 20px;
+    height: 20px;
 }
 
-.my-listing-edit{
-  float: right;
-  padding-right: 20px !important;
-  display: flex;
-  margin-top: 8px;
+.my-listing-edit {
+    float: right;
+    padding-right: 20px !important;
+    display: flex;
+    margin-top: 8px;
 }
 
-.delete-list{
-  padding: 4px 10px;
-  background-color: rgba(238, 65, 22, 0.865);
-border-radius: 4px;
-  margin-left: 15px;
-  color: white;
+.delete-list {
+    padding: 4px 10px;
+    background-color: rgba(238, 65, 22, 0.865);
+    border-radius: 4px;
+    margin-left: 15px;
+    color: white;
 }
 
 
 /* My Profile */
 .smt-main-section {
-  margin-left: 24px !important;
+    margin-left: 24px !important;
+}
+
+.full-form-container {
+    width: 100% !important;
+    padding: 0 20px !important;
+    display: flex;
+}
+
+.input-container {
+    width: 70% !important;
+}
+
+
+.select-photo {
+    margin-top: 150px;
+    padding-top: 70px;
+    margin-left: 20px !important;
+    margin-right: 40px !important;
+    width: 300px !important;
+    height: 300px;
+    background-color: rgba(207, 207, 207, 0.775);
+    border-radius: 10px;
 }
 
 .smt-my-profile-area {
-  margin-left: 14px;
-  margin-right: 14px;
+    margin-left: 14px;
+    margin-right: 14px;
 }
 
 .form-box {
-  padding-left: 0 !important;
-  padding-right: 0 !important;
-  margin-left: 0;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    margin-left: 0;
 }
 
 .social-profile-header {
-  font-size: 18px;
+    font-size: 18px;
 }
 
 .form-dashboard-button {
-  border: 2px solid rgb(94, 94, 94);
-  background-color: rgb(94, 94, 94);
-  border-radius: 4px;
-  color: white;
-  width: 100%;
-  font-size: 16px;
+    border: 2px solid rgb(94, 94, 94);
+    background-color: rgb(94, 94, 94);
+    border-radius: 4px;
+    color: white;
+    font-size: 16px;
+    width: 50%;
+    margin-left: 25%;
+    margin-right: 25%;
 }
 
 .form-dashboard-button:hover {
-  border: 2px solid rgb(186, 186, 186);
-  background-color: rgb(186, 186, 186);
-  color: black;
-  transition: background 1s ease;
-}
-
-.select-photo {
-  padding-top: 60px;
+    border: 2px solid rgb(186, 186, 186);
+    background-color: rgb(186, 186, 186);
+    color: black;
+    transition: background 1s ease;
 }
 
 .user-image {
-  width: 100px;
-  height: 100px;
+    width: 100px;
+    height: 100px;
 }
 
 /* favorite list style */
 
-.favorite-list-content {
-  padding: 30px 20px;
-  color: rgb(152, 151, 151);
-  font-size: 15px;
+.favorite-list-content, .announcement-list-content {
+    padding: 30px 20px;
+    color: rgb(152, 151, 151);
+    font-size: 15px;
 }
 
 /* announcement page */
 
 .smt-my-announcement {
-  padding: 30px 20px;
-  color: rgb(152, 151, 151);
-  font-size: 15px;
+    padding: 0 20px;
+    color: rgb(152, 151, 151);
+    font-size: 15px;
 }
 
-
 /* responsive style */
+
+@media only screen and (max-width: 1300px) {
+  .select-photo {
+      margin-top: 150px;
+      padding-top: 70px;
+      margin-left: 20px !important;
+      margin-right: 20px !important;
+      width: 240px !important;
+      height: 240px;
+      background-color: rgba(207, 207, 207, 0.775);
+      border-radius: 10px;
+  }
+}
 
 @media only screen and (max-width: 1080px) {
   .smt-nav-listing li a {
@@ -261,20 +350,77 @@ border-radius: 4px;
       padding: 15px !important;
       font-size: 12px !important;
   }
+
   .search-listing-input {
 
       padding: 1px 35px;
   }
+
   .table-head-content th {
       font-size: 13px !important;
   }
 
-  .table-data-content td{
-      font-size: 12px;
+  .table-data-content td {
+      font-size: 14px;
   }
+
+  .full-form-container {
+      width: 100% !important;
+      padding: 0 0 !important;
+      display: flex;
+      flex-direction: column-reverse;
+  }
+
+  .input-container {
+      width: 100% !important;
+  }
+
+
+  .select-photo {
+      margin: 30px auto !important;
+      padding-top: 70px;
+  }
+
+
+  .favorite-list-content, .announcement-list-content{
+      width: 92%;
+      position: absolute;
+      top: 80px;
+      left: 0;
+      right: 0;
+      margin: 10px auto !important;
+  }
+
 }
 
 @media only screen and (max-width: 988px) {
+  .smt-nav-listing li a:hover {
+      text-decoration: underline;
+      text-underline-offset: 15px;
+      text-decoration-thickness: 1px;
+      transition: all 1s ease;
+  }
+  
+  .active {
+      text-decoration: underline !important;
+      text-underline-offset: 15px !important;
+      text-decoration-thickness: 1px !important;
+  }
+
+  .my-listing-menubar {
+      display: flex !important;
+      flex-direction: column !important;
+      
+      width: 350px !important;
+      padding-bottom: 30px !important;
+  }
+
+  .smt-nav-listing{
+      display: flex;
+      flex-direction: column;
+      justify-content: left !important;
+
+  }
   .smt-my-profile {
       display: flex;
       flex-direction: column-reverse;
@@ -282,16 +428,20 @@ border-radius: 4px;
   }
 
   .select-photo {
-      margin-bottom: 20px;
+      padding-bottom: 70px !important;
+      margin: 30px auto !important;
+      width: 75% !important;
+  
   }
 
   .form-box {
-      width: 80% !important;
+      width: 90% !important;
       padding: 0;
   }
 
   .smt-main-section {
       margin-left: 0px !important;
+      width: 100% !important;
   }
 
   .smt-my-profile-area {
@@ -300,6 +450,9 @@ border-radius: 4px;
 
   .nav-lists li a {
       font-size: 12px;
+  }
+  .smt-main-section {
+      margin-left: 0px !important;
   }
 
   .navbar-container {
@@ -325,20 +478,50 @@ border-radius: 4px;
       color: rgb(1, 0, 0);
       width: 100%;
   }
-
   .side-nav-icon {
-      position: absolute;
-      top: 0;
-      left: 0;
+      width: 20px;
+      height: 20px;
+      position: absolute !important;
+      left: 20px;
+      top: -60px !important;
   }
 
+  .main-container {
+      margin: 80px 15px !important;
+  }
+
+  .navbar-container {
+      display: block !important;
+  }
+
+
   .table-head-content th {
-      font-size: 12px !important;
+      font-size: 14px !important;
+  }
+  .smt-nav-listing li a {
+      font-weight: 600 !important;
+      padding: 15px !important;
+      font-size: 13px !important;
   }
 
 }
 
-@media only screen and (max-width: 720px) and (min-width: 360px) {
+@media only screen and (max-width: 960px) and (min-width: 360px) {
+  .smt-nav-listing li a {
+      font-weight: 600 !important;
+      padding: 15px !important;
+      font-size: 13px !important;
+  }
+
+  .select-photo {
+      padding-bottom: 120px !important;
+      margin: 30px auto !important;
+      width: 250px !important;
+      height: 250px !important;
+      background-color: rgba(198, 198, 198, 0.586);
+      border-radius: 10px;
+  }
+
   .form-box {
       width: 95% !important;
       padding: 0;
@@ -356,11 +539,57 @@ border-radius: 4px;
       width: 20px;
       height: 20px;
       position: absolute !important;
-      left: 0;
-      top: 0 !important;
+      left: 20px;
+      top: -60px !important;
   }
 
   .main-container {
-      margin: 80px 20px;
+      margin: 80px 15px !important;
   }
+
+  .navbar-container {
+      display: block !important;
+  }
+
+  .smt-my-announcement {
+      width: 100%;
+  }
+
+  .table-data-content td {
+      font-size: 12px !important;
+      padding: 10px;
+  }
+
+  .expired, .pending, .publish, .all-listing {
+      width: 800px !important;
+  }
+  .expired-container, .all-listing-container,.publish-container, .pending-container{
+      overflow-x: scroll !important;
+      scroll-behavior: smooth;
+  }
+
+  .my-listing-menubar {
+      padding-left: 20px !important;
+      display: flex !important;
+      justify-content: flex-start !important;
+      align-items: flex-start !important;
+  }
+
+}
+
+/* My css  */
+
+.published-content{
+  
+  padding: 5px 7px;
+  background-color: rgba(85, 195, 98, 0.407);
+  margin-left: 6px;
+  border-radius: 4px;
+  color: rgb(22, 101, 15);
+  text-transform: capitalize;
+}
+
+.stm_list-t{
+  font-weight: 500;
+  color:black;
 }

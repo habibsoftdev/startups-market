@@ -45,5 +45,21 @@ class Stm_Utils{
 
     }
 
+    public static function post_count($current_user_id){
+
+        $args = array(
+        'author'         => $current_user_id,
+        'post_type'      => 'business', // Change this to your custom post type if needed
+        'posts_per_page' => -1, // Retrieve all posts
+        'post_status'    => 'any',
+        );
+
+        $query = new \WP_Query($args);
+
+        $post_count = $query->post_count;
+
+        return $post_count;
+    }
+
 
 }

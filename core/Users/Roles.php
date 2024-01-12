@@ -29,7 +29,8 @@ namespace Startups\Market\Users;
             add_role( 'seller', __( 'Seller', 'startups-market' ), [
                 'read'               => false,
                 'upload_project'     => true,
-                'manage_own_project' => true, ]
+                'manage_own_project' => true,
+                'delete_posts'       => true, ]
             );
 
         }

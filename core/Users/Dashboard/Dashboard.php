@@ -26,7 +26,7 @@ class Dashboard{
     }
 
     public function user_dashboard(){
-
+        $current_user = get_current_user_id();
         ?>
 <main class="main-container d-flex">
 
@@ -37,8 +37,8 @@ class Dashboard{
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse navbar-list-container" id="navbarTogglerDemo01">
-        <ul class="container-fluid navbar-nav-side nav-lists  mb-2 mb-lg-0 d-flex flex-column">
-            <li onclick="clickMyListing()" class="nav-item active-route nav-links">
+        <ul class="container-fluid navbar-nav-side nav-lists  mb-2 mb-lg-0 d-flex flex-column text-start">
+            <li onclick="clickMyListing()" class="nav-item active-route nav-links ">
                 <a  class=" " aria-current="page"
                 href="#My_Listing"><span class="pe-2">
                     <!-- svg icon -->
@@ -49,7 +49,7 @@ class Dashboard{
                     <path
                     d="M5 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 5 8m0-2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5m0 5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5m-1-5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0M4 8a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0m0 2.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0" />
                 </svg>
-            </span>My Listing <span class="listing-count fw-semibold">(0)</span></a>
+            </span>My Listing <span class="listing-count fw-semibold">(<?php echo Stm_Utils::post_count($current_user); ?>)</span></a>
         </li>
         <li  onclick="clickMyProfile()" class="nav-item nav-links">
             <a class="" aria-current="page" href="/#My_Profile">
@@ -87,8 +87,8 @@ class Dashboard{
 </span>Announcements</a>
 </li>
 <div class="mt-4">
-<button class="listing-submit-btn w-100 mb-4 py-1" type="submit">Submit Listing</button>
-<button class="dashboard-log-out-btn w-100 mb-3 py-1" type="submit">Log Out</button>
+<a class="listing-submit-btn w-100 mb-4 py-1 d-block" href="">Submit Listing</a>
+<a class="dashboard-log-out-btn w-100 mb-3 py-1 d-block" href="">Log Out</a>
 </div>
 </ul>
 
