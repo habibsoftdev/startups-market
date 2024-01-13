@@ -19,6 +19,7 @@
     $img_id = get_post_meta( $listing_id, 'stm_images_id', true );
     $img_url = get_post_meta( $listing_id, 'stm_images_url', true );
     
+    
  }
 
 ?>
@@ -118,6 +119,10 @@
                 <section>
                     <div class="border-bottom mb-4">
                         <p class="img-video-section-header fw-semibold ps-4 py-2"><?php esc_html_e( 'Image & Video', 'startups-market'); ?></p>
+                        <p class="px-4"><i><?php
+                            $img_reup = $is_edit_mode ? __( 'If you want to change images. Reupload all again', 'startups-market' ) : '';
+                            echo $img_reup; ?>
+                            </i></p>
                     </div>
 
                     <!-- thumbnail -->
@@ -136,7 +141,7 @@
                         <div class="d-flex justify-content-center mt-4">
                             <input type="hidden" name="stm_list_img_id" id="stm_list_img_id" value="<?php esc_attr_e( $img_id ); ?>">
                             <input type="hidden" name="stm_list_img_url" id="stm_list_img_url" value="<?php esc_attr_e( $img_url ); ?>">
-                            <input type="file" id="list_thumbnail_url" name="list_thumbnail_url[]" multiple >
+                            <input type="file" id="list_thumbnail_url" name="list_thumbnail_url[]" multiple  accept="image/*">
                         </div>
                     </div>
                     <!-- video input -->

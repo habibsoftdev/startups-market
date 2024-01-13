@@ -1,7 +1,9 @@
 <?php 
-
 namespace Startups\Market;
 
+/**
+ * Custom Permalink Handler
+ */
 class RewriteRule{
 
     public function __construct(){

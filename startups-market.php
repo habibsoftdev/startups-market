@@ -42,6 +42,7 @@ final class Startups_Market{
 
         add_action( 'plugins_loaded', [$this, 'init_plugin'] );
         add_action('init', [$this, 'hide_admin_bar']);
+        add_action('init', [$this, 'add_seller_capabilities']);
     }
 
     /**
@@ -109,6 +110,17 @@ final class Startups_Market{
         if (is_user_logged_in() && current_user_can('buyer') || current_user_can('seller') ) {
             add_filter('show_admin_bar', '__return_false');
         }
+    }
+
+    /**
+     * add seller caps
+     */
+
+    public function add_seller_capabilities(){
+        $seller_role = get_role('seller');
+        $seller_role->add_cap('edit_posts');
+        $seller_role->add_cap('delete_posts');
+         $seller_role->add_cap('delete_own_pending_posts');
     }
 
 }

@@ -40,7 +40,7 @@ class Assetsload{
          */
         wp_localize_script('stm-login-handle', 'stm_ajax_object', [
             'ajax_url' => admin_url('admin-ajax.php'),
-            'redirect_url' => home_url('/sample-page'),
+            'redirect_url' => home_url('/stm-dashboard'),
             'loading_message' => esc_html__( 'Sending user info, please wait ...', 'startups-market' ),
             'login_error_message' => esc_html__( 'Wrong username or password.', 'startups-market' ),
         ]);

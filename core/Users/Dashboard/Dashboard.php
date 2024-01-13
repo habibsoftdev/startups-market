@@ -28,6 +28,7 @@ class Dashboard{
     public function user_dashboard(){
         $current_user = get_current_user_id();
         $submit_list = get_permalink( get_page_by_path( 'stm-add-listing' ) );
+        $logout_url = wp_logout_url( get_permalink( get_page_by_path( 'stm-login' ) ) );
         ?>
 <main class="main-container d-flex">
 
@@ -89,7 +90,7 @@ class Dashboard{
 </li>
 <div class="mt-4">
 <a class="listing-submit-btn w-100 mb-4 py-1 d-block" href="<?php echo esc_url( $submit_list ); ?>"><?php esc_html_e(' Add Business'); ?></a>
-<a class="dashboard-log-out-btn w-100 mb-3 py-1 d-block" href="">Log Out</a>
+<a class="dashboard-log-out-btn w-100 mb-3 py-1 d-block" href="<?php echo esc_url( $logout_url ); ?>">Log Out</a>
 </div>
 </ul>
 
