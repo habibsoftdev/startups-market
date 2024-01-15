@@ -1,9 +1,27 @@
 <?php 
- 
+ $taxonomy = 'business_category';
+ $categories = get_terms( array(
+     'taxonomy' => $taxonomy,
+     'hide_empty' => false,
+ ) );
+
  $listing_id = isset( $_GET[ 'listing_id' ] ) ? intval( $_GET[ 'listing_id' ] ) : 0;
  $mode = isset( $_GET[ 'action' ] ) ? $_GET[ 'action'] : '';
 
  $is_edit_mode = $listing_id > 0;
+ $post_title = '';
+ $content = '';
+ $arr = '';
+ $hrr = '';
+ $launched_date = '';
+ $deliver = '';
+ $web = '';
+ $tag = '';
+ $price = '';
+ $video_url = '';
+ $img_id = '';
+ $img_url = '';
+ $selected_categories = array();
 
  if( $is_edit_mode && $mode === 'edit' ){
     $post_title = get_the_title( $listing_id );
@@ -18,6 +36,9 @@
     $video_url = get_post_meta( $listing_id, 'stm_videourl', true );
     $img_id = get_post_meta( $listing_id, 'stm_images_id', true );
     $img_url = get_post_meta( $listing_id, 'stm_images_url', true );
+    $selected_categories = wp_get_post_terms( $listing_id, 'business_category', array( 'fields' => 'ids' ) );
+    
+
     
     
  }
@@ -59,6 +80,24 @@
                             wp_editor($editor_content, $editor_id, $settings);
                             ?>
                     </div>
+
+                    <div class="px-4">
+                        <label for="category" class="form-label"><?php _e( 'Category:', 'startups-market' ); ?></label>
+                        <select name="category" id="category"  class="form-select">
+                            <option value="" disabled selected class="form-label"><?php _e( 'Select Your Category', 'startups-market'); ?></option>
+                            <?php 
+                            if ( ! empty( $categories ) && ! is_wp_error( $categories ) ) {
+                                foreach ( $categories as $category ) {
+                                    if( $is_edit_mode && $mode === 'edit' ){
+                                        $selected = in_array( $category->term_id, $selected_categories ) ? 'selected' : '';
+                                    } 
+                                    echo '<option value="' . esc_attr( $category->term_id ) . '" ' . $selected . '>' . esc_html( $category->name ) . '</option>';
+                                }
+                            }
+                            ?>
+                        </select>
+                    </div>
+
                 </section>
             </div>
 
@@ -115,14 +154,14 @@
             </div>
 
                <!-- Image and video Section -->
-               <div class="smt-container-img-video border border-1">
+               <div class="smt-container-img-video border border-1" style="margin: 0;">
                 <section>
                     <div class="border-bottom mb-4">
                         <p class="img-video-section-header fw-semibold ps-4 py-2"><?php esc_html_e( 'Image & Video', 'startups-market'); ?></p>
                         <p class="px-4"><i><?php
                             $img_reup = $is_edit_mode ? __( 'If you want to change images. Reupload all again', 'startups-market' ) : '';
                             echo $img_reup; ?>
-                            </i></p>
+                            </i></p> 
                     </div>
 
                     <!-- thumbnail -->
@@ -130,10 +169,6 @@
                         <!--  -->
                             <!-- file image container -->
                            <div class="img-file-preview-container container-fluid">
-                            <!-- <img class="img-fluid" src="images/file-img (2).jpg" alt="">
-                            <img class="img-fluid" src="images/file-img (3).jpg" alt="">
-                            <img class="img-fluid" src="images/file-img (4).jpg" alt="">
-                            <img class="img-fluid" src="images/file-img (5).jpg" alt=""> -->
                            </div>
                            <div class="error-message"></div>
 

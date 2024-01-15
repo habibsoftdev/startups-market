@@ -43,6 +43,7 @@ final class Startups_Market{
         add_action( 'plugins_loaded', [$this, 'init_plugin'] );
         add_action('init', [$this, 'hide_admin_bar']);
         add_action('init', [$this, 'add_seller_capabilities']);
+        add_filter('template_include', [ $this, 'include_custom_template' ] );
     }
 
     /**
@@ -70,7 +71,8 @@ final class Startups_Market{
         define( 'STM_FILE', __FILE__ );
         define( 'STM_PATH', __DIR__ );
         define( 'STM_URL', plugins_url('', STM_FILE ) );
-        define( 'STM_ASSETS',STM_URL. '/assets' );
+        define( 'STM_ASSETS', STM_URL. '/assets' );
+        define( 'STM_TEMPLATE', STM_URL. '/template' );
     }
 
     /**
@@ -89,7 +91,8 @@ final class Startups_Market{
      * @return void
      */
     public function activate(){
-        add_image_size('stm-thumbnail', 100, 100, true); 
+        add_image_size( 'stm-thumbnail', 100, 100, true ); 
+        add_image_size( 'stm-list-thumbnail', 350, 250, true );
 
         $version = get_option( 'startups_market_version', true );
         update_option( 'startup_market_installation', time() );
@@ -123,6 +126,27 @@ final class Startups_Market{
          $seller_role->add_cap('delete_own_pending_posts');
     }
 
+    public function include_custom_template( $template ) {
+        // Check if it's a single 'business' post type
+        if ( is_singular( 'business' ) ) {
+            $single_template = STM_PATH . '/template/single-business.php';
+
+            if ( file_exists( $single_template ) ) {
+                return $single_template;
+            }
+        }
+
+        // Check if it's an archive page for 'business' post type
+        if ( is_post_type_archive( 'business' ) ) {
+            $archive_template = STM_PATH . '/template/archive-business.php';
+
+            if ( file_exists( $archive_template ) ) {
+                return $archive_template;
+            }
+        }
+
+            return $template;
+    }
 }
 
 /**

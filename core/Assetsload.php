@@ -15,11 +15,14 @@ class Assetsload{
     
     public function stm_frontend_asset_load(){
         //Styles
-        // wp_enqueue_style('bootstrap-stm', 'https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css', array(), '4.4.1', 'all');
         wp_enqueue_style('bootstrap-stm-ds', '//cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css', array(), time(), 'all');
+        wp_enqueue_style('slick-css', '//raw.githack.com/SochavaAG/example-mycode/master/pens/slick-slider/plugins/slick/slick.css', array(), time(), 'all');
         wp_enqueue_style( 'stm-register-form', STM_ASSETS. '/frontend/css/register.css', array(), time(), 'all' );
         wp_enqueue_style( 'stm-dashboard', STM_ASSETS. '/frontend/css/dashboard.css', array('bootstrap-stm-ds'), time(), 'all' );
         wp_enqueue_style( 'stm-listing-form', STM_ASSETS . '/frontend/css/stm-listing.css', array(), time(), 'all' );
+        wp_enqueue_style( 'stm-single-business', STM_ASSETS . '/frontend/css/stm-single.css', array(), time(), 'all' );
+        wp_enqueue_style( 'stm-single-slider', STM_ASSETS . '/frontend/css/stm-slider.css', array(), time(), 'all' );
+        wp_enqueue_style( 'stm-archive', STM_ASSETS . '/frontend/css/archive.css', array(), time(), 'all' );
 
         //Scripts
         wp_enqueue_script( 'stm-login-handle', STM_ASSETS. '/frontend/js/login.js', array('jquery'), time(), true);
@@ -29,8 +32,12 @@ class Assetsload{
         wp_enqueue_script('stm-profile', STM_ASSETS. '/frontend/js/profile.js', array('jquery'), time(), true );
         wp_enqueue_script('stm-delete', STM_ASSETS. '/frontend/js/delete.js', array('jquery'), time(), true );
         wp_enqueue_script('stm-retriveImage', STM_ASSETS. '/frontend/js/retriveImage.js', array('jquery'), time(), true );
+        wp_enqueue_script('stm-slider', STM_ASSETS. '/frontend/js/stm-slider.js', array('jquery', 'stm-slick'), time(), true );
+        
+        wp_enqueue_script('stm-slick', '//raw.githack.com/SochavaAG/example-mycode/master/pens/slick-slider/plugins/slick/slick.min.js', array('jquery'), true );
 
-        wp_register_script('stm-login-handle', STM_ASSETS. '/frontend/js/login.js', array('jquery'), true );
+
+        
        
 
         

@@ -17,7 +17,9 @@ class ListingHandle {
 
 	public function handleListingForm() {
 		if (isset($_POST['stm_list_submit']) && wp_verify_nonce($_POST['stm_add_list_nonce'], 'stm_add_list')) {
+
 			$title = isset($_POST['stm_list_title']) ? sanitize_text_field($_POST['stm_list_title']) : '';
+			$category = isset( $_POST[ 'category' ] ) ? intval( $_POST[ 'category' ] ) : '';
             //Existing id retrive
 			$edit_mode_id = isset($_GET[ 'listing_id' ] ) ? intval( $_GET[ 'listing_id' ] ) : 0;
 
@@ -41,6 +43,7 @@ class ListingHandle {
 				wp_update_post( $existing_post );
                 update_post_meta( $edit_mode_id, 'stm_images_id', $existing_ids );
                 update_post_meta( $edit_mode_id, 'stm_images_url', $existing_urls );
+				wp_set_post_terms($edit_mode_id, $category, 'business_category');
 
                 if (!empty($_FILES['list_thumbnail_url']['tmp_name'])) {
                     $file_handler = isset($_FILES['list_thumbnail_url']) ? $_FILES['list_thumbnail_url'] : [];
@@ -86,7 +89,9 @@ class ListingHandle {
 					'post_status'  => 'pending',
 					'post_type'    => 'business',
 				);
+				
 				$new_post_id = wp_insert_post($new_post);
+				wp_set_post_terms( $new_post_id, $category, 'business_category' );
 
 				if (!is_wp_error($new_post_id)) {
 					if (!empty($_FILES['list_thumbnail_url']['tmp_name'])) {
