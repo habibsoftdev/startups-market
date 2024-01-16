@@ -7,8 +7,7 @@ class Businesslist{
     public function __construct(){
         add_action( 'init', [ $this, 'register_business_post_type' ] );
         add_filter( 'parent_file', [ $this, 'highlight_custom_taxonomy_menu_item' ] );
-       
-       
+           
     }
 
     public function register_business_post_type(){
@@ -37,7 +36,7 @@ class Businesslist{
             'publicly_queryable' => true,
             'show_ui'            => true,
             'query_var'          => true,
-            'rewrite'            => array( 'slug' => 'business' ),
+            'rewrite'            => array( 'slug' => 'business'),
             'capability_type'    => 'post',
             'has_archive'        => true,
             'hierarchical'       => false,

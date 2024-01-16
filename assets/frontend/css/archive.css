@@ -130,6 +130,12 @@
     font-size: 8px;
     margin-right: 8px;
 }
+.card-title{
+    color: #000;
+}
+.card-body a{
+    text-decoration: none;
+}
 
 
 /* card footer */

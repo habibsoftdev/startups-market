@@ -123,7 +123,8 @@ final class Startups_Market{
         $seller_role = get_role('seller');
         $seller_role->add_cap('edit_posts');
         $seller_role->add_cap('delete_posts');
-         $seller_role->add_cap('delete_own_pending_posts');
+        $seller_role->add_cap('delete_own_pending_posts');
+
     }
 
     public function include_custom_template( $template ) {
@@ -147,6 +148,8 @@ final class Startups_Market{
 
             return $template;
     }
+
+
 }
 
 /**
