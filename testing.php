@@ -166,159 +166,159 @@ const showPage = (pageId) => {
     selectedPage.style.display = 'block';
   }
 };
-<?php 
-// Add this code to your theme's functions.php file or a custom plugin
+ <?php 
+// // Add this code to your theme's functions.php file or a custom plugin
 
-// Step 1: Modify Metabox to Include Product ID
-add_action('add_meta_boxes', 'add_custom_metabox');
+// // Step 1: Modify Metabox to Include Product ID
+// add_action('add_meta_boxes', 'add_custom_metabox');
 
-function add_custom_metabox() {
-    add_meta_box(
-        'custom_pricing_metabox',
-        'Pricing Information',
-        'render_custom_metabox',
-        'your_custom_post_type',
-        'normal',
-        'high'
-    );
-}
+// function add_custom_metabox() {
+//     add_meta_box(
+//         'custom_pricing_metabox',
+//         'Pricing Information',
+//         'render_custom_metabox',
+//         'your_custom_post_type',
+//         'normal',
+//         'high'
+//     );
+// }
 
-function render_custom_metabox($post) {
-    $product_id = get_post_meta($post->ID, '_your_custom_metabox_product_id', true);
-    $price = get_post_meta($post->ID, '_your_custom_metabox_price', true);
+// function render_custom_metabox($post) {
+//     $product_id = get_post_meta($post->ID, '_your_custom_metabox_product_id', true);
+//     $price = get_post_meta($post->ID, '_your_custom_metabox_price', true);
 
-    echo '<label for="custom_product_id">WooCommerce Product ID:</label>';
-    echo '<input type="text" id="custom_product_id" name="custom_product_id" value="' . esc_attr($product_id) . '" /><br>';
+//     echo '<label for="custom_product_id">WooCommerce Product ID:</label>';
+//     echo '<input type="text" id="custom_product_id" name="custom_product_id" value="' . esc_attr($product_id) . '" /><br>';
 
-    echo '<label for="custom_price">Price:</label>';
-    echo '<input type="text" id="custom_price" name="custom_price" value="' . esc_attr($price) . '" />';
-}
+//     echo '<label for="custom_price">Price:</label>';
+//     echo '<input type="text" id="custom_price" name="custom_price" value="' . esc_attr($price) . '" />';
+// }
 
-// Step 2: Save Metabox Data
-add_action('save_post', 'save_custom_metabox');
+// // Step 2: Save Metabox Data
+// add_action('save_post', 'save_custom_metabox');
 
-function save_custom_metabox($post_id) {
-    if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
-        return;
-    }
+// function save_custom_metabox($post_id) {
+//     if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
+//         return;
+//     }
 
-    if (isset($_POST['custom_product_id'])) {
-        update_post_meta($post_id, '_your_custom_metabox_product_id', sanitize_text_field($_POST['custom_product_id']));
-    }
+//     if (isset($_POST['custom_product_id'])) {
+//         update_post_meta($post_id, '_your_custom_metabox_product_id', sanitize_text_field($_POST['custom_product_id']));
+//     }
 
-    if (isset($_POST['custom_price'])) {
-        update_post_meta($post_id, '_your_custom_metabox_price', sanitize_text_field($_POST['custom_price']));
-    }
-}
+//     if (isset($_POST['custom_price'])) {
+//         update_post_meta($post_id, '_your_custom_metabox_price', sanitize_text_field($_POST['custom_price']));
+//     }
+// }
 
-// Step 3: Create WooCommerce Product for Each Post
-add_action('save_post', 'create_woocommerce_product');
+// // Step 3: Create WooCommerce Product for Each Post
+// add_action('save_post', 'create_woocommerce_product');
 
-function create_woocommerce_product($post_id) {
-    // Check if the post type is your custom post type
-    if (get_post_type($post_id) !== 'your_custom_post_type') {
-        return;
-    }
+// function create_woocommerce_product($post_id) {
+//     // Check if the post type is your custom post type
+//     if (get_post_type($post_id) !== 'your_custom_post_type') {
+//         return;
+//     }
 
-    $product_id = get_post_meta($post_id, '_your_custom_metabox_product_id', true);
+//     $product_id = get_post_meta($post_id, '_your_custom_metabox_product_id', true);
 
-    // If product ID is not set, create a new product
-    if (empty($product_id)) {
-        $product = wc_get_product();
+//     // If product ID is not set, create a new product
+//     if (empty($product_id)) {
+//         $product = wc_get_product();
 
-        // Create a virtual product
-        $product->set_name(get_the_title($post_id));
-        $product->set_type('virtual');
-        $product->set_regular_price(get_post_meta($post_id, '_your_custom_metabox_price', true));
+//         // Create a virtual product
+//         $product->set_name(get_the_title($post_id));
+//         $product->set_type('virtual');
+//         $product->set_regular_price(get_post_meta($post_id, '_your_custom_metabox_price', true));
 
-        // Set other product details as needed
+//         // Set other product details as needed
 
-        // Save the product and get its ID
-        $product_id = $product->save();
+//         // Save the product and get its ID
+//         $product_id = $product->save();
 
-        // Update the post meta with the WooCommerce product ID
-        update_post_meta($post_id, '_your_custom_metabox_product_id', $product_id);
-    }
-}
+//         // Update the post meta with the WooCommerce product ID
+//         update_post_meta($post_id, '_your_custom_metabox_product_id', $product_id);
+//     }
+// }
 
-// Step 4: Display Purchase Button on Single Post Page
-add_action('wp', 'display_purchase_button');
+// // Step 4: Display Purchase Button on Single Post Page
+// add_action('wp', 'display_purchase_button');
 
-function display_purchase_button() {
-    if (is_single() && get_post_type() === 'your_custom_post_type') {
-        $product_id = get_post_meta(get_the_ID(), '_your_custom_metabox_product_id', true);
+// function display_purchase_button() {
+//     if (is_single() && get_post_type() === 'your_custom_post_type') {
+//         $product_id = get_post_meta(get_the_ID(), '_your_custom_metabox_product_id', true);
 
-        if ($product_id) {
-            echo '<a href="' . esc_url(get_permalink($product_id)) . '" class="button">Purchase</a>';
-        }
-    }
-}
+//         if ($product_id) {
+//             echo '<a href="' . esc_url(get_permalink($product_id)) . '" class="button">Purchase</a>';
+//         }
+//     }
+// }
 
-// Step 5: Optional - Redirect After Purchase
-add_filter('woocommerce_payment_complete_order_status', 'custom_update_order_status', 10, 3);
+// // Step 5: Optional - Redirect After Purchase
+// add_filter('woocommerce_payment_complete_order_status', 'custom_update_order_status', 10, 3);
 
-function custom_update_order_status($status, $order_id, $order) {
-    $post_id = wc_get_order($order_id)->get_items()[0]->get_meta('_your_custom_metabox_post_id', true);
+// function custom_update_order_status($status, $order_id, $order) {
+//     $post_id = wc_get_order($order_id)->get_items()[0]->get_meta('_your_custom_metabox_post_id', true);
 
-    // Update post status or perform other actions as needed
+//     // Update post status or perform other actions as needed
 
-    return $status;
-}
+//     return $status;
+// }
 
-?>
+// ?>
 
-<?php 
-// Add this code to your theme's functions.php file or a custom plugin
+// <?php 
+// // Add this code to your theme's functions.php file or a custom plugin
 
-// Step 1: Modify Metabox to Include Product ID
-add_action('add_meta_boxes', 'add_custom_metabox');
+// // Step 1: Modify Metabox to Include Product ID
+// add_action('add_meta_boxes', 'add_custom_metabox');
 
-function add_custom_metabox() {
-    add_meta_box(
-        'custom_pricing_metabox',
-        'Pricing Information',
-        'render_custom_metabox',
-        'your_custom_post_type',
-        'normal',
-        'high'
-    );
-}
+// function add_custom_metabox() {
+//     add_meta_box(
+//         'custom_pricing_metabox',
+//         'Pricing Information',
+//         'render_custom_metabox',
+//         'your_custom_post_type',
+//         'normal',
+//         'high'
+//     );
+// }
 
-function render_custom_metabox($post) {
-    $price = get_post_meta($post->ID, '_your_custom_metabox_price', true);
+// function render_custom_metabox($post) {
+//     $price = get_post_meta($post->ID, '_your_custom_metabox_price', true);
 
-    echo '<label for="custom_price">Price:</label>';
-    echo '<input type="text" id="custom_price" name="custom_price" value="' . esc_attr($price) . '" />';
-}
+//     echo '<label for="custom_price">Price:</label>';
+//     echo '<input type="text" id="custom_price" name="custom_price" value="' . esc_attr($price) . '" />';
+// }
 
-// Step 2: Save Metabox Data
-add_action('save_post', 'save_custom_metabox');
+// // Step 2: Save Metabox Data
+// add_action('save_post', 'save_custom_metabox');
 
-function save_custom_metabox($post_id) {
-    if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
-        return;
-    }
+// function save_custom_metabox($post_id) {
+//     if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
+//         return;
+//     }
 
-    if (isset($_POST['custom_price'])) {
-        update_post_meta($post_id, '_your_custom_metabox_price', sanitize_text_field($_POST['custom_price']));
-    }
-}
+//     if (isset($_POST['custom_price'])) {
+//         update_post_meta($post_id, '_your_custom_metabox_price', sanitize_text_field($_POST['custom_price']));
+//     }
+// }
 
-// Step 3: Display Purchase Button on Single Post Page
-add_action('wp', 'display_purchase_button');
+// // Step 3: Display Purchase Button on Single Post Page
+// add_action('wp', 'display_purchase_button');
 
-function display_purchase_button() {
-    if (is_single() && get_post_type() === 'your_custom_post_type') {
-        $price = get_post_meta(get_the_ID(), '_your_custom_metabox_price', true);
+// function display_purchase_button() {
+//     if (is_single() && get_post_type() === 'your_custom_post_type') {
+//         $price = get_post_meta(get_the_ID(), '_your_custom_metabox_price', true);
 
-        if ($price) {
-            echo '<form action="' . esc_url(wc_get_checkout_url()) . '" method="post">
-                  <input type="hidden" name="add-to-cart" value="' . esc_attr(get_the_ID()) . '">
-                  <input type="hidden" name="price" value="' . esc_attr($price) . '">
-                  <button type="submit" class="button">Purchase</button>
-                  </form>';
-        }
-    }
-}
+//         if ($price) {
+//             echo '<form action="' . esc_url(wc_get_checkout_url()) . '" method="post">
+//                   <input type="hidden" name="add-to-cart" value="' . esc_attr(get_the_ID()) . '">
+//                   <input type="hidden" name="price" value="' . esc_attr($price) . '">
+//                   <button type="submit" class="button">Purchase</button>
+//                   </form>';
+//         }
+//     }
+// }
 
-?>
+?> -->

@@ -22,6 +22,9 @@ while( have_posts() ) : the_post();
    $launched = get_post_meta( $post_id, 'stm_launched', true );
    $delivery = get_post_meta( $post_id, 'deliveryable_text', true );
    $image_urls = get_post_meta($post_id, 'stm_images_url', true);
+   $product_id = get_the_ID();
+   $product_price = get_post_meta($product_id, 'stm_price', true);
+   $checkout_url = wc_get_checkout_url() . '?add-to-cart=' . $product_id . '&price=' . $product_price;
 
    ?>
 
@@ -40,7 +43,6 @@ while( have_posts() ) : the_post();
                     <h6 class="py-2"><?php echo esc_html( $tagline ); ?></h6>
                     <p class="pb-1"> <?php echo esc_html__( 'Published on ', 'startups-market'); the_date(); ?></p>
                 </div>
-
                 <!-- horizontal line -->
                 <hr class=" my-2">
 
@@ -114,7 +116,8 @@ while( have_posts() ) : the_post();
     <hr class="card-horizontal">
 
     <!-- card button -->
-    <button type="button" class="contact-founder-btn w-100 container-fluid mb-3"><span class="pe-2"> Buy This Business </span></button>
+    <a href="<?php echo esc_url($checkout_url); ?>"><button type="button" class="contact-founder-btn w-100 container-fluid mb-3"><span class="pe-2"> Buy This Business </span></button></a>
+    <?php echo shortcode_exists('cptwooint_price') ? do_shortcode( "[cptwooint_price/]" ) : '' ; ?> 
 
         <button type="button" class="startup-btn w-100 container-fluid"><span class="pe-2">VISIT STARTUP
         WEBSITE</span></button>

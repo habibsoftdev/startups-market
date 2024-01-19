@@ -79,7 +79,7 @@ class Businesslist{
         );
     
         register_taxonomy( 'business_category', 'business', $taxonomy_args );
-
+        
 
     }
 

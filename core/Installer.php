@@ -23,6 +23,8 @@ class Installer{
         new Users\AddListing\AddListing();
         new Users\AddListing\ListingHandle();
         new RewriteRule();
+        new Purchase\Purchase();
+        //new Purchase\Settings();
 
 
 

@@ -44,6 +44,7 @@ final class Startups_Market{
         add_action('init', [$this, 'hide_admin_bar']);
         add_action('init', [$this, 'add_seller_capabilities']);
         add_filter('template_include', [ $this, 'include_custom_template' ] );
+        
     }
 
     /**
@@ -110,8 +111,10 @@ final class Startups_Market{
     * Hide admin Bar
     */
     public function hide_admin_bar() {
+        add_post_type_support('business', 'woocommerce');
         if (is_user_logged_in() && current_user_can('buyer') || current_user_can('seller') ) {
             add_filter('show_admin_bar', '__return_false');
+            
         }
     }
 
