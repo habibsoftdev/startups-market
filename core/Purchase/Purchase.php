@@ -16,6 +16,7 @@ class Purchase{
         add_filter('woocommerce_account_menu_items', '__return_empty_array');
         add_filter( 'woocommerce_is_sold_individually', [ $this, 'disable_quantity_field' ] );
         //add_action( 'admin_init', [ $this, 'wc_admin_init' ] );
+        add_action('wp_head', [ $this, 'hide_woocommerce_notices_on_checkout' ]);
         
 
        
@@ -53,5 +54,11 @@ class Purchase{
     }
 
   
-
+    public function hide_woocommerce_notices_on_checkout(){
+         // Check if it's the checkout page
+        if (is_checkout()) {
+        // Output custom CSS to hide the WooCommerce notices wrapper
+            echo '<style>.woocommerce-notices-wrapper { display: none !important; }</style>';
+        }
+    }
 }

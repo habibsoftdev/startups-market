@@ -30,14 +30,17 @@ class Settings
         add_action('pre_get_posts', [$this, 'wc_setup_loop'], 5);
         add_action( 'wp_body_open', [ $this, 'wp_body_open' ], 5 );
         add_action( 'wp_footer', [ $this, 'wp_footer' ], 99 );
+        add_action( 'save_post', [ $this, 'update_product_price' ], 15 );
     }
 
+
     public function stm_woo_data_stores($stores) {
-        $stores['product'] = ModalWCDataStore::class; // Assuming "business" is your post type slug.
+        $stores['product'] = ModalWCDataStore::class; 
         return $stores;
     }
 
     public function stm_woo_product_get_price($price, $product) {
+        $post_type = get_post_type( $product->get_id() );
         if ($product->is_type('business')) {
             $custom_price = get_post_meta($product->get_id(), 'stm_price', true);
             $price = ($custom_price) ? floatval($custom_price) : $price;
@@ -113,15 +116,23 @@ class Settings
 
     public function wc_setup_loop($query)
     {
-        if (is_admin() || !$query->is_main_query()) {
-            return;
+        if ( $query->is_main_query() && ! is_admin()) {
+            $query->set( 'wc_query', 'product_query' );
         }
     
-        if (is_post_type_archive('business') || is_tax('business')) {
-            $query->set('post_type', array('product', 'business'));
-        }
+    
     }
 
+    // public function wc_setup_loop($query)
+    // {
+    //     if ($query->is_main_query() && ! is_admin()) {
+    //         return;
+    //     }
+    
+    //     if (is_post_type_archive('business') || is_tax('business')) {
+    //         $query->set('post_type', 'business');
+    //     }
+    // }
     public function wp_body_open() {
 		?>
 		<div class="product">
@@ -134,4 +145,14 @@ class Settings
 		<!-- End Product Class -->
 		<?php
 	}
+
+    public function update_product_price($post_id){
+        
+        $price = get_post_meta( $post_id, 'stm_price', true );
+
+        $sale_price = $price ? $price : '';
+
+        update_post_meta( $post_id, '_sale_price', $sale_price );
+        update_post_meta( $post_id, '_regular_price', $price );
+    }
 }

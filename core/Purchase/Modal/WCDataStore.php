@@ -17,119 +17,123 @@ class WCDataStore extends WC_Product_Data_Store_CPT{
      * @param null|array $exclude
      * @return array of ids
      */
-    public function search_products($term, $type = '', $include_variations = false, $all_statuses = false, $limit = null, $include = null, $exclude = null){
+    public function search_products( $term, $type = '', $include_variations = false, $all_statuses = false, $limit = null, $include = null, $exclude = null ) {
+		$post_type = 'business';
 
-        $post_type = 'business';
+		global $wpdb;
 
-        global $wpdb;
+		$post_types   = $include_variations ? array( $post_type, 'product', 'product_variation' ) : array( 'product', $post_type );
+		$join_query   = '';
+		$type_where   = '';
+		$status_where = '';
+		$limit_query  = '';
 
-        $post_type = $include_variations ? array( $post_type, 'product', 'product_variation' ) : array( 'product', $post_type );
-        $join_query = '';
-        $type_where = '';
-        $status_where = '';
-        $limit_query = '';
+		// When searching variations we should include the parent's meta table for use in searches.
+		if ( $include_variations ) {
+			$join_query = " LEFT JOIN {$wpdb->wc_product_meta_lookup} parent_wc_product_meta_lookup
+			 ON posts.post_type = 'product_variation' AND parent_wc_product_meta_lookup.product_id = posts.post_parent ";
+		}
 
-        if( $include_variations ){
-            $join_query = " LEFT JOIN {$wpdb->wc_product_meta_lookup} parent_wc_product_meta_lookup
-            ON posts.post_type = 'product_variation' AND parent_wc_product_meta_lookup.product_id = posts.post_parent ";
-        }
+		/**
+		 * Hook woocommerce_search_products_post_statuses.
+		 *
+		 * @since 3.7.0
+		 * @param array $post_statuses List of post statuses.
+		 */
+		$post_statuses = apply_filters(
+			'woocommerce_search_products_post_statuses',
+			current_user_can( 'edit_private_products' ) ? array( 'private', 'publish' ) : array( 'publish' )
+		);
 
-        /**
-         * Hook Woocommerce_search_products_post_statuses.
-         */
+		// See if search term contains OR keywords.
+		if ( stristr( $term, ' or ' ) ) {
+			$term_groups = preg_split( '/\s+or\s+/i', $term );
+		} else {
+			$term_groups = array( $term );
+		}
 
-        $post_statuses = apply_filters(
-            'woocommerce_search_products_post_statuses',
-            current_user_can( 'edit_private_products' ) ? array( 'private', 'publish' ) : array( 'publish' ) 
-        );
+		$search_where   = '';
+		$search_queries = array();
 
-        if( stristr( $term, ' or ' ) ) {
-            $term_groups = preg_split( '/\s+or\s+/i', $term );
-        }else{
-            $term_groups = array( $term );
-        }
+		foreach ( $term_groups as $term_group ) {
+			// Parse search terms.
+			if ( preg_match_all( '/".*?("|$)|((?<=[\t ",+])|^)[^\t ",+]+/', $term_group, $matches ) ) {
+				$search_terms = $this->get_valid_search_terms( $matches[0] );
+				$count        = count( $search_terms );
 
-        $search_where = '';
-        $search_queries = array();
+				// if the search string has only short terms or stopwords, or is 10+ terms long, match it as sentence.
+				if ( 9 < $count || 0 === $count ) {
+					$search_terms = array( $term_group );
+				}
+			} else {
+				$search_terms = array( $term_group );
+			}
 
-        foreach( $term_groups as $term_group ){
-            //perse search items
+			$term_group_query = '';
+			$searchand        = '';
 
-            if( preg_match_all( '/".*?("|$)|((?<=[\t ",+])|^)[^\t ",+]+/', $term_group, $matches ) ){
-                $search_terms = $this->get_valid_search_terms( $matches[ 0 ] );
-                $count = count( $search_terms );
+			foreach ( $search_terms as $search_term ) {
+				$like = '%' . $wpdb->esc_like( $search_term ) . '%';
 
-                if( 9 < $count || 0 === $count ){
-                    $search_terms = array( $term_group );
-                }
-            }else{
-                $search_terms = array( $term_group );
-            }
+				// Variations should also search the parent's meta table for fallback fields.
+				if ( $include_variations ) {
+					$variation_query = $wpdb->prepare( " OR ( wc_product_meta_lookup.sku = '' AND parent_wc_product_meta_lookup.sku LIKE %s ) ", $like );
+				} else {
+					$variation_query = '';
+				}
 
-            $term_group_query = '';
-            $searchand = '';
+				$term_group_query .= $wpdb->prepare( " {$searchand} ( ( posts.post_title LIKE %s) OR ( posts.post_excerpt LIKE %s) OR ( posts.post_content LIKE %s ) OR ( wc_product_meta_lookup.sku LIKE %s ) $variation_query)", $like, $like, $like, $like ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+				$searchand         = ' AND ';
+			}
 
-            foreach( $search_terms as $search_term ){
-                $like = '%' . $wpdb->esc_like( $search_term ). '%';
+			if ( $term_group_query ) {
+				$search_queries[] = $term_group_query;
+			}
+		}
 
-                //Variation should also search the parent's meta table for fallback fields
-                if( $include_variations ){
-                    $variation_query = $wpdb->prepare( " OR ( wc_product_meta_lookup.sku = '' AND parent_wc_product_meta_lookup.sku LIKE %s ) ", $like );
-                }else{
-                    $variation_query = '';
-                }
+		if ( ! empty( $search_queries ) ) {
+			$search_where = ' AND (' . implode( ') OR (', $search_queries ) . ') ';
+		}
 
-                $term_group_query .= $wpdb->prepare( " {$searchand} ( ( posts.post_title LIKE %s) OR ( posts.post_excerpt LIKE %s) OR ( posts.post_content LIKE %s ) OR ( wc_product_meta_lookup.sku LIKE %s ) $variation_query)", $like, $like, $like, $like );
-                $searchand = ' AND ';
-            }
+		if ( ! empty( $include ) && is_array( $include ) ) {
+			$search_where .= ' AND posts.ID IN(' . implode( ',', array_map( 'absint', $include ) ) . ') ';
+		}
 
-            if( $term_group_query ){
-                $search_queries[] = $term_group_query;
-            }
-        }
-
-        if( ! empty( $search_queries ) ){
-            $search_where = ' AND (' . implode( ') OR (', $search_queries ) . ') ';
-        }
-
-        if( ! empty( $include ) && is_array( $include ) ){
-            $search_where .= ' AND posts.ID IN('. implode( ',', array_map( 'absint', $exclude ) ) . ') ';
-        }
-
-        if ( ! empty( $exclude ) && is_array( $exclude ) ) {
+		if ( ! empty( $exclude ) && is_array( $exclude ) ) {
 			$search_where .= ' AND posts.ID NOT IN(' . implode( ',', array_map( 'absint', $exclude ) ) . ') ';
 		}
 
-        if ( 'virtual' === $type ) {
-            $type_where = ' AND ( wc_product_meta_lookup.virtual = 1 ) ';
-        } elseif ( 'downloadable' === $type ) {
-            $type_where = ' AND ( wc_product_meta_lookup.downloadable = 1 ) ';
-        }
+		if ( 'virtual' === $type ) {
+			$type_where = ' AND ( wc_product_meta_lookup.virtual = 1 ) ';
+		} elseif ( 'downloadable' === $type ) {
+			$type_where = ' AND ( wc_product_meta_lookup.downloadable = 1 ) ';
+		}
 
-        if ( ! $all_statuses ) {
+		if ( ! $all_statuses ) {
 			$status_where = " AND posts.post_status IN ('" . implode( "','", $post_statuses ) . "') ";
 		}
 
-        if ( $limit ) {
+		if ( $limit ) {
 			$limit_query = $wpdb->prepare( ' LIMIT %d ', $limit );
 		}
 
-        $search_results = $wpdb->get_results(
-            // phpcs:disable
-                "SELECT DISTINCT posts.ID as product_id, posts.post_parent as parent_id FROM {$wpdb->posts} posts
-                 LEFT JOIN {$wpdb->wc_product_meta_lookup} wc_product_meta_lookup ON posts.ID = wc_product_meta_lookup.product_id
-                 $join_query
-                WHERE posts.post_type IN ('" . implode( "','", $post_type ) . "')
-                $search_where
-                $status_where
-                $type_where
-                ORDER BY posts.post_parent ASC, posts.post_title ASC
-                $limit_query
-                "
-            // phpcs:enable
-        );
+		// phpcs:ignore WordPress.VIP.DirectDatabaseQuery.DirectQuery
+		$search_results = $wpdb->get_results(
+		// phpcs:disable
+			"SELECT DISTINCT posts.ID as product_id, posts.post_parent as parent_id FROM {$wpdb->posts} posts
+			 LEFT JOIN {$wpdb->wc_product_meta_lookup} wc_product_meta_lookup ON posts.ID = wc_product_meta_lookup.product_id
+			 $join_query
+			WHERE posts.post_type IN ('" . implode( "','", $post_types ) . "')
+			$search_where
+			$status_where
+			$type_where
+			ORDER BY posts.post_parent ASC, posts.post_title ASC
+			$limit_query
+			"
+		// phpcs:enable
+		);
 
-        $product_ids = wp_parse_id_list( array_merge( wp_list_pluck( $search_results, 'product_id' ), wp_list_pluck( $search_results, 'parent_id' ) ) );
+		$product_ids = wp_parse_id_list( array_merge( wp_list_pluck( $search_results, 'product_id' ), wp_list_pluck( $search_results, 'parent_id' ) ) );
 
 		if ( is_numeric( $term ) ) {
 			$post_id   = absint( $term );
@@ -145,6 +149,5 @@ class WCDataStore extends WC_Product_Data_Store_CPT{
 		}
 
 		return wp_parse_id_list( $product_ids );
-
-    }
+	}
 }

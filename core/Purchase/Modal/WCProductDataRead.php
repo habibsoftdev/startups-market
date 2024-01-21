@@ -27,18 +27,18 @@ trait WCProductDataRead
         if (!$product->get_id() || !($post_object = get_post($product->get_id())) || 'product' !== $post_object->post_type) {
             throw new Exception(__('Invalid product.', 'woocommerce'));
         }
-
+        $id = $product->get_id();
         $product->set_props([
-            'name'             => $post_object->post_title,
-            'slug'             => $post_object->post_name,
-            'date_created'     => wc_string_to_timestamp($post_object->post_date_gmt),
-            'date_modified'    => wc_string_to_timestamp($post_object->post_modified_gmt),
-            'status'           => $post_object->post_status,
-            'description'      => $post_object->post_content,
-            'short_description' => $post_object->post_excerpt,
-            'parent_id'         => $post_object->post_parent,
-            'menu_order'       => $post_object->menu_order,
-            'reviews_allowed'  => 'open' === $post_object->comment_status,
+                'name'              => $post_object->post_title,
+				'slug'              => $post_object->post_name,
+				'date_created'      => 0 < $post_object->post_date_gmt ? wc_string_to_timestamp( $post_object->post_date_gmt ) : null,
+				'date_modified'     => 0 < $post_object->post_modified_gmt ? wc_string_to_timestamp( $post_object->post_modified_gmt ) : null,
+				'status'            => $post_object->post_status,
+				'description'       => $post_object->post_content,
+				'short_description' => $post_object->post_excerpt,
+				'parent_id'         => $post_object->post_parent,
+				'menu_order'        => $post_object->menu_order,
+				'reviews_allowed'   => 'open' === $post_object->comment_status,
         ]);
 
         $this->read_attributes($product);
@@ -48,6 +48,6 @@ trait WCProductDataRead
         $this->read_extra_data($product);
         $product->set_object_read(true);
 
-        do_action('woocommerce_product_read', $product->get_id());
+        do_action('woocommerce_product_read', $id);
     }
 }
