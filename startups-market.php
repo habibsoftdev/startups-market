@@ -74,6 +74,16 @@ final class Startups_Market{
         define( 'STM_URL', plugins_url('', STM_FILE ) );
         define( 'STM_ASSETS', STM_URL. '/assets' );
         define( 'STM_TEMPLATE', STM_URL. '/template' );
+
+        $supported = [
+            'business'   => [
+                //'regular_price_field' => 'stm_price',
+                'sale_price_field'    => 'stm_price',
+            ],
+        ];
+
+        define( 'STM_WC_SUPPORT', $supported );
+
     }
 
     /**

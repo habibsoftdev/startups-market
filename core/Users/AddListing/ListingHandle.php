@@ -28,11 +28,13 @@ class ListingHandle {
                 //get existing post status
 				$status = get_post_status( $edit_mode_id );
                 //Get existing post thumbnail
-				$exsiting_thumb = get_the_post_thumbnail( $edit_mode_id );
+				$existing_thumb_id = get_post_thumbnail_id($edit_mode_id);
+
                 //Getting the existing ids
 				
 
 				$existing_post = [
+					'ID'		=> $edit_mode_id,
 					'post_title' => $title,
 					'post_content' => wp_kses_post($_POST['stm_list_content']),
 					'post_status'  => $status,

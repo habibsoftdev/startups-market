@@ -117,7 +117,6 @@ while( have_posts() ) : the_post();
 
     <!-- card button -->
     <a href="<?php echo esc_url($checkout_url); ?>"><button type="button" class="contact-founder-btn w-100 container-fluid mb-3"><span class="pe-2"> Buy This Business </span></button></a>
-    <?php echo shortcode_exists('cptwooint_price') ? do_shortcode( "[cptwooint_price/]" ) : '' ; ?> 
 
         <button type="button" class="startup-btn w-100 container-fluid"><span class="pe-2">VISIT STARTUP
         WEBSITE</span></button>

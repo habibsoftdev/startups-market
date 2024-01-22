@@ -38,9 +38,6 @@
     $img_url = get_post_meta( $listing_id, 'stm_images_url', true );
     $selected_categories = wp_get_post_terms( $listing_id, 'business_category', array( 'fields' => 'ids' ) );
     
-
-   echo $img_id;
-   echo $img_url; 
     
  }
 

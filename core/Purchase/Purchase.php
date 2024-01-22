@@ -1,7 +1,8 @@
 <?php
 
 namespace Startups\Market\Purchase;
-
+use Startups\Market\Purchase\Hooks\ActionHooks;
+use Startups\Market\Purchase\Hooks\FilterHooks;
 
 /**
  * Woocommerce Handler Class
@@ -17,7 +18,12 @@ class Purchase{
         add_filter( 'woocommerce_is_sold_individually', [ $this, 'disable_quantity_field' ] );
         //add_action( 'admin_init', [ $this, 'wc_admin_init' ] );
         add_action('wp_head', [ $this, 'hide_woocommerce_notices_on_checkout' ]);
-        
+
+        new ActionHooks();
+        new FilterHooks();
+        add_filter('woocommerce_quantity_input_args', [ $this, 'customize_woocommerce_quantity_input_min_max_step' ], 10, 2);
+        add_action('template_redirect', [ $this, 'remove_quantity_field_from_product_page' ] );
+        add_filter('woocommerce_add_to_cart_validation', [$this, 'validate_cart_item_quantity' ], 10, 3);
 
        
     }
@@ -60,5 +66,27 @@ class Purchase{
         // Output custom CSS to hide the WooCommerce notices wrapper
             echo '<style>.woocommerce-notices-wrapper { display: none !important; }</style>';
         }
+    }
+
+    public function customize_woocommerce_quantity_input_min_max_step($args, $product) {
+        $args['input_value'] = 1;
+        $args['min_value'] = 1;
+        $args['max_value'] = 1;
+        $args['step'] = 1;
+        return $args;
+    }
+
+    // Remove quantity field from product page
+    public function remove_quantity_field_from_product_page() {
+        remove_action('woocommerce_before_single_product', 'woocommerce_quantity_input', 5);
+    }
+
+    // Validate cart item quantity before adding to cart
+    public function validate_cart_item_quantity($passed, $product_id, $quantity) {
+        if ($quantity > 1) {
+            wc_add_notice(__('You can only buy one item at a time.'), 'error');
+            return false;
+        }
+        return $passed;
     }
 }
