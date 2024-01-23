@@ -20,6 +20,9 @@ if( ! Defined( 'ABSPATH' )){
 }
 
 require_once __DIR__ . '/vendor/autoload.php';
+use Startups\Market\Installer;
+use Startups\Market\CreatePages;
+use Startups\Market\Users\Roles;
 
 /**
  * Plugin Main Class
@@ -77,8 +80,8 @@ final class Startups_Market{
 
         $supported = [
             'business'   => [
-                //'regular_price_field' => 'stm_price',
-                'sale_price_field'    => 'stm_price',
+                'regular_price_field' => 'stm_price',
+                //'sale_price_field'    => 'stm_price',
             ],
         ];
 
@@ -93,7 +96,7 @@ final class Startups_Market{
      */
     public function init_plugin(){
         load_plugin_textdomain( 'startups-market', false, STM_URL. '/languages' );
-        new Startups\Market\Installer();
+        Installer::instance();
     }
 
     /**
@@ -112,8 +115,8 @@ final class Startups_Market{
             update_option( 'startups_market_version', STM_VERSION );
         }
 
-        new Startups\Market\Users\Roles();
-        new Startups\Market\CreatePages();
+        Roles::instance();
+        CreatePages::instance();
 
     }
 

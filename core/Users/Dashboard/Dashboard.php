@@ -3,6 +3,7 @@
 namespace Startups\Market\Users\Dashboard;
 use Startups\Market\Stm_Utils;
 use Startups\Market\Notice\Notice_Handler;
+use Startups\Market\Trait\SingletonTrait;
 
 if( ! defined( 'ABSPATH' ) ){
     exit;
@@ -10,6 +11,7 @@ if( ! defined( 'ABSPATH' ) ){
 
 class Dashboard{
 
+    use SingletonTrait;
     public function __construct(){
         add_shortcode( 'stm_user_dashboard', [ $this, 'stm_render_dashboard' ]);
     }

@@ -1,15 +1,28 @@
 <?php 
 
 namespace Startups\Market\Admin;
+use Startups\Market\Trait\SingletonTrait;
 
-class Businesslist{
+/**
+ * Custom Post Registration Handler Class
+ */
+class RegisterBusinessCPT{
 
+    use SingletonTrait;
+    /**
+     * init method
+     */
     public function __construct(){
         add_action( 'init', [ $this, 'register_business_post_type' ] );
         add_filter( 'parent_file', [ $this, 'highlight_custom_taxonomy_menu_item' ] );
            
     }
 
+    /**
+     * Register Post Type
+     *
+     * @return void
+     */
     public function register_business_post_type(){
         $labels = array(
             'name'               => _x( 'Businesses', 'post type general name', 'startups-market' ),
@@ -47,7 +60,9 @@ class Businesslist{
     
         register_post_type( 'business', $args );
 
-
+        /**
+         * Register Taxonomy
+         */
         $taxonomy_labels = array(
             'name'                       => _x( 'Business Categories', 'taxonomy general name', 'startups-market' ),
             'singular_name'              => _x( 'Business Category', 'taxonomy singular name', 'startups-market' ),
@@ -83,6 +98,12 @@ class Businesslist{
 
     }
 
+    /**
+     * Add Custom Post at Plugin admin menu
+     *
+     * @param mixed $parent_file
+     * @return void
+     */
     public function highlight_custom_taxonomy_menu_item($parent_file){
         global $current_screen, $pagenow;
 

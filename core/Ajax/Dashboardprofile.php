@@ -1,9 +1,12 @@
 <?php
 
 namespace Startups\Market\Ajax;
+use Startups\Market\Trait\SingletonTrait;
 
 class DashboardProfile
 {
+    use SingletonTrait;
+    
     public function __construct()
     {
         add_action('wp_ajax_stm_profile', [$this, 'stm_profile_form_ajax']);

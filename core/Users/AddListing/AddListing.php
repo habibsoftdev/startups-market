@@ -3,9 +3,12 @@
 namespace Startups\Market\Users\AddListing;
 use Startups\Market\Notice\Notice_Handler;
 use Startups\Market\Stm_Utils;
+use Startups\Market\Trait\SingletonTrait;
 
 
 class AddListing{
+
+    use SingletonTrait;
 
     public function __construct(){
 

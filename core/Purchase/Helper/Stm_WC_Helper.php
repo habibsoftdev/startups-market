@@ -1,6 +1,7 @@
 <?php 
 
 namespace Startups\Market\Purchase\Helper;
+use Startups\Market\Trait\SingletonTrait;
 
 /**
  * Woocommerce Support Helper Class
@@ -11,6 +12,8 @@ namespace Startups\Market\Purchase\Helper;
  }
 
 class Stm_WC_Helper{
+
+    use SingletonTrait;
 
     /**
      *

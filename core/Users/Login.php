@@ -4,12 +4,15 @@ namespace Startups\Market\Users;
 
 use Startups\Market\Notice\Notice_Handler;
 use Startups\Market\Ajax;
+use Startups\Market\Trait\SingletonTrait;
+
 
 /**
  * Login Class Handler
  */
 class Login{
 
+    use SingletonTrait;
     public function __construct(){
         add_shortcode( 'login_form', [ $this, 'stm_login_form_for_user' ] );
     }

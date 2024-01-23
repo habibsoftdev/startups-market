@@ -1,9 +1,14 @@
 <?php 
 
 namespace Startups\Market\Users;
+use Startups\Market\Trait\SingletonTrait;
 
+/**
+ * User Extra Field Hanlder class
+ */
 class Extrafield{
 
+    use SingletonTrait;
     public function __construct(){
         add_filter( 'user_contactmethods', [ $this, 'add_user_contactmethod' ] );
      
@@ -21,6 +26,12 @@ class Extrafield{
 
      }
 
+    /**
+     * Adding phone number field
+     *
+     * @param mixed $user
+     * @return void
+     */
      public function add_phone_number_field( $user ){
         ?>
         <table class="form-table">
@@ -35,6 +46,12 @@ class Extrafield{
         <?php
      }
 
+     /**
+      * Save User Field
+      *
+      * @param int $user_id
+      * @return void
+      */
      public function save_phone_number_field( $user_id ){
         /**
          * Check the Current user capability to edit this user info

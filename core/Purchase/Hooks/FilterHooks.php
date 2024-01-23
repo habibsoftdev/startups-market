@@ -4,8 +4,12 @@ namespace Startups\Market\Purchase\Hooks;
 use Startups\Market\Purchase\Modal\CPTOrderItemProduct;
 use Startups\Market\Purchase\Modal\CPTProductDataStore;
 use Startups\Market\Purchase\Helper\Stm_WC_Helper;
+use Startups\Market\Trait\SingletonTrait;
 
 class FilterHooks{
+
+	use SingletonTrait;
+
     public function __construct() {
 		// Plugins Setting Page.
 		add_filter( 'woocommerce_data_stores', [ $this, 'cptwoo_data_stores' ], 99 );
@@ -75,7 +79,7 @@ class FilterHooks{
 	 * @return CPTOrderItemProduct
 	 */
 	public function checkout_create_order_line_item_object( $obj_WC_Order_Item_Product ) {
-		$obj_WC_Order_Item_Product = new CPTOrderItemProduct();
+		$obj_WC_Order_Item_Product = CPTOrderItemProduct::instance();
 
 		return $obj_WC_Order_Item_Product;
 	}

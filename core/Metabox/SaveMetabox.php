@@ -1,11 +1,14 @@
 <?php 
 
 namespace Startups\Market\Metabox;
+use Startups\Market\Trait\SingletonTrait;
 
 /**
  * Metabox Meta Value Save Class
  */
 class SaveMetabox{
+
+    use SingletonTrait;
 
     public static function save_pricing_metabox( $post_id ){
         

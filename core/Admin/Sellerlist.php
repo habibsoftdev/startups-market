@@ -1,6 +1,7 @@
 <?php 
 
 namespace Startups\Market\Admin;
+use Startups\Market\Trait\SingletonTrait;
 
 if ( !class_exists('WP_List_Table')){
     require_once ABSPATH. 'wp-admin/includes/class-wp-list-table.php';
@@ -11,6 +12,9 @@ if ( !class_exists('WP_List_Table')){
  */
 
 class Sellerlist extends \WP_List_Table{
+
+    use SingletonTrait;
+    
     public function __construct(){
         parent::__construct([
             'singular' => 'Seller',

@@ -1,12 +1,14 @@
 <?php 
 
 namespace Startups\Market\Metabox;
-
+use Startups\Market\Trait\SingletonTrait;
 
 /**
  * Metabox Business Info Html Elements
  */
 class Businessinfo{
+
+    use SingletonTrait;
 
     public function __construct( $post ){
         $this->businessinfo_html_content( $post );

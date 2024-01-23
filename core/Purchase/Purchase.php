@@ -3,12 +3,15 @@
 namespace Startups\Market\Purchase;
 use Startups\Market\Purchase\Hooks\ActionHooks;
 use Startups\Market\Purchase\Hooks\FilterHooks;
+use Startups\Market\Trait\SingletonTrait;
 
 /**
  * Woocommerce Handler Class
  */
 
 class Purchase{
+
+    use SingletonTrait;
 
     public function __construct(){
         add_filter( 'woocommerce_get_page_id', [ $this, 'prevent_woocommerce_page_creation' ] );
@@ -19,11 +22,17 @@ class Purchase{
         //add_action( 'admin_init', [ $this, 'wc_admin_init' ] );
         add_action('wp_head', [ $this, 'hide_woocommerce_notices_on_checkout' ]);
 
-        new ActionHooks();
-        new FilterHooks();
+        ActionHooks::instance();
+        FilterHooks:: instance();
+        
         add_filter('woocommerce_quantity_input_args', [ $this, 'customize_woocommerce_quantity_input_min_max_step' ], 10, 2);
         add_action('template_redirect', [ $this, 'remove_quantity_field_from_product_page' ] );
-        add_filter('woocommerce_add_to_cart_validation', [$this, 'validate_cart_item_quantity' ], 10, 3);
+        add_filter('woocommerce_add_to_cart_validation', [ $this, 'validate_cart_item_quantity' ], 10, 3);
+        add_filter('woocommerce_add_cart_item_data', [ $this, 'custom_clear_cart_on_add_to_cart' ], 10, 2);
+        add_filter('woocommerce_cart_item_quantity', [ $this,'custom_set_cart_item_quantity' ], 10, 2);
+        add_filter('woocommerce_checkout_cart_item_quantity', [ $this, 'custom_set_cart_item_quantity' ], 10, 2);
+        add_action('woocommerce_before_cart', [ $this, 'custom_set_cart_item_quantity_on_cart_load' ], 10 );
+        add_action('woocommerce_before_checkout_form', [ $this, 'custom_set_cart_item_quantity_on_cart_load' ], 10 );
 
        
     }
@@ -88,5 +97,28 @@ class Purchase{
             return false;
         }
         return $passed;
+    }
+
+    // Remove existing products from the cart when a new product is added
+    public function custom_clear_cart_on_add_to_cart($cart_item_data, $product_id) {
+        // Clear the cart before adding the new product
+        WC()->cart->empty_cart();
+    
+        return $cart_item_data;
+    }
+    
+    // Update cart item quantity to 1 when a product is added
+    public function custom_set_cart_item_quantity($cart_item_key, $quantity) {
+        return 1;
+    }
+    
+    // Update cart item quantity to 1 on cart load
+    public function custom_set_cart_item_quantity_on_cart_load() {
+        $cart = WC()->cart;
+    
+        foreach ($cart->get_cart() as $cart_item_key => $cart_item) {
+            $cart_item['quantity'] = 1;
+            $cart->cart_contents[$cart_item_key] = $cart_item;
+        }
     }
 }

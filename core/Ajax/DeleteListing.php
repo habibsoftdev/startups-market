@@ -1,8 +1,11 @@
 <?php
 
 namespace Startups\Market\Ajax;
+use Startups\Market\Trait\SingletonTrait;
 
 class DeleteListing {
+
+    use SingletonTrait;
 
     public function __construct() {
         add_action('wp_ajax_delete_listing', [$this, 'stm_delete_listing']);

@@ -1,10 +1,14 @@
 <?php 
+
 namespace Startups\Market\Users;
+use Startups\Market\Trait\SingletonTrait;
 
 /**
  * User role handler Class
  */
 class Roles{
+
+    use SingletonTrait;
 
     /**
      * Class Constructor

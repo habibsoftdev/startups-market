@@ -5,12 +5,14 @@ use Startups\Market\Metabox\Pricing;
 use Startups\Market\Metabox\SaveMetabox;
 use Startups\Market\Metabox\Businessinfo;
 use Startups\Market\Metabox\Gallery;
+use Startups\Market\Trait\SingletonTrait;
 
 /**
  * Metabox class
  */
 class Metabox{
-   
+    
+    use SingletonTrait;
     public function __construct(){
         add_action( 'add_meta_boxes', [ $this, 'stm_pricing_metabox' ] );
         add_action( 'save_post', [ $this, 'save_metabox_content' ] );

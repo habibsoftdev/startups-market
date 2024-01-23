@@ -1,11 +1,13 @@
 <?php  
 
 namespace Startups\Market\Admin;
-
+use Startups\Market\Trait\SingletonTrait;
 /**
  * The Menu Handler Class
  */
 class Menu{
+
+    use SingletonTrait;
 
     /**
      * Class Constructor
@@ -133,7 +135,7 @@ class Menu{
      * @return void
      */
     public function buyer_list(){
-        new Buyerview();
+        Buyerview::instance();
     }
 
     /**
@@ -142,7 +144,7 @@ class Menu{
      * @return void
      */
     public function seller_list(){
-        new Sellerview();
+        Sellerview::instance();
     }
 
     /**

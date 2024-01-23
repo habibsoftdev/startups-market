@@ -3,7 +3,10 @@
 namespace Startups\Market\Purchase\Modal;
 use WC_Order_Item_Product;
 use Startups\Market\Purchase\Helper\Stm_WC_Helper;
+use Startups\Market\Trait\SingletonTrait;
 class CPTOrderItemProduct extends WC_Order_Item_Product{
+
+    use SingletonTrait;
 
     public $legacy_values;
 

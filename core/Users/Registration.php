@@ -1,6 +1,7 @@
 <?php 
 
 namespace Startups\Market\Users;
+use Startups\Market\Trait\SingletonTrait;
 
 /**
  *  Registration class Handler
@@ -12,6 +13,7 @@ use Startups\Market\Email\EmailHandler;
 
 class Registration{
     
+    use SingletonTrait;
     public function __construct(){
         add_shortcode( 'registration_form', [ $this, 'registration_form_shortcode' ] );
         add_action( 'init', [ $this, 'registration_form_process' ]);

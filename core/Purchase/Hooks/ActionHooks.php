@@ -2,11 +2,14 @@
 
 namespace Startups\Market\Purchase\Hooks;
 use Startups\Market\Purchase\Helper\Stm_WC_Helper;
+use Startups\Market\Trait\SingletonTrait;
 
 /**
  * Main Action Hooks Class
  */
 class ActionHooks{
+
+	use SingletonTrait;
     
 	/**
 	 * Init Hooks.

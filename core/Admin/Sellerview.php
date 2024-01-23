@@ -1,9 +1,14 @@
 <?php 
 
 namespace Startups\Market\Admin;
+use Startups\Market\Trait\SingletonTrait;
 
+/**
+ * List of Seller Handler class
+ */
 class Sellerview{
 
+    use SingletonTrait;
     public function __construct(){
         $this->seller_view_table();
     }
@@ -17,7 +22,7 @@ class Sellerview{
 
             <form action="" method="post">
                 <?php 
-                    $table = new Sellerlist();
+                    $table = Sellerlist::instance();
                     $table->prepare_items();
                     $table->display();
                 ?>

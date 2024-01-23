@@ -1,11 +1,14 @@
 <?php 
 
 namespace Startups\Market;
+use Startups\Market\Trait\SingletonTrait;
 
 /**
  * Create Pages upon the plugin Active
  */
 class CreatePages{
+
+    use SingletonTrait;
 
     public function __construct(){
 

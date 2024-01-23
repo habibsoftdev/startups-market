@@ -1,8 +1,11 @@
 <?php 
 
 namespace Startups\Market\Metabox;
+use Startups\Market\Trait\SingletonTrait;
 
 class Gallery{
+
+    use SingletonTrait;
 
     public function __construct( $post ){
       

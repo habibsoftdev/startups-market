@@ -1,6 +1,7 @@
 <?php 
 
 namespace Startups\Market;
+use Startups\Market\Trait\SingletonTrait;
 
 /**
  * Assets Loading Class Handler
@@ -8,6 +9,8 @@ namespace Startups\Market;
 
 class Assetsload{
 
+    use SingletonTrait;
+    
     public function __construct(){
         add_action( 'wp_enqueue_scripts', [ $this, 'stm_frontend_asset_load' ] );
         add_action( 'admin_enqueue_scripts', [ $this, 'stm_admin_asset']);

@@ -1,10 +1,13 @@
 <?php 
 namespace Startups\Market;
+use Startups\Market\Trait\SingletonTrait;
 
 /**
  * Custom Permalink Handler
  */
 class RewriteRule{
+
+    use SingletonTrait;
 
     public function __construct(){
         add_action( 'init', [ $this, 'add_custom_rewrite_rule' ] );

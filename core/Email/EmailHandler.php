@@ -1,6 +1,7 @@
 <?php 
 
 namespace Startups\Market\Email;
+use Startups\Market\Trait\SingletonTrait;
 
 use WP_User;
 
@@ -10,7 +11,7 @@ use WP_User;
 
  class EmailHandler{
 
-    
+    use SingletonTrait;
 
     public function __construct(){
         include_once plugin_dir_path(__FILE__). '../../template/email.php';

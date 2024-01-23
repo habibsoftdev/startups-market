@@ -1,12 +1,15 @@
 <?php
 
 namespace Startups\Market\Ajax;
+use Startups\Market\Trait\SingletonTrait;
 
 
 /**
  * Ajax Handler Class
  */
 class Loginhandler{
+
+    use SingletonTrait;
 
     public function __construct()
     {

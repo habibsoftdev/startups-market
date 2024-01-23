@@ -1,8 +1,14 @@
 <?php 
 
 namespace Startups\Market\Admin;
+use Startups\Market\Trait\SingletonTrait;
 
+/**
+ * List of Buyer in Admin Area class
+ */
 class Buyerview{
+
+    use SingletonTrait;
 
     public function __construct(){
         $this->buyer_view_table();
@@ -17,7 +23,7 @@ class Buyerview{
 
             <form action="" method="post">
                 <?php 
-                    $table = new Buyerlist();
+                    $table = Buyerlist::instance();
                     $table->prepare_items();
                     $table->display();
                 ?>

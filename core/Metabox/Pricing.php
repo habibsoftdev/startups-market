@@ -1,8 +1,11 @@
 <?php  
 
 namespace Startups\Market\Metabox;
+use Startups\Market\Trait\SingletonTrait;
 
 class Pricing{
+
+  use SingletonTrait;
 
   private static $option_name = 'stm_pricing_instance';
 
