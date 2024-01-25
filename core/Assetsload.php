@@ -30,7 +30,7 @@ class Assetsload{
         //Scripts
         wp_enqueue_script( 'stm-login-handle', STM_ASSETS. '/frontend/js/login.js', array('jquery'), time(), true);
         wp_enqueue_script( 'stm-listing-main', STM_ASSETS. '/frontend/js/main.js', array('jquery'), time(), true);
-        wp_enqueue_script( 'stm-dashboard', STM_ASSETS. '/frontend/js/dashboard.js', array(), time(), true);
+        wp_enqueue_script( 'stm-dashboard', STM_ASSETS. '/frontend/js/dashboard.js', array('jquery'), time(), true);
         wp_enqueue_script( 'stm-bootstrap-js', '//cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js', array(), time(), true);
         wp_enqueue_script('stm-profile', STM_ASSETS. '/frontend/js/profile.js', array('jquery'), time(), true );
         wp_enqueue_script('stm-delete', STM_ASSETS. '/frontend/js/delete.js', array('jquery'), time(), true );

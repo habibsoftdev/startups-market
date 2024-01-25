@@ -64,6 +64,10 @@ class CreatePages{
             [
                 'title' => 'Stm Add Listing',
                 'content' => '[stm_add_listing]',
+            ],
+            [
+                'title' => 'Stm Message',
+                'content' => '[front-end-pm]', 
             ]
          ];
 

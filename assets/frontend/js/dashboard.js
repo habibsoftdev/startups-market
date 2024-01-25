@@ -8,6 +8,15 @@ const clickMyProfile = () => {
   showPage('#my-profile-page');
 };
 
+const clickMyHistory = () =>{
+  showPage('#my-history-page');
+};
+
+const clickMyWallet = () =>{
+  showPage('#my-wallet-page');
+};
+
+
 const clickMyFavorite = () => {
   showPage('#my-favorite-page');
 };
@@ -16,13 +25,14 @@ const clickMyAnnouncement = () => {
   showPage('#my-announcement-page');
 };
 
+
 // Side nav active route
 const sideNavLinks = document.querySelectorAll('.nav-links');
 sideNavLinks.forEach(sideNavLink => {
   sideNavLink.addEventListener('click', function (e) {
     e.preventDefault();
     document.querySelector('.active-route')?.classList.remove('active-route');
-    this.classList.add('active-route');
+    sideNavLink.classList.add('active-route');
   });
 });
 

@@ -11,9 +11,12 @@ if (!is_user_logged_in()) {
 
 get_header();
 
+
 while( have_posts() ) : the_post();
    $post_id = get_the_ID();
-
+    $author_id = get_the_author_meta( 'ID' );
+    $author_email = get_the_author_meta( 'user_email', $author_id );
+    
    $pricing = get_post_meta( $post_id, 'stm_price', true );
    $tagline = get_post_meta( $post_id, 'stm_tagline', true );
    $arr = get_post_meta( $post_id, 'stm_arr', true );
@@ -25,6 +28,14 @@ while( have_posts() ) : the_post();
    $product_id = get_the_ID();
    $product_price = get_post_meta($product_id, 'stm_price', true);
    $checkout_url = wc_get_checkout_url() . '?add-to-cart=' . $product_id . '&price=' . $product_price;
+   $post_status = get_post_status( $post_id );
+
+   $calltoaction = ( $post_status === 'sold_out' ) ? __( 'BUSINESS SOLD OUT', 'startups-market' ) : __( 'BUY THIS BUSINESS', 'startups-market' );
+   $ctabuttoncolor = ( $post_status === 'sold_out' ) ? esc_attr( 'contact-founder-btn-sold' ) : esc_attr( 'contact-founder-btn' );
+   $mUrl = 'aaa/?fepaction=newmessage&fep_to=' . $author_email;
+   $message_url = home_url( $mUrl );
+
+   $private_message_url = ( $post_status === 'sold_out' ) ? '#' : $message_url;
 
    ?>
 
@@ -108,7 +119,7 @@ while( have_posts() ) : the_post();
 
     <!-- card header content -->
     <div class="card-header-content">
-        <h3>Asking Price:</h3>
+        <h3><?php echo esc_html__( 'Asking Price:', 'startups-market' ); ?></h3>
         <h2>$<?php echo esc_html( $pricing ); ?></h2>
     </div>
 
@@ -116,10 +127,12 @@ while( have_posts() ) : the_post();
     <hr class="card-horizontal">
 
     <!-- card button -->
-    <a href="<?php echo esc_url($checkout_url); ?>"><button type="button" class="contact-founder-btn w-100 container-fluid mb-3"><span class="pe-2"> Buy This Business </span></button></a>
+    <a href="<?php echo esc_url($checkout_url); ?>"><button type="button" class="<?php echo $ctabuttoncolor; ?> w-100 container-fluid mb-3"><span class="pe-2"> <?php echo esc_html( $calltoaction ); ?> </span></button></a>
 
-        <button type="button" class="startup-btn w-100 container-fluid"><span class="pe-2">VISIT STARTUP
-        WEBSITE</span></button>
+       <a href="<?php echo esc_url( $private_message_url ); ?>"> <button type="button" class="startup-btn w-100 container-fluid"><span class="pe-2"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="21" fill="currentColor" class="bi bi-envelope" viewBox="0 0 16 16">
+  <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1zm13 2.383-4.708 2.825L15 11.105zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741M1 11.105l4.708-2.897L1 5.383z"/>
+</svg></span></span><?php echo esc_html__( 'VISIT STARTUP
+        WEBSITE', 'startups-market' ); ?></span></button></a>
 
             <!-- card horizontal line -->
             <hr class="card-horizontal">

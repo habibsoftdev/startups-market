@@ -3,4 +3,4 @@
                 <div class="favorite-list-content shadow-sm ">
                     <p>Nothing Found</p>
                 </div>
-            </section>
+</section>

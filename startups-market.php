@@ -20,6 +20,7 @@ if( ! Defined( 'ABSPATH' )){
 }
 
 require_once __DIR__ . '/vendor/autoload.php';
+require_once __DIR__  . '/core/functions.php';
 use Startups\Market\Installer;
 use Startups\Market\CreatePages;
 use Startups\Market\Users\Roles;

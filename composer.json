@@ -15,8 +15,6 @@
     "psr-4": {
       "Startups\\Market\\": "core/"
     },
-    "files": [
-      "core/functions.php"
-    ]
+    "files": ["core/functions.php"]
   }
 }

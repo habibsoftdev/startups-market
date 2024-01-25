@@ -15,6 +15,12 @@ class RegisterBusinessCPT{
     public function __construct(){
         add_action( 'init', [ $this, 'register_business_post_type' ] );
         add_filter( 'parent_file', [ $this, 'highlight_custom_taxonomy_menu_item' ] );
+        add_action('save_post', [ $this, 'save_custom_status_value' ], 10, 2);
+        add_filter('display_post_states', [ $this, 'add_custom_post_status_to_post_list' ], 10, 2);
+        //add_action('post_submitbox_misc_actions', [ $this, 'add_custom_post_status_dropdown' ] );
+
+       add_action('admin_footer', [ $this, 'add_custom_post_status_dropdown' ]);
+
            
     }
 
@@ -94,6 +100,19 @@ class RegisterBusinessCPT{
         );
     
         register_taxonomy( 'business_category', 'business', $taxonomy_args );
+
+        /**
+         * Register Custom Status
+         */
+
+         register_post_status( 'sold_out', [
+            'label' => _x( 'Sold Out', 'business' ),
+            'public' => true,
+            'exclude_from_search' => false,
+            'show_in_admin_all_list' => true,
+            'show_in_admin_status_list' => true,
+            'label_count' => _n_noop( 'Sold Out (%s)', 'Sold Out (%s)' ),
+         ]);
         
 
     }
@@ -106,15 +125,57 @@ class RegisterBusinessCPT{
      */
     public function highlight_custom_taxonomy_menu_item($parent_file){
         global $current_screen, $pagenow;
-
-        // Check if we are on the custom taxonomy page
-        if ( $current_screen->taxonomy === 'business_category' && $pagenow === 'edit-tags.php' ) {
+    
+        // Check if $current_screen is an object and has the 'taxonomy' property
+        if ($current_screen && property_exists($current_screen, 'taxonomy') && $current_screen->taxonomy === 'business_category' && $pagenow === 'edit-tags.php') {
             // Set the parent menu file to your custom admin menu slug
             $parent_file = 'startups_market';
         }
-
+    
         return $parent_file;
+    }
 
+    public function save_custom_status_value( $post_id, $post ){
+        // Check if the post type is 'business' and the request has the 'post_status' parameter
+    if ($post->post_type === 'business' && isset($_REQUEST['post_status'])) {
+        $new_status = $_REQUEST['post_status'];
+
+        // Check if the new status is 'sold_out' and it's different from the current status
+        if ($new_status === 'sold_out' && $post->post_status !== 'sold_out') {
+            // Update the post status to 'sold_out'
+            wp_update_post(array('ID' => $post_id, 'post_status' => 'sold_out'));
+        }
+    }
+    }
+
+
+
+    public function add_custom_post_status_to_post_list($post_states, $post) {
+        // Check if it's the 'business' post type
+        if ('business' === $post->post_type && $post->post_status === 'sold_out') {
+            // Add "Sold Out" to the post states
+            $post_states[] = _x('Sold Out', 'business');
+        }
+    
+        return $post_states;
+    }
+
+    // Hook into the 'post_submitbox_misc_actions' action to display the custom post status dropdown
+    public function add_custom_post_status_dropdown() {
+        global $post;
+        if ('business' === $post->post_type) {
+            $complete = '';
+            if ($post->post_status == 'sold_out') {
+                $complete = ' selected="selected"';
+            }
+            ?>
+            <script>
+                jQuery(document).ready(function(){
+                jQuery('#post_status').append('<option value="sold_out" <?php echo $complete; ?>>Sold Out</option>');
+    });
+            </script>
+            <?php
+        }
     }
  
 
