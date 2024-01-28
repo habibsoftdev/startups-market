@@ -5,6 +5,7 @@ use Startups\Market\Purchase\Hooks\ActionHooks;
 use Startups\Market\Purchase\Hooks\FilterHooks;
 use Startups\Market\Trait\SingletonTrait;
 use Startups\Market\Purchase\Helper\OneTimePurchase;
+use Startups\Market\Stm_Utils;
 
 
 /**
@@ -37,7 +38,7 @@ class Purchase{
         add_action( 'woocommerce_new_order', [ $this, 'update_custom_post_status_on_order_placement'], 10, 2 );
         add_action('woocommerce_admin_order_item_values', [ $this, 'display_product_id_in_order' ], 10, 3);
         add_action('woocommerce_before_checkout_form', [ $this,'check_product_sold_out_before_checkout' ] );
-        
+        add_action('woocommerce_order_status_changed', [ $this, 'update_custom_post_status_on_order_completion' ], 10, 4);
          
 
        
@@ -142,10 +143,28 @@ class Purchase{
             // Get the product ID
             $product_id = $item->get_product_id();
             $product_type = get_post_type($product_id);
-    
+            $total_price = $item->get_total(); // Assuming this is the total price of the item
+            $listing_id = $product_id;
+            $author_id = get_post_field('post_author', $listing_id);
+
             if ($product_type === 'business') {
                 // Update the post status to 'sold_out'
-                wp_update_post(array('ID' => $product_id, 'post_status' => 'sold_out'));
+                $update_post_status = wp_update_post(array('ID' => $product_id, 'post_status' => 'sold_out'));
+
+                // Update user meta for pending balance
+                $update_pending_balance = update_user_meta($author_id, 'pending_balance', $total_price);
+
+                // Error handling for post status update
+                if (is_wp_error($update_post_status)) {
+                    // Handle error, e.g., log or display a message
+                    error_log('Error updating post status for post ' . $product_id . ': ' . $update_post_status->get_error_message());
+                }
+
+                // Error handling for user meta update
+                if (!$update_pending_balance) {
+                    // Handle error, e.g., log or display a message
+                    error_log('Error updating user meta for user ' . $author_id);
+                }
             }
         }
     }
@@ -169,6 +188,44 @@ class Purchase{
                     // Redirect to the cart page
                     wp_redirect(home_url());
                     exit;
+                }
+            }
+        }
+    }
+
+    public function update_custom_post_status_on_order_completion($order_id, $old_status, $new_status, $order) {
+        if ($new_status === 'completed' && $old_status !== 'completed') {
+            foreach ($order->get_items() as $item_id => $item) {
+                $product_id = $item->get_product_id();
+                $product_type = get_post_type($product_id);
+    
+                // Calculate available balance based on your specific use case
+                $available_balance = $item->get_total();
+                $available_balance = intval($available_balance);
+    
+                // Get listing and author information
+                $listing_id = $product_id;
+                $author_id = get_post_field('post_author', $listing_id);
+    
+                // Get and update pending balance
+                $pending_balance = get_user_meta($author_id, 'pending_balance', true);
+                $old_available_balance = get_user_meta( $author_id, 'available_balance', true );
+                $old_available_balance = intval( $old_available_balance );
+                $pending_balance = intval($pending_balance);
+                $pending_balance -= $available_balance;
+                $new_available_balance = $old_available_balance + $available_balance;
+    
+                // Check if the product type is 'business'
+                if ($product_type === 'business') {
+                    // Update user meta for available and pending balances
+                    $update_available = update_user_meta($author_id, 'available_balance', $new_available_balance);
+                    $update_pending = update_user_meta($author_id, 'pending_balance', $pending_balance);
+    
+                    // Error handling
+                    if (!$update_available || !$update_pending) {
+                        // Handle error, e.g., log or display a message
+                        error_log('Error updating user meta for user ' . $author_id);
+                    }
                 }
             }
         }

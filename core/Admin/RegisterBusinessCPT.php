@@ -135,6 +135,13 @@ class RegisterBusinessCPT{
         return $parent_file;
     }
 
+    /**
+     * Save Custom post staus value
+     *
+     * @param int $post_id
+     * @param mixed $post
+     * @return void
+     */
     public function save_custom_status_value( $post_id, $post ){
         // Check if the post type is 'business' and the request has the 'post_status' parameter
     if ($post->post_type === 'business' && isset($_REQUEST['post_status'])) {
@@ -163,19 +170,29 @@ class RegisterBusinessCPT{
     // Hook into the 'post_submitbox_misc_actions' action to display the custom post status dropdown
     public function add_custom_post_status_dropdown() {
         global $post;
-        if ('business' === $post->post_type) {
+    
+        if ($post !== null && property_exists($post, 'post_type') && 'business' === $post->post_type) {
             $complete = '';
+    
             if ($post->post_status == 'sold_out') {
                 $complete = ' selected="selected"';
             }
+    
             ?>
             <script>
                 jQuery(document).ready(function(){
-                jQuery('#post_status').append('<option value="sold_out" <?php echo $complete; ?>>Sold Out</option>');
-    });
+                    jQuery('#post_status').append('<option value="sold_out" <?php echo $complete; ?>>Sold Out</option>');
+                });
             </script>
             <?php
+        } else {
+            // Log information about the null post object or incorrect post type
+            error_log('Post object is null or does not have the post_type property.');
+            error_log('Post object: ' . print_r($post, true));
         }
+    
+        // Log information about the post object after it has been used
+        error_log('Post object after use: ' . print_r($post, true));
     }
  
 

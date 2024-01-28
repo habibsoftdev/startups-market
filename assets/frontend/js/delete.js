@@ -20,7 +20,7 @@ jQuery(document).ready(function($) {
                     action: 'delete_listing',
                     listing_id: postId,
                     nonce: deleteNonce,
-                },
+                }, 
                 success: function(response) {
                     if (response.success) {
                         // Successfully deleted, fade out and remove the row

@@ -16,6 +16,7 @@ use Startups\Market\Purchase\Purchase;
 use Startups\Market\Ajax\DashboardProfile;
 use Startups\Market\Ajax\DeleteListing;
 use Startups\Market\Ajax\Loginhandler;
+use Startups\Market\Ajax\ConfirmOrder;
 /**
  * Handle all the class in core file
  */
@@ -47,6 +48,7 @@ class Installer{
             Loginhandler::instance();
             Dashboardprofile::instance();
             DeleteListing::instance();
+            ConfirmOrder::instance();
         }
     }
 

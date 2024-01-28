@@ -50,5 +50,34 @@ class Stm_Utils{
         return $post_count;
     }
 
+    public static function calculateEarningsAndFee($orderTotal, $feePercentage = 0.07) {
+        // Calculate fee
+        $fee = $orderTotal * $feePercentage;
+    
+        // Calculate earnings
+        $earnings = $orderTotal - $fee;
+    
+        return [
+            'fee' => $fee,
+            'earnings' => $earnings,
+        ];
+    }
+
+   public static function get_post_status_last_modified_date($post_id) {
+    global $wpdb;
+
+    $query = $wpdb->prepare("
+        SELECT post_modified
+        FROM $wpdb->posts
+        WHERE ID = %d
+        AND post_status = %s
+    ", $post_id, 'sold_out');
+
+    $date = $wpdb->get_var($query);
+
+    return $date ? date('F j, Y', strtotime($date)) : false;
+    }
+
+
 
 }

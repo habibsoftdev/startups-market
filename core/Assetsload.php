@@ -39,7 +39,7 @@ class Assetsload{
         
         wp_enqueue_script('stm-slick', '//raw.githack.com/SochavaAG/example-mycode/master/pens/slick-slider/plugins/slick/slick.min.js', array('jquery'), true );
 
-
+        wp_enqueue_script('stm-confirmorder', STM_ASSETS. '/frontend/js/ConfirmOrder.js', array('jquery'), time(), true );
         
        
 
@@ -73,6 +73,16 @@ class Assetsload{
             'ajax_url' => admin_url( 'admin-ajax.php' ),
             'confirm_message' => __( 'Are you sure you want to delete this listing?', 'startups-market' ),
             'delete_nonce' => $delete_nonce,
+          ]);
+
+          /**
+           * Ajax Confirm Order
+           */
+          $confirmOrder_nonce = wp_create_nonce('confirm_order_nonce');
+           wp_localize_script( 'stm-confirmorder', 'stm_confirm_order_object', [
+            'ajax_url' => admin_url( 'admin-ajax.php' ),
+            'confirm_message' => __( 'Did you get all the assets?', 'startups-market' ),
+            'confirm_order_nonce' => $confirmOrder_nonce,
           ]);
 
     }

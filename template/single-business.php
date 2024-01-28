@@ -120,7 +120,7 @@ while( have_posts() ) : the_post();
     <!-- card header content -->
     <div class="card-header-content">
         <h3><?php echo esc_html__( 'Asking Price:', 'startups-market' ); ?></h3>
-        <h2>$<?php echo esc_html( $pricing ); ?></h2>
+        <h2>$<?php echo number_format( esc_html( $pricing ), 0, '.', ',' ); ?></h2>
     </div>
 
     <!-- card horizontal line -->

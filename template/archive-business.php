@@ -68,7 +68,7 @@ $archive_query = new WP_Query( $args );
                         <!-- card button group -->
                         <div class="card-btn-group">
                             
-                            <span  class="card-btn price-btn">$<?php echo esc_html( $price ); ?></span>
+                            <span  class="card-btn price-btn">$<?php echo number_format(esc_html( $price ), 0, '.', ',' ); ?></span>
                             <span class="card-btn <?php esc_attr_e($status); ?>" href=""><?php esc_attr_e( $openclose ); ?></span>
                         </div>
 
