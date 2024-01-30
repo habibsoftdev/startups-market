@@ -7,6 +7,8 @@
       statusSelect.append('<option value="sold_out">Sold Out</option>');
   });
 
+  
+
 
 })(jQuery);
 

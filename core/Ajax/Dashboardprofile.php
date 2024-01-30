@@ -15,7 +15,7 @@ class DashboardProfile
 
     public function stm_profile_form_ajax()
     {
-        // Check nonce using check_ajax_referer
+        //Check nonce using check_ajax_referer
         check_ajax_referer('stm_user_prof', 'stm_user_prof_nonce');
 
         if (!is_user_logged_in()) {

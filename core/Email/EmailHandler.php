@@ -84,4 +84,52 @@ use WP_User;
 
         return $this->stm_send_email( $email, $subject, $body, $header );
     }
+
+    public function send_seller_listing_published_confirmation(  $email, $firstname, $title){
+
+        $title = __( ' Congratulations! Your Business Listing is Now Live!', 'startups-market' );
+        $subject = sprintf( __( 'In [%s] Your Listing Live Now !', 'startups-market' ), get_bloginfo( 'blogname', 'display' ) );
+        $header = 'Listing is Live now!';
+        $site_name = wp_specialchars_decode( get_option( 'blogname' ), ENT_QUOTES );
+        $body = sprintf( __( "Hi %s,
+        We are thrilled to inform you that your Business Listing %s on %s has been approved and is now live to discover. Congratulations!
+
+        We believe that your unique offerings will be a valuable addition to our platform, and we look forward to seeing your business sold out within our community.
+        
+
+        Thanks,
+        Operation Team.
+
+			 ", 'startups-market' ), $firstname, $site_name, $title);
+
+        $body = stm_email_html( $title, $body);
+
+        return $this->stm_send_email( $email, $subject, $body, $header );
+    }
+
+    public function send_seller_listing_soldout_confirmation(  $email, $firstname, $title){
+
+        $title = __( 'Congratulations! Your Business Listing Has Been Sold!', 'startups-market' );
+        $subject = sprintf( __( 'In [%s] Business Listing Has Been Sold!', 'startups-market' ), get_bloginfo( 'blogname', 'display' ) );
+        $header = 'Your Listing Has been Sold Out!';
+        $site_name = wp_specialchars_decode( get_option( 'blogname' ), ENT_QUOTES );
+        $body = sprintf( __( "Hi %s,
+        We are thrilled to inform you that your business listing %s on %s has been successfully sold! 🎉 This is a significant achievement, and we want to extend our warmest congratulations to you.
+
+        We understand the hard work and dedication you put into creating and maintaining your business, and we're delighted to see it find a new owner. This success is a testament to the value of your offering.
+
+        Please Provide All the deliveryable Assets to the client.
+
+        Note: Once Client Approve the Order You will get option to withdraw the money.
+        
+
+        Thanks,
+        Operation Team.
+
+			 ", 'startups-market' ), $firstname, $site_name, $title);
+
+        $body = stm_email_html( $title, $body);
+
+        return $this->stm_send_email( $email, $subject, $body, $header );
+    }
  }

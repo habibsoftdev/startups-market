@@ -16,7 +16,7 @@
     <nav class="navbar my-listing-menubar navbar-expand-lg shadow-sm rounded-2">
 
 <!-- My listing menubar -->
-<div>
+<!-- <div>
 
     <ul class="smt-nav-listing nav-list navbar-nav me-auto mb-2 mb-lg-0">
 
@@ -40,16 +40,16 @@
         </li>
 
     </ul>
-</div>
+</div> -->
 
 <!-- new class added search-input-container -->
-<div class="search-input-container">
+<!-- <div class="search-input-container"> -->
     <!-- My listing search place -->
-    <form class="d-flex ms-1" role="search">
+    <!-- <form class="d-flex ms-1" role="search">
         <input class="search-listing-input  me-2 rounded-5" type="search"
             placeholder="Search Listings" aria-label="Search">
-    </form>
-</div>
+    </form> -->
+<!-- </div> -->
 
 </nav>
         <div class="all-listing-container">

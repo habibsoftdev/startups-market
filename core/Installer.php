@@ -17,6 +17,10 @@ use Startups\Market\Ajax\DashboardProfile;
 use Startups\Market\Ajax\DeleteListing;
 use Startups\Market\Ajax\Loginhandler;
 use Startups\Market\Ajax\ConfirmOrder;
+use Startups\Market\Ajax\PaymentMethod;
+use Startups\Market\Ajax\InitiateWidthraw;
+use Startups\Market\Ajax\WithdrawAaction;
+use Startups\Market\Email\SendEmail;
 /**
  * Handle all the class in core file
  */
@@ -41,7 +45,8 @@ class Installer{
         ListingHandle::instance();
         RewriteRule::instance();
         Purchase::instance();
-
+        $this->CreateWidthrawalTable();
+        SendEmail::instance();
 
 
         if( defined('DOING_AJAX') && DOING_AJAX ){
@@ -49,7 +54,37 @@ class Installer{
             Dashboardprofile::instance();
             DeleteListing::instance();
             ConfirmOrder::instance();
+            PaymentMethod::instance();
+            InitiateWidthraw::instance();
+            WithdrawAaction::instance();
+
         }
     }
+
+    public function CreateWidthrawalTable(){
+
+        global $wpdb;
+
+        $charset_collate = $wpdb->get_charset_collate();
+        $table_name = $wpdb->prefix . 'stm_withdrawals';
+
+        $schema = "CREATE TABLE IF NOT EXISTS $table_name (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `user_id` mediumint(9) NOT NULL,
+            `amount` decimal(10,2) NOT NULL,
+            `status` varchar(20) NOT NULL,
+            `admin_action` tinyint(1) NOT NULL DEFAULT 0,
+            `withdrawal_date` datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
+            PRIMARY KEY (id)
+        ) $charset_collate;";
+
+        if ( ! function_exists( 'dbDelta' ) ) {
+            require_once ABSPATH . 'wp-admin/includes/upgrade.php';
+        }
+
+        dbDelta( $schema );
+
+    }
+
 
 }

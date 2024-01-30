@@ -24,11 +24,13 @@
 
             $.ajax({
                 type: 'POST',
-                dataType: 'json',
+                dataType: 'json', 
                 url: stm_profile_object.ajax_url,
                 data: formData,
             })
             .done(function(data) {
+                console.log(data);
+
                 // Handle success
                 if ('status' in data && data.status === 'error') {
                     $('p.pr-notice').html('<div class="stm_login_error"><span>' + data.message + '</span></div>');
@@ -41,6 +43,8 @@
                 }
             })
             .fail(function(data) {
+                console.log(data);
+
                 // Handle failure
                 if ('status' in data && data.status === 'error') {
                     $('p.pr-notice').html('<div class="stm_login_error"><span>' + data.message + '</span></div>');

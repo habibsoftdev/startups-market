@@ -217,8 +217,8 @@ th {
 }
 
 .listing-table-img {
-    width: 70px;
-    height: 30px;
+    width: 50px;
+    height: 50px;
 }
 
 .table-data-content td {
@@ -432,7 +432,7 @@ th {
     grid-column-gap: 15px;
 }
 .payout-table{
-    width: 60%;
+    width: 85%;
 }
 .payout-history{
     box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
@@ -447,8 +447,9 @@ th {
     font-size: 13px !important;
 }
 .payout-td td{
-    font-size: 11px !important;
+    font-size: 12px !important;
     border: 0px;
+    font-weight: 500;
 }
 
 /* responsive style */
@@ -904,4 +905,9 @@ th {
     background-color: green !important;
     color: #fff !important; /* Set text color to white or any other suitable color */
     /* Add any additional styles as needed */
+}
+
+.wdtr-back{
+    background-color: rgb(255, 255, 255) !important;
+    color: green !important;
 }

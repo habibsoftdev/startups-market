@@ -40,6 +40,10 @@ class Assetsload{
         wp_enqueue_script('stm-slick', '//raw.githack.com/SochavaAG/example-mycode/master/pens/slick-slider/plugins/slick/slick.min.js', array('jquery'), true );
 
         wp_enqueue_script('stm-confirmorder', STM_ASSETS. '/frontend/js/ConfirmOrder.js', array('jquery'), time(), true );
+
+        wp_enqueue_script('stm-paymentMethod', STM_ASSETS. '/frontend/js/paymentinfo.js', array('jquery'), time(), true );
+        wp_enqueue_script('stm-widthrawalrequest', STM_ASSETS. '/frontend/js/widthraw.js', array('jquery'), time(), true );
+        
         
        
 
@@ -85,6 +89,25 @@ class Assetsload{
             'confirm_order_nonce' => $confirmOrder_nonce,
           ]);
 
+        /**
+         * Ajax Payment Method
+         */
+         $payment_method_nonce = wp_create_nonce( 'stm_payment_nonce' );
+         wp_localize_script( 'stm-paymentMethod','stm_payement_method', [
+            'ajax_url' => admin_url( 'admin-ajax.php' ),
+            'loading_message' => esc_html__( 'Saving Payment Info, please wait ....', 'startups-market'),
+            'nonce' => $payment_method_nonce,
+         ] );
+         
+          /**
+         * Ajax Widthrawal Request
+         */
+        $Widthrawlnonce = wp_create_nonce( 'stm_widthraw_nonce' );
+        wp_localize_script( 'stm-widthrawalrequest','stm_widthraw_object', [
+           'ajax_url' => admin_url( 'admin-ajax.php' ),
+           'confirm_message' => __( 'Did you Setup your Payment Method and You want to Widthraw?', 'startups-market' ),
+           'nonce' => $Widthrawlnonce,
+        ] );
     }
 
     public function stm_admin_asset(){
@@ -92,6 +115,16 @@ class Assetsload{
         wp_enqueue_style( 'stm-metabox', STM_ASSETS. '/admin/css/metabox.css', array(), time(), 'all' );
         wp_enqueue_script( 'stm-admin-query', STM_ASSETS. '/admin/js/admin.js', array( 'jquery' ), time(), true );
         wp_enqueue_script( 'stm-metabox-query', STM_ASSETS. '/admin/js/metabox.js', array( 'jquery' ), time(), true );
+        wp_enqueue_script( 'stm-withdraw-action', STM_ASSETS. '/admin/js/withdrawAction.js', array( 'jquery' ), time(), true );
+
+        /**
+         * Admin Ajax Action
+         */
+        $action_nonce = wp_create_nonce('action_withdrawal_nonce');
+        wp_localize_script( 'stm-withdraw-action', 'withdraw_action_object', [
+            'ajax_url' => admin_url('admin-ajax.php'),
+            'nonce'    => $action_nonce,
+        ]);
     }
 
 

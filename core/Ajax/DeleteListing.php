@@ -27,7 +27,7 @@ class DeleteListing {
                 'success' => false,
                 'message' => __('You do not have permission to delete this listing.', 'startups-market'),
             ]);
-        }
+        } 
 
         if (wp_delete_post($listing_id, true)) {
             wp_send_json([
@@ -41,4 +41,4 @@ class DeleteListing {
             ]);
         }
     }
-}
+} 

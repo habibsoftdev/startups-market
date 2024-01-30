@@ -14,12 +14,12 @@ if (is_user_logged_in()) {
     <table class="table shadow-sm">
         <thead class="table-header-container">
             <tr>
-                <th class="border border-light-subtle table-history-content" scope="col">Order Number</th>
-                <th class="border border-light-subtle table-history-content" scope="col">Amount</th>
-                <th class="border border-light-subtle table-history-content" scope="col">Order Status</th>
-                <th class="border border-light-subtle table-history-content" scope="col">Order date</th>
-                <th class="border border-light-subtle table-history-content" scope="col">Payment Status</th>
-                <th class="border border-light-subtle table-history-content" scope="col">Confirm Approval</th>
+                <th class="border border-light-subtle table-history-content" scope="col"><?php echo esc_html__( 'Order Number', 'startups-market' ); ?></th>
+                <th class="border border-light-subtle table-history-content" scope="col"><?php echo esc_html__( 'Amount', 'startups-market' ); ?></th>
+                <th class="border border-light-subtle table-history-content" scope="col"><?php echo esc_html__( 'Order Status', 'startups-market' ); ?></th>
+                <th class="border border-light-subtle table-history-content" scope="col"><?php echo esc_html__( 'Order date', 'startups-market' ); ?></th>
+                <th class="border border-light-subtle table-history-content" scope="col"><?php echo esc_html__( 'Payment Status', 'startups-market' ); ?></th>
+                <th class="border border-light-subtle table-history-content" scope="col"><?php echo esc_html__( 'Confirm Approval', 'startups-market' ); ?></th>
             </tr>
         </thead>
         <tbody>
@@ -40,13 +40,13 @@ if (is_user_logged_in()) {
                                     <td class="border border-light-subtle table-history-content text-center">
                                         <button type="submit" name="confirm-button"
                                                 class="confirm-button listing-submit-btn w-100 mb-4 py-1 d-block confirmed-button"
-                                                data-order-id="<?php echo $order->get_id(); ?>" disabled="disabled" > Approved</button>
+                                                data-order-id="<?php echo $order->get_id(); ?>" disabled="disabled" ><?php echo esc_html__( 'Approved', 'startups-market' ); ?> </button>
                                     </td>
                                 <?php else: ?>
                                     <td class="border border-light-subtle table-history-content text-center">
                                         <button type="submit" name="confirm-button"
                                                 class="confirm-button listing-submit-btn w-100 mb-4 py-1 d-block"
-                                                data-order-id="<?php echo $order->get_id(); ?>" >Confirm </button>
+                                                data-order-id="<?php echo $order->get_id(); ?>" ><?php echo esc_html__( 'Confirm ', 'startups-market' ); ?></button>
                                     </td>
                                 <?php endif; ?>
                             </form>

@@ -77,6 +77,17 @@ class Menu{
             
         );
 
+         //Adding Submenu
+         add_submenu_page(
+            $parent_slug,
+            __( 'Withdrawal Request', 'startups-market' ),
+            __( 'Withdrawal Request', 'startups-market' ),
+            $capability,
+            'stm-withdraw-request',
+            [ $this, 'withdraw_request_list' ]
+            
+        );
+
         //Adding Submenu
         add_submenu_page(
             $parent_slug,
@@ -126,7 +137,7 @@ class Menu{
      * @return void
      */
     public function payment_list(){
-
+        PaymentList::instance();
     }
 
     /**
@@ -145,6 +156,13 @@ class Menu{
      */
     public function seller_list(){
         Sellerview::instance();
+    }
+
+    /**
+     * Submenu callback function
+     */
+    public function withdraw_request_list(){
+        WithdrawRequest::instance();
     }
 
     /**
