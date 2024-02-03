@@ -148,24 +148,32 @@ final class Startups_Market{
         // Check if it's a single 'business' post type
         if ( is_singular( 'business' ) ) {
             $single_template = STM_PATH . '/template/single-business.php';
-
+    
             if ( file_exists( $single_template ) ) {
                 return $single_template;
             }
         }
-
+    
         // Check if it's an archive page for 'business' post type
         if ( is_post_type_archive( 'business' ) ) {
             $archive_template = STM_PATH . '/template/archive-business.php';
-
+    
             if ( file_exists( $archive_template ) ) {
                 return $archive_template;
             }
         }
-
-            return $template;
+    
+        // Check if it's a category archive for 'business' post type
+        if ( is_tax( 'business_category' ) ) {
+            $category_template = STM_PATH . '/template/category-business.php';
+    
+            if ( file_exists( $category_template ) ) {
+                return $category_template;
+            }
+        }
+    
+        return $template;
     }
-
 
 }
 

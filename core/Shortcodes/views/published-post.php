@@ -1,26 +1,19 @@
-<?php
-/**
- * Template Name: Archive Business
- */
-echo '<!-- This is archive-business.php -->';
-
-get_header();
-$paged = get_query_var('paged') ? get_query_var('paged') : 1;
+<?php 
 
 $args = [
-    'post_type' => 'business',
-    'posts_per_page' => 9,
-    'paged' => $paged,
-    'orderby'=> 'menu_order'
-];
+        'post_type' => 'business',
+        'posts_per_page' => 9,
+        'orderby'=> 'menu_order',
+        'post_status' => 'publish',
+    ];
+    
+    $published_post_query = new WP_Query( $args );
+    ?>
 
-$archive_query = new WP_Query( $args );
-?>
-<section class="arc-card-container">
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 justify-content-start" >
-     <?php  if ($archive_query->have_posts()) : 
-        while( $archive_query->have_posts() ) :
-            $archive_query->the_post();
+     <?php  if ($published_post_query->have_posts()) : 
+        while( $published_post_query->have_posts() ) :
+            $published_post_query->the_post();
             $post_id = get_the_ID();
             $categories = get_the_terms( $post_id, 'business_category');
             $post_status = get_post_status( $post_id );
@@ -68,7 +61,7 @@ $archive_query = new WP_Query( $args );
                         <!-- card button group -->
                         <div class="card-btn-group">
                             
-                            <span  class="card-btn price-btn">$<?php echo number_format(esc_html( $price ), 0, '.', ',' ); ?></span>
+                            <span  class="card-btn price-btn">$<?php echo number_format( $price , 0, '.', ',' ); ?></span>
                             <span class="card-btn <?php esc_attr_e($status); ?>" href=""><?php esc_attr_e( $openclose ); ?></span>
                         </div>
 
@@ -118,7 +111,8 @@ $archive_query = new WP_Query( $args );
                         <span class="footer-content"><?php 
                         if ($categories && !is_wp_error($categories)){
                             foreach( $categories as $category ){
-                                echo esc_html( $category->name );
+                                $category_link = get_term_link($category);
+                               echo esc_html($category->name);
                             }
                         } ?>
                     </span>
@@ -132,41 +126,7 @@ $archive_query = new WP_Query( $args );
 endwhile;
 endif;
 
-
-?>
-
-
-</div>
-<?php 
-
-$big = 999999999; // need an unlikely integer
-
-$pagination = paginate_links(array(
-    'base'      => str_replace($big, '%#%', esc_url(get_pagenum_link($big))),
-    'format'    => '?paged=%#%',
-    'current'   => max(1, get_query_var('paged')),
-    'total'     => $archive_query->max_num_pages,
-    'prev_text' => '&laquo; Previous',
-    'next_text' => 'Next &raquo;',
-    'type'      => 'array',
-));
-
-if ($pagination && is_array($pagination)) {
-    echo '<div class="archive-pagination d-flex justify-content-center mt-5">';
-    echo '<nav aria-label="Archive Pagination">';
-    echo '<ul class="pagination">';
-    foreach ($pagination as $link) {
-        echo '<li class="page-item">' . $link . '</li>';
-    }
-    echo '</ul>';
-    echo '</nav>';
-    echo '</div>';
-}
 wp_reset_postdata();
 ?>
 
-</section>
-
-<?php 
-get_footer();
-?>
+</div>

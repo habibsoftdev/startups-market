@@ -135,3 +135,4 @@ function delete_withdrawal_data($withdrawal_id) {
         $wpdb->delete($table_name, array('id' => $withdrawal_id));
     }
 }
+

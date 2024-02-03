@@ -21,6 +21,7 @@ use Startups\Market\Ajax\PaymentMethod;
 use Startups\Market\Ajax\InitiateWidthraw;
 use Startups\Market\Ajax\WithdrawAaction;
 use Startups\Market\Email\SendEmail;
+use Startups\Market\Shortcodes\Shortcodes;
 /**
  * Handle all the class in core file
  */
@@ -47,6 +48,7 @@ class Installer{
         Purchase::instance();
         $this->CreateWidthrawalTable();
         SendEmail::instance();
+        Shortcodes::instance();
 
 
         if( defined('DOING_AJAX') && DOING_AJAX ){

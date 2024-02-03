@@ -26,6 +26,7 @@ class Assetsload{
         wp_enqueue_style( 'stm-single-business', STM_ASSETS . '/frontend/css/stm-single.css', array(), time(), 'all' );
         wp_enqueue_style( 'stm-single-slider', STM_ASSETS . '/frontend/css/stm-slider.css', array(), time(), 'all' );
         wp_enqueue_style( 'stm-archive', STM_ASSETS . '/frontend/css/archive.css', array(), time(), 'all' );
+        wp_enqueue_style( 'stm-default', STM_ASSETS . '/frontend/css/default.css', array(), time(), 'all' );
 
         //Scripts
         wp_enqueue_script( 'stm-login-handle', STM_ASSETS. '/frontend/js/login.js', array('jquery'), time(), true);
@@ -43,6 +44,7 @@ class Assetsload{
 
         wp_enqueue_script('stm-paymentMethod', STM_ASSETS. '/frontend/js/paymentinfo.js', array('jquery'), time(), true );
         wp_enqueue_script('stm-widthrawalrequest', STM_ASSETS. '/frontend/js/widthraw.js', array('jquery'), time(), true );
+        wp_enqueue_script('stm-load-more', STM_ASSETS. '/frontend/js/loadmore.js', array('jquery'), time(), true );
         
         
        
@@ -108,6 +110,17 @@ class Assetsload{
            'confirm_message' => __( 'Did you Setup your Payment Method and You want to Widthraw?', 'startups-market' ),
            'nonce' => $Widthrawlnonce,
         ] );
+
+        /**
+         * Ajax Load More for Published Post
+         *
+         */
+        $load_more_nonce_pb = wp_create_nonce('pb_load_more_nonce');
+        wp_localize_script( 'stm-load-more','stm_pb_load_more_object', [
+            'ajax_url' => admin_url( 'admin-ajax.php' ),
+            'security' => $load_more_nonce_pb,
+         ] );
+
     }
 
     public function stm_admin_asset(){

@@ -1,21 +1,30 @@
 <?php
 /**
- * Template Name: Archive Business
+ * Template Name: Category Business Archive
  */
-echo '<!-- This is archive-business.php -->';
 
-get_header();
-$paged = get_query_var('paged') ? get_query_var('paged') : 1;
-
-$args = [
-    'post_type' => 'business',
-    'posts_per_page' => 9,
-    'paged' => $paged,
-    'orderby'=> 'menu_order'
-];
-
-$archive_query = new WP_Query( $args );
-?>
+ echo '<!-- This is category-business.php -->';
+ get_header();
+ $paged = get_query_var('paged') ? get_query_var('paged') : 1;
+ 
+ $category_id = get_queried_object_id();  // Get the current category ID
+ 
+ $args = [
+     'post_type'      => 'business',
+     'posts_per_page' => 9,
+     'paged'          => $paged,
+     'orderby'        => 'menu_order',
+     'tax_query'      => [
+         [
+             'taxonomy' => 'business_category',
+             'field'    => 'term_id',
+             'terms'    => $category_id,
+         ],
+     ],
+ ];
+ 
+ $archive_query = new WP_Query($args);
+ ?>
 <section class="arc-card-container">
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 justify-content-start" >
      <?php  if ($archive_query->have_posts()) : 
