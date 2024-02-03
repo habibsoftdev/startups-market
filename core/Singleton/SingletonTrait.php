@@ -1,6 +1,6 @@
 <?php 
 
-namespace Startups\Market\Trait;
+namespace Startups\Market\Singleton;
 
 /**
  * Singleton instance of all class

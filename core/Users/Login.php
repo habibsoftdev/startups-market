@@ -4,7 +4,7 @@ namespace Startups\Market\Users;
 
 use Startups\Market\Notice\Notice_Handler;
 use Startups\Market\Ajax;
-use Startups\Market\Trait\SingletonTrait;
+use Startups\Market\Singleton\SingletonTrait;
 
 
 /**

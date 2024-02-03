@@ -1,7 +1,7 @@
 <?php 
 
 namespace Startups\Market;
-use Startups\Market\Trait\SingletonTrait;
+use Startups\Market\Singleton\SingletonTrait;
 
 /**
  * Assets Loading Class Handler

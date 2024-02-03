@@ -1,7 +1,7 @@
 <?php 
 
 namespace Startups\Market\Shortcodes;
-use Startups\Market\Trait\SingletonTrait;
+use Startups\Market\Singleton\SingletonTrait;
 
 
 class Shortcodes{

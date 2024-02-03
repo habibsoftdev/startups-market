@@ -1,7 +1,7 @@
 <?php
 
 namespace Startups\Market\Users\AddListing;
-use Startups\Market\Trait\SingletonTrait;
+use Startups\Market\Singleton\SingletonTrait;
 
 use function wp_handle_upload;
 

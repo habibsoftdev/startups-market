@@ -1,7 +1,8 @@
 <?php 
 
 namespace Startups\Market\Users;
-use Startups\Market\Trait\SingletonTrait;
+
+use Startups\Market\Singleton\SingletonTrait;
 
 /**
  * User role handler Class

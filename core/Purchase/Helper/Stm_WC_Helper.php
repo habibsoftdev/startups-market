@@ -1,7 +1,7 @@
 <?php 
 
 namespace Startups\Market\Purchase\Helper;
-use Startups\Market\Trait\SingletonTrait;
+use Startups\Market\Singleton\SingletonTrait;
 
 /**
  * Woocommerce Support Helper Class

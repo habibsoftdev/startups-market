@@ -1,7 +1,7 @@
 <?php 
 
 namespace Startups\Market\Ajax;
-use Startups\Market\Trait\SingletonTrait;
+use Startups\Market\Singleton\SingletonTrait;
 use Startups\Market\Stm_Utils;
 
 class LoadMore{

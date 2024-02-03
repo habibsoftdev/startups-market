@@ -3,7 +3,7 @@
 namespace Startups\Market\Users\Dashboard;
 use Startups\Market\Stm_Utils;
 use Startups\Market\Notice\Notice_Handler;
-use Startups\Market\Trait\SingletonTrait;
+use Startups\Market\Singleton\SingletonTrait;
 
 if( ! defined( 'ABSPATH' ) ){
     exit;

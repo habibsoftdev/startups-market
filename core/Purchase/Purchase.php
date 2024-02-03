@@ -3,7 +3,7 @@
 namespace Startups\Market\Purchase;
 use Startups\Market\Purchase\Hooks\ActionHooks;
 use Startups\Market\Purchase\Hooks\FilterHooks;
-use Startups\Market\Trait\SingletonTrait;
+use Startups\Market\Singleton\SingletonTrait;
 use Startups\Market\Purchase\Helper\OneTimePurchase;
 use Startups\Market\Stm_Utils;
 

@@ -5,7 +5,7 @@ use Startups\Market\Metabox\Pricing;
 use Startups\Market\Metabox\SaveMetabox;
 use Startups\Market\Metabox\Businessinfo;
 use Startups\Market\Metabox\Gallery;
-use Startups\Market\Trait\SingletonTrait;
+use Startups\Market\Singleton\SingletonTrait;
 
 /**
  * Metabox class

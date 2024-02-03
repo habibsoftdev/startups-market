@@ -1,7 +1,7 @@
 <?php 
 
 namespace Startups\Market\Metabox;
-use Startups\Market\Trait\SingletonTrait;
+use Startups\Market\Singleton\SingletonTrait;
 
 /**
  * Metabox Meta Value Save Class

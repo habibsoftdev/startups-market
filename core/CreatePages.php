@@ -1,7 +1,7 @@
 <?php 
 
 namespace Startups\Market;
-use Startups\Market\Trait\SingletonTrait;
+use Startups\Market\Singleton\SingletonTrait;
 
 /**
  * Create Pages upon the plugin Active

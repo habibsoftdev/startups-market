@@ -1,7 +1,7 @@
 <?php 
 
 namespace Startups\Market\Admin;
-use Startups\Market\Trait\SingletonTrait;
+use Startups\Market\Singleton\SingletonTrait;
 
 /**
  * Widthrawal Request class

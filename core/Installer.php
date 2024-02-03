@@ -1,7 +1,7 @@
 <?php 
 
 namespace Startups\Market;
-use Startups\Market\Trait\SingletonTrait;
+use Startups\Market\Singleton\SingletonTrait;
 use Startups\Market\Users\Extrafield;
 use Startups\Market\Users\Registration;
 use Startups\Market\Users\Login;
@@ -45,7 +45,10 @@ class Installer{
         AddListing::instance();
         ListingHandle::instance();
         RewriteRule::instance();
-        Purchase::instance();
+        if (is_plugin_active('woocommerce/woocommerce.php')) {
+            Purchase::instance();
+        }
+        
         $this->CreateWidthrawalTable();
         SendEmail::instance();
         Shortcodes::instance();

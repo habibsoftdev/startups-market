@@ -1,7 +1,7 @@
 <?php 
 
 namespace Startups\Market\Email;
-use Startups\Market\Trait\SingletonTrait;
+use Startups\Market\Singleton\SingletonTrait;
 
 
 class SendEmail{

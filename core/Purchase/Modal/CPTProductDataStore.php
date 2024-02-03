@@ -4,7 +4,7 @@ namespace Startups\Market\Purchase\Modal;
 
 use Startups\Market\Purchase\Helper\Stm_WC_Helper;
 use WC_Product_Data_Store_CPT;
-use Startups\Market\Trait\SingletonTrait;
+use Startups\Market\Singleton\SingletonTrait;
 
 class CPTProductDataStore extends WC_Product_Data_Store_CPT {
 
