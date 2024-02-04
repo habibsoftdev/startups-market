@@ -22,6 +22,7 @@ use Startups\Market\Ajax\InitiateWidthraw;
 use Startups\Market\Ajax\WithdrawAaction;
 use Startups\Market\Email\SendEmail;
 use Startups\Market\Shortcodes\Shortcodes;
+
 /**
  * Handle all the class in core file
  */
@@ -34,7 +35,7 @@ class Installer{
             new Admin\Menu();
            
         }
-
+        $this->CreateWidthrawalTable();
         Extrafield::instance();
         Assetsload::instance();
         Registration::instance();
@@ -48,8 +49,6 @@ class Installer{
         if (is_plugin_active('woocommerce/woocommerce.php')) {
             Purchase::instance();
         }
-        
-        $this->CreateWidthrawalTable();
         SendEmail::instance();
         Shortcodes::instance();
 
