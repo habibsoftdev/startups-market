@@ -4,10 +4,7 @@
  * 
  * @package Startups Market
  */
-// if (!is_user_logged_in()) {
-//     wp_redirect(home_url()); // Redirect non-logged-in users to the home page
-//     exit;
-// }
+
 
 get_header();
 
