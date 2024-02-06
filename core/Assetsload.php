@@ -121,6 +121,14 @@ class Assetsload{
             'security' => $load_more_nonce_pb,
          ] );
 
+         /**
+          * Localize script to get function in js
+          */
+
+          wp_localize_script( 'stm-slider', 'slider_object', array(
+            'is_user_logged_in' => is_user_logged_in(),
+          ));
+
     }
 
     public function stm_admin_asset(){

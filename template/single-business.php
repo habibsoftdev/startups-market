@@ -4,10 +4,10 @@
  * 
  * @package Startups Market
  */
-if (!is_user_logged_in()) {
-    wp_redirect(home_url()); // Redirect non-logged-in users to the home page
-    exit;
-}
+// if (!is_user_logged_in()) {
+//     wp_redirect(home_url()); // Redirect non-logged-in users to the home page
+//     exit;
+// }
 
 get_header();
 
@@ -24,7 +24,7 @@ while( have_posts() ) : the_post();
    $categories = get_the_terms($post_id, 'business_category');
    $launched = get_post_meta( $post_id, 'stm_launched', true );
    $delivery = get_post_meta( $post_id, 'deliveryable_text', true );
-   $image_urls = get_post_meta($post_id, 'stm_images_url', true);
+   $image_ids = get_post_meta($post_id, 'stm_images_id', true);
    $product_id = get_the_ID();
    $product_price = get_post_meta($product_id, 'stm_price', true);
    $checkout_url = wc_get_checkout_url() . '?add-to-cart=' . $product_id . '&price=' . $product_price;
@@ -32,10 +32,11 @@ while( have_posts() ) : the_post();
 
    $calltoaction = ( $post_status === 'sold_out' ) ? __( 'BUSINESS SOLD OUT', 'startups-market' ) : __( 'BUY THIS BUSINESS', 'startups-market' );
    $ctabuttoncolor = ( $post_status === 'sold_out' ) ? esc_attr( 'contact-founder-btn-sold' ) : esc_attr( 'contact-founder-btn' );
-   $mUrl = 'aaa/?fepaction=newmessage&fep_to=' . $author_email;
+   $mUrl = 'stm-message/?fepaction=newmessage&fep_to=' . $author_email;
    $message_url = home_url( $mUrl );
 
    $private_message_url = ( $post_status === 'sold_out' ) ? '#' : $message_url;
+   $loggedin = is_user_logged_in() ? 1 : 'listing-stm-img';
 
    ?>
 
@@ -63,16 +64,22 @@ while( have_posts() ) : the_post();
                         <div class="stm-layout">
                             <ul class="stm-slider">
                                 <?php 
-                                if ($image_urls) {
-                                    // Convert the semicolon-separated string to an array
-                                    $image_urls_array = explode(';', $image_urls);
-                                
-                                    // Loop through each image URL and display it
-                                    foreach ($image_urls_array as $image_url) {
-                                        // Output the image tag
-                                        echo '<li><img src="' . esc_url($image_url) . '" alt="Image" class="img-fluid" /></li>';
-                                    }
-                                }
+                                if ($image_ids) { // Check if image IDs are available
+                    // Convert the semicolon-separated string to an array
+                    $image_ids_array = explode(';', $image_ids);
+                    
+                    // Loop through each image ID and display it
+                    foreach ($image_ids_array as $image_id) {
+                        // Get the URL of the image using its ID
+                        $image_url = wp_get_attachment_image_src($image_id, 'full');
+                        
+                        // Check if the image URL is not empty
+                        if ($image_url) {
+                            $image_url = $image_url[0];
+                            echo '<li><img src="' . esc_url($image_url) . '" alt="Image" class="img-fluid ' . esc_attr($loggedin) . '" /></li>';
+                        }
+                    }
+                }
                                 ?>   
                             </ul>
                         </div>
@@ -127,9 +134,9 @@ while( have_posts() ) : the_post();
     <hr class="card-horizontal">
 
     <!-- card button -->
-    <a href="<?php echo current_user_can('buyer') ? esc_url($checkout_url) : '#'; ?>"><button type="button" class="<?php echo $ctabuttoncolor; ?> w-100 container-fluid mb-3"><span class="pe-2"> <?php echo esc_html( $calltoaction ); ?> </span></button></a>
+    <a href="<?php echo current_user_can('buyer') && is_user_logged_in() ? esc_url($checkout_url) : '#'; ?>"><button type="button" class="<?php echo $ctabuttoncolor; ?> w-100 container-fluid mb-3"><span class="pe-2"> <?php echo esc_html( $calltoaction ); ?> </span></button></a>
 
-       <a href="<?php echo esc_url( $private_message_url ); ?>"> <button type="button" class="startup-btn w-100 container-fluid"><span class="pe-2"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="21" fill="currentColor" class="bi bi-envelope" viewBox="0 0 16 16">
+       <a href="<?php echo is_user_logged_in() ? esc_url( $private_message_url ): esc_url(home_url('stm-login')); ?>"> <button type="button" class="startup-btn w-100 container-fluid"><span class="pe-2"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="21" fill="currentColor" class="bi bi-envelope" viewBox="0 0 16 16">
   <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1zm13 2.383-4.708 2.825L15 11.105zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741M1 11.105l4.708-2.897L1 5.383z"/>
 </svg></span></span><?php echo esc_html__( 'VISIT STARTUP
         WEBSITE', 'startups-market' ); ?></span></button></a>

@@ -40,7 +40,8 @@
             $srr = get_post_meta( $post_id, 'stm_sarr', true );
             $launched = get_post_meta( $post_id, 'stm_launched', true );
             $loggedin = is_user_logged_in() ? 1 : 'listing-stm-img';
-            $singlepage = is_user_logged_in() ? get_the_permalink() : '#';
+            $permalink = get_the_permalink();
+
 
             ?>
             <!-- First Card -->
@@ -48,7 +49,7 @@
                 <div class="card single-card-container">
 
                     <!-- card image -->
-                    <a href="<?php echo esc_url( $singlepage ); ?>">
+                    <a href="<?php echo esc_url( $permalink ); ?>">
                         <img src="<?php echo esc_url( get_the_post_thumbnail_url( get_the_ID(), 'stm-list-thumbnail' ) ); ?>" class="card-img-top single-card-img <?php esc_attr_e($loggedin); ?>" alt="listing thumbnail"></a>
 
                         <!-- image over content -->
@@ -71,7 +72,7 @@
                     <div class="card-body">
 
                         <!-- card body title -->
-                        <a href="<?php echo esc_url( $singlepage ); ?>">
+                        <a href="<?php echo esc_url( $permalink ); ?>">
                             <h5 class="card-title py-2"><?php the_title(); ?></h5>
                         </a>
                         <!-- card button group -->
