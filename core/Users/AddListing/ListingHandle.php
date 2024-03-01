@@ -82,6 +82,7 @@ class ListingHandle {
 						}
 						
 					}
+					$stm_company_reg = isset( $_POST[ 'stm_company_reg' ] ) ? sanitize_text_field( $_POST[ 'stm_company_reg' ] ) : '';
 					$stm_list_arr = isset($_POST['stm_list_arr']) ? sanitize_text_field($_POST['stm_list_arr']) : '';
 					$stm_list_hrr = isset($_POST['stm_list_hrr']) ? sanitize_text_field($_POST['stm_list_hrr']) : '';
 					$stm_list_launched = isset($_POST['stm_list_launched']) ? sanitize_text_field($_POST['stm_list_launched']) : '';
@@ -99,6 +100,7 @@ class ListingHandle {
 					update_post_meta($edit_mode_id, 'stm_tagline', $stm_list_tagline);
 					update_post_meta($edit_mode_id, 'stm_price', $stm_list_price);
 					update_post_meta($edit_mode_id, 'stm_videourl', $stm_list_video);
+					update_post_meta( $edit_mode_id, 'stm_company_reg', $stm_company_reg );
 
 					wp_redirect( get_permalink( get_page_by_path( 'stm-dashboard' ) ) );
 				}	exit;
@@ -128,7 +130,7 @@ class ListingHandle {
 						}
 					}
 				}
-
+				$stm_company_reg = isset( $_POST[ 'stm_company_reg' ] ) ? sanitize_text_field( $_POST[ 'stm_company_reg' ] ) : '';
 				$stm_list_arr = isset($_POST['stm_list_arr']) ? sanitize_text_field($_POST['stm_list_arr']) : '';
 				$stm_list_hrr = isset($_POST['stm_list_hrr']) ? sanitize_text_field($_POST['stm_list_hrr']) : '';
 				$stm_list_launched = isset($_POST['stm_list_launched']) ? sanitize_text_field($_POST['stm_list_launched']) : '';
@@ -146,6 +148,7 @@ class ListingHandle {
 				update_post_meta($new_post_id, 'stm_tagline', $stm_list_tagline);
 				update_post_meta($new_post_id, 'stm_price', $stm_list_price);
 				update_post_meta($new_post_id, 'stm_videourl', $stm_list_video);
+				update_post_meta($new_post_id, 'stm_company_reg', $stm_company_reg );
 
 				wp_redirect( get_permalink( get_page_by_path( 'stm-dashboard' ) ) );
 				exit;

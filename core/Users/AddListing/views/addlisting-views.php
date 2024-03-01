@@ -22,6 +22,7 @@
  $img_id = '';
  $img_url = '';
  $selected_categories = array();
+ $company_reg = '';
 
  if( $is_edit_mode && $mode === 'edit' ){
     $post_title = get_the_title( $listing_id );
@@ -37,6 +38,7 @@
     $img_id = get_post_meta( $listing_id, 'stm_images_id', true );
     $img_url = get_post_meta( $listing_id, 'stm_images_url', true );
     $selected_categories = wp_get_post_terms( $listing_id, 'business_category', array( 'fields' => 'ids' ) );
+    $company_reg = get_post_meta( $listing_id, 'stm_company_reg', true);
     
     
  }
@@ -105,6 +107,12 @@
                     <div class="border-bottom mb-4">
                         <p class="general-section-header fw-semibold ps-4"><?php esc_html_e( 'Business Information', 'startups-market'); ?></p>
                     </div>
+                    <!-- Added New Section Company Information -->
+                    <div class="px-4">
+                        <p class="fw-semibold mb-2"><?php esc_html_e( 'Company Registration Number ( Optional )', 'startups-market'); ?></p>
+                        <input type="text" class="form-input-field w-100 mb-4 py-2" name="stm_company_reg" value="<?php esc_attr_e( $company_reg ); ?>" placeholder="eg: 1234567890" >
+                    </div>
+                    <!-- Added New Section Company Information End -->
                     <div class="px-4">
                         <p class="fw-semibold mb-2"><?php esc_html_e( 'Annual Recurring Revenue', 'startups-market'); ?></p>
                         <input type="number" class="form-input-field w-100 mb-4 py-2" name="stm_list_arr" value="<?php esc_attr_e( $arr ); ?>" >
