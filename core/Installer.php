@@ -13,7 +13,7 @@ use Startups\Market\Users\AddListing\AddListing;
 use Startups\Market\Users\AddListing\ListingHandle;
 use Startups\Market\RewriteRule;
 use Startups\Market\Purchase\Purchase;
-use Startups\Market\Ajax\DashboardProfile;
+use Startups\Market\Ajax\Dashboardprofile;
 use Startups\Market\Ajax\DeleteListing;
 use Startups\Market\Ajax\Loginhandler;
 use Startups\Market\Ajax\ConfirmOrder;

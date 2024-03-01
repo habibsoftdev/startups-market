@@ -3,7 +3,7 @@
 namespace Startups\Market\Ajax;
 use Startups\Market\Singleton\SingletonTrait;
 
-class DashboardProfile
+class Dashboardprofile
 {
     use SingletonTrait;
     
