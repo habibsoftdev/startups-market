@@ -164,14 +164,15 @@
                 <section>
                     <div class="border-bottom mb-4">
                         <p class="img-video-section-header fw-semibold ps-4 py-2"><?php esc_html_e( 'Image & Video', 'startups-market'); ?></p>
-                        <p class="px-4"><i><?php
-                            $img_reup = $is_edit_mode ? __( 'If you want to change images. Reupload all again', 'startups-market' ) : '';
-                            echo $img_reup; ?>
+                        <p class="px-4"><i>
                             </i></p> 
                     </div>
 
                     <!-- thumbnail -->
                     <div class="form-group px-4 py-2 container-fluid">
+                    <div class="px-4">
+                        <p> <?php esc_html_e( 'Upload Income Proof / Documents Picture', 'startups-market'); ?> </p>
+                        </div>
                         <!--  -->
                             <!-- file image container -->
                            <div class="img-file-preview-container container-fluid">
